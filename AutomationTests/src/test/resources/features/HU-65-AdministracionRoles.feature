@@ -19,6 +19,7 @@ Feature: Administrar roles y permisos
       | Admin    | Administrador         |
       | NoExiste | No existe informacion |
 
+
   Scenario Outline: Seleccionar icono de acciones
     When Selecciona una <opcion>
     Then El sistema realiza una accion <accion>
