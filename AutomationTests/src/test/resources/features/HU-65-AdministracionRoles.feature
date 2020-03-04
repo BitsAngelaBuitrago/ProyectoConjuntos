@@ -39,6 +39,7 @@ Feature: Administrar roles y permisos
       | si     | El rol ha sido inactivado |
       | no     | cierra el pop up          |
 
+
   Scenario Outline: Seleccionar opcion activar
     When Da clic en activar rol
     And El sistema presenta un mensaje de activacion
