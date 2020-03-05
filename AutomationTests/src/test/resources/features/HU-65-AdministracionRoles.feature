@@ -19,6 +19,7 @@ Feature: Administrar roles y permisos
       | Admin    | Administrador         |
       | NoExiste | No existe informacion |
 
+
   Scenario Outline: Seleccionar icono de acciones
     When Selecciona una <opcion>
     Then El sistema realiza una accion <accion>
@@ -37,6 +38,7 @@ Feature: Administrar roles y permisos
       | opcion | accion                    |
       | si     | El rol ha sido inactivado |
       | no     | cierra el pop up          |
+
 
   Scenario Outline: Seleccionar opcion activar
     When Da clic en activar rol

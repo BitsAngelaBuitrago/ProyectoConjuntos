@@ -16,7 +16,7 @@ Feature: Seleccionar unidad inmobiliaria
   Scenario: Información que se debe presentar en el selector
     Given Que usuario ingresa a la pagina de inicio
     And Inicia sesión con un usuario con mas de una unidad
-    And Selecciona una unidad
+    And Selecciona la unidad inmobiliaria
     And Se encuentra en la pagina de inicio
     When Da clic sobre el icono de cambiar unidad
     Then El sistema presenta una ventana emergente con el nombre de las unidades inmobiliarias
@@ -28,17 +28,17 @@ Feature: Seleccionar unidad inmobiliaria
   Scenario: Realizar la selección de una unidad inmobiliaria
     Given Que usuario ingresa a la pagina de inicio
     And Inicia sesión con un usuario con mas de una unidad
-    And Selecciona una unidad
+    And Selecciona la unidad inmobiliaria
     And Se encuentra en la pagina de inicio
     When Da clic sobre el icono de cambiar unidad
-    And Selecciona una unidad inmobiliaria
+    And Selecciona la unidad inmobiliaria
     Then Se cierra la ventana emergente del Selector de Unidades Inmobiliarias
     And El sistema presenta la página inicial con la información de la unidad inmobiliaria seleccionada
 
   Scenario Outline: Cerrar el selector desde cualquier ubicacion
     Given Que usuario ingresa a la pagina de inicio
     And Inicia sesión con un usuario con mas de una unidad
-    And Selecciona una unidad
+    And Selecciona la unidad inmobiliaria
     And Se encuentra en la pagina <ubicacion>
     When Da clic sobre el icono de cambiar unidad
     And Da clic sobre la opción de cerrar la ventana emergente
@@ -53,7 +53,7 @@ Feature: Seleccionar unidad inmobiliaria
   Scenario Outline: Realizar una búsqueda de unidades inmobiliarias
     Given Que usuario ingresa a la pagina de inicio
     And Inicia sesión con un usuario con mas de una unidad
-    And Selecciona una unidad
+    And Selecciona la unidad inmobiliaria
     And Se encuentra en la pagina de inicio
     And Da clic sobre el icono de cambiar unidad
     And El sistema presenta una ventana emergente con el nombre de las unidades inmobiliarias
@@ -66,47 +66,10 @@ Feature: Seleccionar unidad inmobiliaria
       | parque  | parque residencial, parque 93 |
       | 93      | 9834849, parque 93            |
 
-  Scenario Outline: Comportamiento de los filtros
-    Given Que usuario ingresa a la pagina de inicio
-    And Inicia sesión con un usuario con mas de una unidad
-    And Selecciona una unidad
-    And Se encuentra en la pagina de inicio
-    And Da clic sobre el icono de cambiar unidad
-    And El sistema presenta una ventana emergente con el nombre de las unidades inmobiliarias
-    And El campo de busqueda
-    When Da clic en el icono de filtros
-    And Da clic en un <filtro>
-    Then El sistema presenta un listado de opciones por filtro
-    Examples:
-      | filtro    |
-      | nombre    |
-      | nit       |
-      | catastro  |
-      | direccion |
-
-  Scenario Outline: Autocomplete del filtro
-    Given Que usuario ingresa a la pagina de inicio
-    And Inicia sesión con un usuario con mas de una unidad
-    And Selecciona una unidad
-    And Se encuentra en la pagina de inicio
-    And Da clic sobre el icono de cambiar unidad
-    And El sistema presenta una ventana emergente con el nombre de las unidades inmobiliarias
-    And El campo de busqueda
-    When Da clic en el icono de filtros
-    And Da clic en un <filtro>
-    And ingresa informacion
-    Then se mostraran el autocomplete las unidades que coinciden
-    Examples:
-      | filtro    |
-      | nombre    |
-      | nit       |
-      | catastro  |
-      | direccion |
-
   Scenario Outline: Seleccionar un elemento de la lista presentada en el filtro
     Given Que usuario ingresa a la pagina de inicio
     And Inicia sesión con un usuario con mas de una unidad
-    And Selecciona una unidad
+    And Selecciona la unidad inmobiliaria
     And Se encuentra en la pagina de inicio
     And Da clic sobre el icono de cambiar unidad
     And El sistema presenta una ventana emergente con el nombre de las unidades inmobiliarias
@@ -115,7 +78,7 @@ Feature: Seleccionar unidad inmobiliaria
     And Da clic en un <filtro>
     And ingresa <informacion>
     And Selecciona el <elemento>
-    Then Se muestra el elemento en el filtro
+    Then Se muestra el <elemento> en el filtro
     Examples:
       | filtro    | informacion | elemento      |
       | nombre    | conj        | conjunto Bits |
@@ -126,7 +89,7 @@ Feature: Seleccionar unidad inmobiliaria
   Scenario Outline: Realizar consulta de unidades inmobiliarias por la opción de filtros
     Given Que usuario ingresa a la pagina de inicio
     And Inicia sesión con un usuario con mas de una unidad
-    And Selecciona una unidad
+    And Selecciona la unidad inmobiliaria
     And Se encuentra en la pagina de inicio
     And Da clic sobre el icono de cambiar unidad
     And El sistema presenta una ventana emergente con el nombre de las unidades inmobiliarias
@@ -147,12 +110,12 @@ Feature: Seleccionar unidad inmobiliaria
   Scenario Outline: Realizar consulta de unidades inmobiliarias por la opción de busqueda y filtros
     Given Que usuario ingresa a la pagina de inicio
     And Inicia sesión con un usuario con mas de una unidad
-    And Selecciona una unidad
+    And Selecciona la unidad inmobiliaria
     And Se encuentra en la pagina de inicio
     And Da clic sobre el icono de cambiar unidad
     And El sistema presenta una ventana emergente con el nombre de las unidades inmobiliarias
     And El campo de busqueda
-    When ingresa una <palabra clave>
+    When Un usuario ingresa una <palabra> sobre el campo de consulta
     And Da clic en el icono de filtros
     And Da clic en un <filtro>
     And ingresa <informacion>
@@ -160,7 +123,7 @@ Feature: Seleccionar unidad inmobiliaria
     And Da clic en el boton Buscar
     Then El sistema muestra un <resultado> con la informacion del filtro
     Examples:
-      | palabra clave | filtro    | informacion | elemento      | resultado     |
+      | palabra | filtro    | informacion | elemento      | resultado     |
       | 23            | nombre    | conj        | conjunto Bits | conjunto Bits |
       | conjunto      | nit       | 23          | 234567        | conjunto Bits |
       | bits          | catastro  | 1234        | 123456        | conjunto Bits |
