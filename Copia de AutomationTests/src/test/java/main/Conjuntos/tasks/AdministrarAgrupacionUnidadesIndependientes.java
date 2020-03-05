@@ -1,20 +1,21 @@
-package main.gt.tasks;
+package main.Conjuntos.tasks;
 
 import core.Helpers.GeneralParams;
 import core.actions.ClickButtonAction;
 import core.actions.EnterTextAction;
+import core.questions.QuestionValidate;
 import cucumber.api.java.Before;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
-import cucumber.api.java.en_scouse.An;
 import net.serenitybdd.screenplay.Actor;
 import net.serenitybdd.screenplay.abilities.BrowseTheWeb;
 import net.thucydides.core.annotations.Managed;
 import org.openqa.selenium.WebDriver;
 
-public class AdministrarAgrupaciónUnidadesIndependientes {
+public class AdministrarAgrupacionUnidadesIndependientes {
+
 
     Actor actor;
     @Managed
@@ -28,49 +29,48 @@ public class AdministrarAgrupaciónUnidadesIndependientes {
 //Escenario 1
 
     @Given("^Se ubiica el cursor en el campo de Consulta$")
-    public void CursorCampo() {
+    public void cursorCampo() {
         actor.attemptsTo(new ClickButtonAction().Execute(new GeneralParams(
-                "El usuario ingresa a la pagina de administrar usuarios",
-                "pagina de administracion de usuarios",
-                "")));
+                "El usuario ubica el cursor en campo",
+                "Ubica cursor en campo",
+                "Elemento")));
     }
 
     @When("^Un usuariio ingresa una (.*) sobre el campo de consulta$")
-    public void Ingresarpalabra() {
+    public void ingresarpalabra() {
         actor.attemptsTo(new ClickButtonAction().Execute(new GeneralParams(
-                "El usuario ingresa al boton crear usuario",
+                "El usuario ingresa una palabra clave sobre el campo",
                 "Ingresa la palabra clave",
                 "Elemento")));
     }
     @And("^el usuario Da clic en el icono de buscar$")
-    public void BuscarIcono() {
-        actor.attemptsTo(new EnterTextAction("").Execute(new GeneralParams(
-                "El usuario da clic en cada filtro  ",
+    public void buscarIcono() {
+        actor.attemptsTo(new ClickButtonAction().Execute(new GeneralParams(
+                "El usuario da clic en cada filtro",
                 "Da clic en filtro",
                 "Elemento")));
     }
 
     @Then("^El sistema realiza la búsqueda de las Unidades Independientes que contengan la (.*) en los siguientes campos, concatenados con el operador OR y en el orden establecido$")
-    public void CamposConcatenados() {
-        actor.attemptsTo(new EnterTextAction("").Execute(new GeneralParams(
-                "El sistema presenta formulario",
-                "visualiza formulario",
-                "Elemento")));
+    public void camposConcatenados() {
+        actor.should(new QuestionValidate(
+                "el sistema realiza la busqueda de las unidades independientes").Execute(new GeneralParams(
+                "el sistema realiza busqueda",
+                "elemento")));
     }
 
     @And("^Carga en la pantalla todos los registros de la tabla que estén relacionados o asociados con la palabra clave ingresada.$")
-    public void PalabraIngresada() {
-        actor.attemptsTo(new EnterTextAction("").Execute(new GeneralParams(
-                "El usuario da clic en cada filtro  ",
-                "Da clic en filtro",
-                "Elemento")));
+    public void palabraIngresada() {
+        actor.should(new QuestionValidate(
+                "el sistema debera cargar en pantalla todos los registros de la tabla").Execute(new GeneralParams(
+                "el sistema debe mostrar los registros de la tabla",
+                "elemento")));
     }
 
 ///Escenario 2
 
-
     @Given("^Da clic sobre la opciión Filtros$")
-    public void Sobrelaopcion() {
+    public void sobrelaOpcion() {
         actor.attemptsTo(new ClickButtonAction().Execute(new GeneralParams(
                 "El usuario ingresa a la pagina de administrar usuarios",
                 "pagina de administracion de usuarios",
@@ -78,67 +78,53 @@ public class AdministrarAgrupaciónUnidadesIndependientes {
     }
 
     @When("^Da cliic en cada (.*)$")
-    public void CadaFiltro() {
+    public void cadaFiltro() {
         actor.attemptsTo(new ClickButtonAction().Execute(new GeneralParams(
-                "El usuario ingresa al boton crear usuario",
-                "Ingresa la palabra clave",
+                "El usuario da clic en cada filtro",
+                "da clic en cada filtro",
                 "Elemento")));
     }
 
     @Then("^El sistema prresenta un (.*) en el campo$")
-    public void Enelcampo() {
-        actor.attemptsTo(new EnterTextAction("").Execute(new GeneralParams(
-                "El sistema presenta formulario",
+    public void enelCampo() {
+        actor.should(new QuestionValidate(
+                "El sistema presenta formulario").Execute(new GeneralParams(
                 "visualiza formulario",
                 "Elemento")));
     }
 
     @And("^Con un tipo de selección (.*) para el campo$")
-    public void TSeleccion() {
-        actor.attemptsTo(new EnterTextAction("").Execute(new GeneralParams(
-                "El usuario da clic en cada filtro  ",
+    public void tSeleccion() {
+        actor.should(new QuestionValidate(
+                "El sistema presenta un tipo de selector").Execute(new GeneralParams(
                 "Da clic en filtro",
                 "Elemento")));
     }
 
     ///Escenario 3
 
-    @Given("^Que se ejecutó el Escenario 2$")
-    public void SeEjecuto() {
-        actor.attemptsTo(new ClickButtonAction().Execute(new GeneralParams(
-                "El usuario ingresa a la pagina de administrar usuarios",
-                "pagina de administracion de usuarios",
-                "")));
-    }
-
-    @When("^Se vayan registrando (.*) en el <filtro>$")
-    public void Registrodecaracteres() {
-        actor.attemptsTo(new ClickButtonAction().Execute(new GeneralParams(
-                "El usuario ingresa al boton crear usuario",
-                "Ingresa la palabra clave",
+    @When("^Se vayan registrando (.*) en el (.*)$")
+    public void registrodeCaracteres() {
+        actor.attemptsTo(new EnterTextAction("").Execute(new GeneralParams(
+                "El usuario ingresa palabra clave",
+                "Palabra clave",
                 "Elemento")));
     }
 
-    @Then("^Se debe mostrar la (.*) autocomplete de Unidades Independientes asociadas al <filtro> con los valores que contengan los <caracteres> registrados actualmente.$")
-    public void Enelc() {
-        actor.attemptsTo(new EnterTextAction("").Execute(new GeneralParams(
-                "El sistema presenta formulario",
+    @Then("^Se debe mostrar la (.*) autocomplete de Unidades Independientes asociadas al (.*) con los valores que contengan los (.*) registrados actualmente.$")
+    public void enelC() {
+        actor.should(new QuestionValidate(
+                "El sistema presenta formulario").Execute(new GeneralParams(
                 "visualiza formulario",
                 "Elemento")));
     }
 
     ///Escenario 4
 
-    @Given("^Que se ejecutó el Escenario 3$")
-    public void Sescenariotres() {
-        actor.attemptsTo(new ClickButtonAction().Execute(new GeneralParams(
-                "El usuario ingresa a la pagina de administrar usuarios",
-                "pagina de administracion de usuarios",
-                "")));
-    }
+
 
     @When("^Se selecciona un (.*) de la (.*) presentada en el (.*)$")
-    public void Registrodecaractere() {
+    public void registrodeCaractere() {
         actor.attemptsTo(new ClickButtonAction().Execute(new GeneralParams(
                 "El usuario ingresa al boton crear usuario",
                 "Ingresa la palabra clave",
@@ -166,21 +152,21 @@ public class AdministrarAgrupaciónUnidadesIndependientes {
     @When("^Da clic sobre el botón de buscar$")
     public void buscarBottton() {
         actor.attemptsTo(new ClickButtonAction().Execute(new GeneralParams(
-                "El usuario ingresa al boton crear usuario",
-                "Ingresa la palabra clave",
+                "El usuario da clilc en el boton crear",
+                "Da clic en el boton crear",
                 "Elemento")));
     }
 
     @Then("^Ell sistema presenta un (.*) que tenga la (.*) del (.*)$")
-    public void EllPresenta() {
-        actor.attemptsTo(new EnterTextAction("").Execute(new GeneralParams(
-                "El sistema presenta formulario",
+    public void ellPresenta() {
+        actor.should(new QuestionValidate(
+                "El sistema presenta formulario").Execute (new GeneralParams(
                 "visualiza formulario",
                 "Elemento")));
     }
 
     @And("^En el campo de búsqueda se presenta la (.*) que se haya seleccionado en el filtro$")
-    public void EnelfiltroSeleccionado() {
+    public void enelfiltroSeleccionado() {
         actor.attemptsTo(new EnterTextAction("").Execute(new GeneralParams(
                 "El usuario da clic en cada filtro  ",
                 "Da clic en filtro",
@@ -188,7 +174,7 @@ public class AdministrarAgrupaciónUnidadesIndependientes {
 
     }
     @And("^se deben separar por punto y como (;) la (.*) que se hayan seleccionado en más de un filtro$")
-    public void Enmmasfiiltro() {
+    public void enmmasfiiltro() {
         actor.attemptsTo(new EnterTextAction("").Execute(new GeneralParams(
                 "El usuario da clic en cada filtro  ",
                 "Da clic en filtro",

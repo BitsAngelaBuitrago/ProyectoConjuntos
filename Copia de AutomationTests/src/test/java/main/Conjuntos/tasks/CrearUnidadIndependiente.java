@@ -1,4 +1,4 @@
-package main.gt.tasks;
+package main.Conjuntos.tasks;
 
 import core.Helpers.GeneralParams;
 import core.actions.ClickButtonAction;
@@ -11,9 +11,12 @@ import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import net.serenitybdd.screenplay.Actor;
 import net.serenitybdd.screenplay.abilities.BrowseTheWeb;
-import net.serenitybdd.screenplay.actions.EnterValueIntoElement;
 import net.thucydides.core.annotations.Managed;
 import org.openqa.selenium.WebDriver;
+import static net.serenitybdd.screenplay.matchers.WebElementStateMatchers.*;
+import static net.serenitybdd.screenplay.questions.WebElementQuestion.the;
+
+import static net.serenitybdd.screenplay.GivenWhenThen.seeThat;
 
 public class CrearUnidadIndependiente {
 
@@ -29,14 +32,12 @@ public class CrearUnidadIndependiente {
 
     //Escenario 1
 
-
     @Given("^Un usuario en la página de Administrar Unidad Independiente$")
     public void NuevaPaginau() {
         actor.should(new QuestionValidate(
-                "El usuario se encuentra en la pagina administracion").Execute(new GeneralParams(
-                "Pagina administracion",
+                "El usuario se encuentra enla pagina de inidad independiente").Execute(new GeneralParams(
+                "Pagina administrar unidad independiente",
                 "Elemento")));
-
     }
 
     @When("^Selecciiona el boton de Crear$")
@@ -58,10 +59,8 @@ public class CrearUnidadIndependiente {
 
     @And("^El botón de guardar bloqueado$")
     public void botonbloqueadoo() {
-        actor.should(new QuestionValidate(
-                "El sistema presenta el boton guardar bloqueado").Execute(new GeneralParams(
-                "boton guardar bloqueado",
-                "Elemento")));
+        actor.should(seeThat(the("//p[contains(text(),'Inicio')]"),isNotVisible()));
+
     }
     //Escenario 2
 
@@ -103,7 +102,7 @@ public class CrearUnidadIndependiente {
     @And("^Seleccciona una de las (.*) para salir del formulario$")
     public void UsuarioSaleDelFomulario() {
         actor.attemptsTo((new EnterTextAction("").Execute(new GeneralParams(
-                "El usuario vsualizara el boton guardar bloqueado",
+                "El usuario selcciona las opciones del formulario",
                 "Elemento"))));
 
     }
@@ -131,7 +130,7 @@ public class CrearUnidadIndependiente {
     @And("^Da cliic por fuera del campo$")
     public void Cliccfueradelcampo() {
         actor.attemptsTo((new EnterTextAction("").Execute(new GeneralParams(
-                "El usuario vsualizara el boton guardar bloqueado",
+                "El usuario hace clic por fuera del campo",
                 "Elemento"))));
 
     }
