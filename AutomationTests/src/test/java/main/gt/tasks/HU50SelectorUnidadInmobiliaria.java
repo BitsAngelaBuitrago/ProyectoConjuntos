@@ -299,8 +299,5 @@ public class HU50SelectorUnidadInmobiliaria {
         )));
     }
 
-    @When("^El usuario se ubica al final de la pantalla$")
-    public void elUsuarioSeUbicaAlFinalDeLaPantalla() {
-        actor.attemptsTo(Scroll.to(By.cssSelector("//button[@name='action']")));
-    }
+
 }
