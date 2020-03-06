@@ -1,10 +1,9 @@
-package main.gt.tasks;
+package main.Conjuntos.tasks;
 
 import core.actions.OpenUrlAction;
 import core.Helpers.GeneralParams;
 import core.actions.ClickButtonAction;
 import core.actions.EnterTextAction;
-import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import net.serenitybdd.screenplay.Actor;
 import net.serenitybdd.screenplay.abilities.BrowseTheWeb;

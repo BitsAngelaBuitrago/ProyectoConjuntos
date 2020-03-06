@@ -1,4 +1,4 @@
-Feature: Un usuario ingresa a el sistema para crear el tipo de novedad
+Feature: Un usuario ingresa a el sistema para crear usuario
 
   Background: Administrar Usuarios
     Given   Un usuario ingresa a la url de la aplicación
@@ -8,7 +8,7 @@ Feature: Un usuario ingresa a el sistema para crear el tipo de novedad
 
   Scenario:   1.Información que se presenta al seleccionar el botón de Creación de Usuario
     Given Un usuario en la pagina de Administracion de Usuarios
-    When  Selecciona el <boton de creacion de Usuario>
+    When  Selecciona el boton de creacion de Usuario
     Then El sistema presenta un formulario “Creación de Usuario”
     And El boton de guardar bloqueado
 
@@ -110,9 +110,18 @@ Feature: Un usuario ingresa a el sistema para crear el tipo de novedad
     Then   El sistema presenta un pop up el cual permitira tomar una foto frontal de la persona o cargarla desde el computador
     And    El sistema carga la foto en la base de datos al dar clic en aceptar
 
+  Scenario:   10.Enlace eliminar foto
+#    Given  Un usuario en la página de Crear Usuario
+    And    Esta cargada la foto
+    And    Se guardó
+    When   Se da clicc en la fotoo
+    And    Se selecciona Eliminar Foto
+    And    Selecciona la <opción>
+    Then   Se realiza la <acción>
 
-  Scenario Outline:   10.Se habilita botón de guardar
-    Given    Un usuario en la página de Administrar Usuarios
+
+  Scenario Outline:   11.Se habilita botón de guardar
+#    Given    Un usuario en la página de Administrar Usuarios
     When     Existen <n> usuarios de De Usuarios
     And      Se visualiza el paginador en la parte inferior de la pagina
     And      Se da clic en <numero>
@@ -122,4 +131,33 @@ Feature: Un usuario ingresa a el sistema para crear el tipo de novedad
       | n  | numero |
       | 20 | 2      |
       | 40 | 4      |
+
+
+  Scenario: 12.Crear Usuario
+#  Given  Un usuario en la página de Crear Usuario
+  And   Ingresa la información en cada uno de los campos requeridos de forma correcta
+  When  Da clic en el botón Guardar
+  And   El sistema realiza el registro de Ingreso del Usuario exitosamente y muestra el mensaje “El registro de ingreso ha sido creado exitosamente”
+
+
+  Scenario:   13.Errores al seleccionar el botón guardar
+#     Given Un usuario en la página de Crear Usuario
+     And  Ingresa la información en cada uno de los campos requeridos de forma correcta
+     When Da clic en el Botón_Guardar
+     Then El sistema intenta guardar la información
+     And  Se presenta un error de <tipo>
+     And  El sistema presenta un <mensaje> 
+     And  El sistema no debe borrar a información de los campos del formulario
+
+
+  Scenario:  14.Error 400 al seleccionar el botón guardar
+#     Given  Un usuario en la página de Unidades inmobiliarias
+     And  Selecciona el botón de Crear
+     And  Ingresa la información en cada uno de los campos requeridos de forma correcta
+     When Da clic en el botón Guardar
+     Then El sistema intenta guardar la información
+     And Se presenta un error de tipo 400
+     And El sistema redirecciona a una página en la cual se debe información el error
+
+
 

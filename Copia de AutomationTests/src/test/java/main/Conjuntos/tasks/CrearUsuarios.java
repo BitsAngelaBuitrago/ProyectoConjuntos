@@ -1,14 +1,15 @@
-package main.gt.tasks;
+package main.Conjuntos.tasks;
 import core.Helpers.GeneralParams;
 import core.actions.ClickButtonAction;
 import core.actions.EnterTextAction;
+import core.questions.QuestionValidate;
 import cucumber.api.java.Before;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
-import cucumber.api.java.en_scouse.An;
 import net.serenitybdd.screenplay.Actor;
+import net.serenitybdd.screenplay.Performable;
 import net.serenitybdd.screenplay.abilities.BrowseTheWeb;
 import net.thucydides.core.annotations.Managed;
 import org.openqa.selenium.WebDriver;
@@ -28,7 +29,7 @@ public class CrearUsuarios {
 
     @Given("^Un usuario en la pagina de Administracion de Usuarios$")
     public void Administracion() {
-        actor.attemptsTo(new ClickButtonAction().Execute(new GeneralParams(
+        actor.attemptsTo((Performable) new QuestionValidate("Pagina de inico").Execute(new GeneralParams(
                 "El usuario ingresa a la pagina de administrar usuarios",
                 "pagina de administracion de usuarios",
                 "")));

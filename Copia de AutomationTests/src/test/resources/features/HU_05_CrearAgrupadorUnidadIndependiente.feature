@@ -24,23 +24,12 @@ Feature: Como usuario Quiero crear un Agrupador Para iniciar su gestión.
       | Iconoo de cerar cesion       | Esta seguro de que desea salir de la pagina crear Agrupador |
 
 
-  Scenario Outline: 3.Cerrar el mensaje ¿Esta seguro de que desea salir de la pagina crear Agrupador?
+  Scenario: 3.Cerrar el mensaje ¿Esta seguro de que desea salir de la pagina crear Agrupador?
     Given Un usuario en la pagina de Crear agrupadores
     And   Sellecciona una de las <opciones_formulario> para salir del formulario
     When  Sellecciona una de las <opciones_mensaje> para cerrar el mensaje
     Then  El sistema debe realizar un <acciones> dependiendo de la opción seleccionada
 
-    Examples:
-      | opciones_formulario             | opciones_mensaje | acciones                                                                                                                                                |
-      | pagina del menu                 | Cerrar mensaje   | Cierra el mensaje dejando al usuario en el formulario de crear Agrupador sin borrar ningun dato                                                         |
-      | pagina del menu                 | Boton No         | Cierra el mensaje dejando al usuario en el formulario de crear Agrupador sin borrar ningun dato                                                         |
-      | pagina del menu                 | Boton Si         | * Cierra el mensaje    * Presenta la pagina seleccionada      * No conserva los datos del formulario de crear Agrupador                                 |
-      | enlace de la ruta de navegacion | Cerrar mensaje   | Cierra el mensaje dejando al usuario en el formulario de crear Agrupador sin borrar ningun dato                                                         |
-      | enlace de la ruta de navegacion | Boton No         | Cierra el mensaje dejando al usuario en el formulario de crear Agrupador sin borrar ningun dato                                                         |
-      | enlace de la ruta de navegacion | Boton Si         | * Cierra el mensaje      * Presenta la pagina seleccionada       * No conserva los datos del formulario de crear Agrupador                              |
-      | icono de cambiar de Agrupador   | Cerrar mensaje   | Cierra el mensaje dejando al usuario en el formulario de crear Agrupador sin borrar ningun dato                                                         |
-      | icono de cerrar sesion          | Boton No         | Cierra el mensaje dejando al usuario en el formulario de crear Agrupador sin borrar ningun dato                                                         |
-      | icono de cerrar sesion          | Boton Si         | Cierra el mensaje,  Cierra la sesion,  resenta la pagina de autenticacion,  No conserva los datos del formulario de crear Agrupador                     |
 
 
   Scenario Outline: 4.No ingresar información en los campos requeridos
@@ -74,11 +63,11 @@ Feature: Como usuario Quiero crear un Agrupador Para iniciar su gestión.
     Then    Ell sistema realiza si o no unas <acciones>
 
     Examples:
-      | tipo                              | valor  | reglas                                                   | acciones                                                 |
-      | valido                            | 10     | Minimo 1 caracter, Maximo 5 caracteres, Numerico         | no realiza ninguna accion el campo cumple con las reglas |
-      | caracteres alfanumericos          | 55a    | solo admite numeros                                      | solo presenta en el campo los caracteres numericos    55 |
-      | mas de 5 numeros                  | 123456 | solo admite 5 numeros como maximo                        | solo presenta en el campo hasta los 5 numeros     12345  |
-      | caracteres especiales con espacio | 12 (6  | no admite caracteres especiales ni espacio               | solo presenta en el campo los caracteres numericos   126 |
+      | tipo                              | valor  |
+      | valido                            | 10     |
+      | caracteres alfanumericos          | 55a    |
+      | mas de 5 numeros                  | 123456 |
+      | caracteres especiales con espacio | 12 (6  |
 
 
   Scenario Outline: 7.Ingresar información en el campo alfanumérico Nombre Agrupador, incluyendo caracteres especiales y el espacio
@@ -88,10 +77,9 @@ Feature: Como usuario Quiero crear un Agrupador Para iniciar su gestión.
     Then   El sistema realiza unas <acciones>
 
     Examples:
-      | tipo                 | valor                | reglas                                                                                                                  | acciones                                                     |
-      | Valido               | Agrupacion 4         | Minimo 1 caracter, Maximo 50 caracteres, Caracteres alfanumericos incluyendo caracteres especiales y el espacio         | no realiza ninguna accion el campo cumple con las reglas     |
-      | mas de 50 caracteres | Se ingresa mas de 50 | solo admite 50 caracteres como maximo                                                                                   | solo presenta en el campo hasta los 50 caracteres ingresados |
-
+      | tipo                 | valor                |
+      | Valido               | Agrupacion 4         |
+      | mas de 50 caracteres | Se ingresa mas de 50 |
 
   Scenario Outline: 8.Se habilita botón de guardar
     Given  Un usuario en la página de Crear Agrupadores
@@ -105,17 +93,11 @@ Feature: Como usuario Quiero crear un Agrupador Para iniciar su gestión.
       | Ingresa informacion que no cumple con la estructura | correo electronico, telefono | no         |
 
 
-  Scenario Outline:  9.Creación de Agrupador
+  Scenario:  9.Creación de Agrupador
     Given  Un usuario en la página de Crear Agrrupador
     And   Ingresa la información en cada uno de los campos requeridos de forma correcta
     When  Da cliic en el botón Guardar
     Then  El siistema realiza unas <validaciones> en los <campos> enviados
-
-    Examples:
-     # | campos                                      | validaciones                                                                                                                                                                                                                                                 | Accion                                         | acciones                                                                                                                                        |
-     # | Nombre Agrupador                            | El nombre del Agrupador no debe existir en la base de datos de la Unidad Inmobiliaria.                                                                                                                                                                       | Ya existe el nombre ingresado                  | Debe presentar el siguiente mensaje <El nombre de la Agrupación ya está en uso, por favor ingresar uno diferente>                               |
-     # | # Unidades Independientes                   | Al sumar el número ingresado en <Numero de Unidades Independientes> con el total de Unidades Independientes de las demás agrupaciones ya existentes, no exceda el número de unidades independientes contratadas desde la creación de la unidad inmobiliaria. | El número ingresado excede el número permitido | <Ha superado el número máximo de Unidades Independientes contratadas> No crea la Agrupador No borra la información de los campos del formulario |
-    #  | Nombre Agrupador   #Unidades Independientes | Ambos campos deben cumplir con las validaciones del sistema                                                                                                                                                                                                  | Si las cumplen                                 | Se Crea el Agrupador y el sistema redirige al usuario a la página de “Administrar Unidad Inmobiliaria”                                          |
 
 
   Scenario Outline:  10.Validaciones que se realizan en la estructura del campo # Unidades Independientes al seleccionar el botón guardar
@@ -125,21 +107,16 @@ Feature: Como usuario Quiero crear un Agrupador Para iniciar su gestión.
     And     El sistema presenta un <resultado>
 
     Examples:
-      | tipo_de_campo        | campo                           | validaciones                                                      | valor                | resultado                                            |
-      | Numericos            | nuemero Unidades Independientes | Minimo 1 caracter                                                 | No se envia un valor | se debe presentar el mensaje El campo es requerido    |
-#      | *Máximo 5 caracteres | 123456                    | se debe presentar el mensaje ‘máxima longitud es de 5 caracteres’ |
-#      | *Numérico            | Af545                     | se debe presentar el mensaje ‘solo admite números’                |
+          | campo                          | validaciones                                                      |
+          | numero Unidades Independientes | Minimo 1 caracter                                                 |
+          | 123456                         | se debe presentar el mensaje maxima longitud es de 5 caracteres   |
+          | Af545                          | se debe presentar el mensaje solo admite numeros                  |
 
-  Scenario Outline:  11.Validaciones que se realizan en la estructura del campo Nombre Agrupador, incluyendo caracteres especiales y el espacio al seleccionar el botón guardar
+  Scenario:  11.Validaciones que se realizan en la estructura del campo Nombre Agrupador, incluyendo caracteres especiales y el espacio al seleccionar el botón guardar
     Given     Se enviía un <valor> para un <campo> de <tipo_de_campo>
     When      See envía la petición al servicio web
     Then      El siistema realiza unas <validaciones> en los campos enviiados
     And       El siistema presenta un <resultado>
-
-    Examples:
-      | tipo_de_campo                                               | campo            | validaciones                  | valor                                                              | resultado                                            |
-      | alfanumericos incluyendo caracteres especiales y el espacio | Nombre Agrupador | Minimo 1 caracter             | No se envia un valor                                               | se debe presentar el mensaje El campo es requerido   |
-#      |                                                             | *Máximo 50       | Se envía más de 50 caracteres | se debe presentar el mensaje ‘máxima longitud es de 50 caracteres’ |
 
 
   Scenario Outline:  12.Errores al seleccionar el botón guardar

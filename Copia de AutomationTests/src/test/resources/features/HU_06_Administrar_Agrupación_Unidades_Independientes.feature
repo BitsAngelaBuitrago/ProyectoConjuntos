@@ -7,7 +7,7 @@ Feature: Como usuario Quiero administar la gestion de un agrupador
 #    And Ingresa a la pantalla de Administrar Agrupador
 
 
-  Scenario Outline: 1.Realizar una búsqueda de Unidades Independientes
+  Scenario: 1.Realizar una busqueda de Unidades Independientes
     Given Se ubiica el cursor en el campo de Consulta
     When  Un usuariio ingresa una <palabra clave> sobre el campo de consulta
     And   el usuario Da clic en el icono de buscar
@@ -31,44 +31,44 @@ Feature: Como usuario Quiero administar la gestion de un agrupador
     And Con un tipo de selección <tipo_seleccion> para el campo
 
     Examples:
-      |filtro                             |resultado                                                                                                                  |tipo_seleccion   |
-      |Nombre Unidad Independiente        |presenta un listado con los nombres de las Unidades Independientes asociadas a la agrupacion seleccionada.                 |seleccion unica  |
-      |# Catastro                         |presenta un listado con los numeros de Catastro de las Unidades Independientes asociadas a la agrupacion seleccionada.     |seleccion onica  |
-      |Metros Cuadrados                   |presenta un listado con los metros cuadrados de las unidades independientes asociadas a la agrupacion seleccionada.        |seleccion unica  |
-      |Activa                             |presenta un listado con las unidades independientes activas en la agrupacion seleccionada.                                 |seleccion unica  |
+      | filtro                      | resultado                                                                                                              | tipo_seleccion  |
+      | Nombre Unidad Independiente | presenta un listado con los nombres de las Unidades Independientes asociadas a la agrupacion seleccionada.             | seleccion unica |
+      | # Catastro                  | presenta un listado con los numeros de Catastro de las Unidades Independientes asociadas a la agrupacion seleccionada. | seleccion onica |
+      | Metros Cuadrados            | presenta un listado con los metros cuadrados de las unidades independientes asociadas a la agrupacion seleccionada.    | seleccion unica |
+      | Activa                      | presenta un listado con las unidades independientes activas en la agrupacion seleccionada.                             | seleccion unica |
 
   Scenario Outline: 3.Autocomplete de cada filtro
-    Given  Que se ejecutó el Escenario 2
+#    Given  Que se ejecutó el Escenario 2
     When   Se vayan registrando <caracteres> en el <filtro>
     Then   Se debe mostrar la <lista> autocomplete de Unidades Independientes asociadas al <filtro> con los valores que contengan los <caracteres> registrados actualmente.
 
     Examples:
-      |filtro                       |caracteres       |lista|
-      |Nombre Unidad Independiente  |Apartamento 01   |Apartamento 101      Apartamento 201     Apartamento 301     Apartamento 401     Apartamento 501|
-      |Nombre Unidad Independiente  |No existe        |No se presenta lista                |
-      |# Catastro                   |500900           |500900      5009001                 |
-      |# Catastro                   |0000             |No se presenta lista                |
-      |Metros Cuadrados             |5                |54     59                           |
-      |Metros Cuadrados             |0000             |No se presenta lista                |
-      |Activa                       |Apar             |Apartamento 102    Apartamento 301      Apartamento 405|
-      |Activa                       |No existe        |No se presenta lista  |
+      | filtro                      | caracteres     | lista                                                                                            |
+      | Nombre Unidad Independiente | Apartamento 01 | Apartamento 101      Apartamento 201     Apartamento 301     Apartamento 401     Apartamento 501 |
+      | Nombre Unidad Independiente | No existe      | No se presenta lista                                                                             |
+      | # Catastro                  | 500900         | 500900      5009001                                                                              |
+      | # Catastro                  | 0000           | No se presenta lista                                                                             |
+      | Metros Cuadrados            | 5              | 54     59                                                                                        |
+      | Metros Cuadrados            | 0000           | No se presenta lista                                                                             |
+      | Activa                      | Apar           | Apartamento 102    Apartamento 301      Apartamento 405                                          |
+      | Activa                      | No existe      | No se presenta lista                                                                             |
 
 
   Scenario Outline: 4.Seleccionar un elemento de la lista presentada en el filtro
-    Given  Que se ejecutó el Escenario 3
+#    Given  Que se ejecutó el Escenario 3
     When   Se selecciona un <elemento> de la <lista> presentada en el <filtro>
     Then   Se debe mostrar el <elemento> de la <lista> seleccionado en el mismo nivel que el <filtro> con la opción (x) para quitar éste.
 
     Examples:
-      |filtro                       |lista                                                                                             |elemento             |
-      |Nombre Unidad Independiente  |Apartamento 101      Apartamento 201     Apartamento 301    Apartamento 401    Apartamento 501    | Apartamento 201     |
-      |Nombre Unidad Independiente  |No se presenta lista                                                                              |No se presenta lista |
-      |Numero Catastro              |500900    5009001    5009001                                                                      |5009001              |
-      |Numero catastro              |No se presenta lista                                                                              | No se presenta lista|
-      |Metros Cuadrados             |54      59                                                                                        |59                   |
-      |Metros Cuadrados             |No se presenta lista                                                                              |No se presenta lista |
-      |Activa                       |Apartamento 102      Apartamento 301     Apartamento 405                                          |Apartamento 102      |
-      |Activa                       |No se presenta lista                                                                              |No se presenta lista |
+      | filtro                      | lista                                                                                          | elemento             |
+      | Nombre Unidad Independiente | Apartamento 101      Apartamento 201     Apartamento 301    Apartamento 401    Apartamento 501 | Apartamento 201      |
+      | Nombre Unidad Independiente | No se presenta lista                                                                           | No se presenta lista |
+      | Numero Catastro             | 500900    5009001    5009001                                                                   | 5009001              |
+      | Numero catastro             | No se presenta lista                                                                           | No se presenta lista |
+      | Metros Cuadrados            | 54      59                                                                                     | 59                   |
+      | Metros Cuadrados            | No se presenta lista                                                                           | No se presenta lista |
+      | Activa                      | Apartamento 102      Apartamento 301     Apartamento 405                                       | Apartamento 102      |
+      | Activa                      | No se presenta lista                                                                           | No se presenta lista |
 
   Scenario Outline: 5.Realizar consulta de Unidades Independientes por la opción de filtros
     Given  Que se ejecutó el Escenario 4
@@ -105,11 +105,11 @@ Feature: Como usuario Quiero administar la gestion de un agrupador
     And El sistema presenta una lista con el <Resultado> de los registros encontrados (Nombres de Unidades Independientes) luego de aplicar la consulta y filtrado respectivo. 
 
     Examples:
-      |Palabra Clave |filtro               |Selección_filtro        |Resultado|
-      |3543343       |nombre               |Apartamento 102          |Carga en la pantalla todos los registros de la tabla que estén relacionados o asociados con la palabra clave y el elemento seleccionado.|
-      |Apar          |NIT                  |9000500                  |Carga en la pantalla todos los registros de la tabla que estén relacionados o asociados con la palabra clave y el elemento seleccionado.|
-      |45            |Catastro             |8373483                  |Carga en la pantalla todos los registros de la tabla que estén relacionados o asociados con la palabra clave y el elemento seleccionado.|
-      |No existe     |Nombre y Catastro    |Apartamento 102; 9000501 |Presenta un mensaje indicando que no hay coincidencias |
+      | Palabra Clave | filtro            | Selección_filtro         | Resultado                                                                                                                                |
+      | 3543343       | nombre            | Apartamento 102          | Carga en la pantalla todos los registros de la tabla que estén relacionados o asociados con la palabra clave y el elemento seleccionado. |
+      | Apar          | NIT               | 9000500                  | Carga en la pantalla todos los registros de la tabla que estén relacionados o asociados con la palabra clave y el elemento seleccionado. |
+      | 45            | Catastro          | 8373483                  | Carga en la pantalla todos los registros de la tabla que estén relacionados o asociados con la palabra clave y el elemento seleccionado. |
+      | No existe     | Nombre y Catastro | Apartamento 102; 9000501 | Presenta un mensaje indicando que no hay coincidencias                                                                                   |
 
 
   Scenario Outline: 7.Tabla de Unidades Independientes
@@ -118,12 +118,12 @@ Feature: Como usuario Quiero administar la gestion de un agrupador
     Then   Identifica la columna <columna>
 
     Examples:
-      |columna               |Encontrada|
-      |Unidad Independiente  |si        |
-      |numero Catastro       |si        |
-      |Metros Cuadrados      |Si        |
-      |Activa                |Si        |
-      |Acciones              |Si        |
+      | columna              | Encontrada |
+      | Unidad Independiente | si         |
+      | numero Catastro      | si         |
+      | Metros Cuadrados     | Si         |
+      | Activa               | Si         |
+      | Acciones             | Si         |
 
   Scenario Outline: 8.Enlace columna Unidad Independienta
     Given  Se ejecuta el escenario 7
@@ -132,9 +132,9 @@ Feature: Como usuario Quiero administar la gestion de un agrupador
     Then  El sistema redirecciona al usuario a la pantalla de Personas asociadas a Unidad Independiente
 
     Examples:
-      |Unidad              |Activa  |Resultado esperado|
-      |Apartamento 102     |Si      |Redirección URL Personas Asociadas a Unidad Independiente|
-      |Apartamento 504     |No      |Ninguna acción                                         |
+      | Unidad          | Activa | Resultado esperado                                        |
+      | Apartamento 102 | Si     | Redirección URL Personas Asociadas a Unidad Independiente |
+      | Apartamento 504 | No     | Ninguna acción                                            |
 
   Scenario Outline: 9.Elementos columna Acciones
     Given  Se ejecuta el escenariio 7
@@ -142,11 +142,11 @@ Feature: Como usuario Quiero administar la gestion de un agrupador
     Then El sistema redirecciona al usuario a la pantalla de <redirección>
 
     Examples:
-      |Unidad            |Acción            | Resultado esperado                            |
-      |Apartamento 102   |Clic Icono Lápiz  | Redirección URL Modificar Unidad Independiente|
-      |Conjunto Bits     |Clic en Icono Ojo | Redirección URL Consultar Agrupador           |
+      | Unidad          | Acción            | Resultado esperado                             |
+      | Apartamento 102 | Clic Icono Lápiz  | Redirección URL Modificar Unidad Independiente |
+      | Conjunto Bits   | Clic en Icono Ojo | Redirección URL Consultar Agrupador            |
 
-  Scenario :  10.Boton Crear Unidad Independiente
+  Scenario:  10.Boton Crear Unidad Independiente
     Given   Un usuario en la pagina de Administrar Agrupador
     When   Da cliic en el boton de Crear Unidad Independiente
     Then   El sistema redirecciona a la pantalla de Crear Unidad Independiente
@@ -159,9 +159,9 @@ Feature: Como usuario Quiero administar la gestion de un agrupador
 
     Examples:
 
-      |n    |Número| Se muestran los resultados|
-      |20   |2     | Si |
-      |40   |4     | Si |
+      | n  | Número | Se muestran los resultados |
+      | 20 | 2      | Si                         |
+      | 40 | 4      | Si                         |
 
   Scenario Outline: 12.Acción Modificar Unidad Independiente
     Given Un usuario en la página de Administrar Unidad Inmobiliaria
@@ -177,7 +177,7 @@ Feature: Como usuario Quiero administar la gestion de un agrupador
     And  El pop up se cerrará al dar clic en Guardar o en el icono (x) ubicado en el costado izquierdo del pop up.
 
     Examples:
-      |Nombre de Agrupación   |# Catastro  |  Metros Cuadrados  |  Resultado                                                                                          | Se Habilita botón Guardar|
-      |Agrupación 1           |  104534    |  45                |  Exitoso                                                                                            | SI                       |
-      |Agrupación 1           |  104353    |  56                |  El nombre de la Unidad Independiente ya está en uso, por favor ingresar uno diferente              | NO                       |
-      |Agrupación 2           |  154343    |    60              |  El número de catastro de la Unidad Independiente ya está en uso, por favor ingresar uno diferente  | NO                       |
+      | Nombre de Agrupación | # Catastro | Metros Cuadrados | Resultado                                                                                         | Se Habilita botón Guardar |
+      | Agrupación 1         | 104534     | 45               | Exitoso                                                                                           | SI                        |
+      | Agrupación 1         | 104353     | 56               | El nombre de la Unidad Independiente ya está en uso, por favor ingresar uno diferente             | NO                        |
+      | Agrupación 2         | 154343     | 60               | El número de catastro de la Unidad Independiente ya está en uso, por favor ingresar uno diferente | NO                        |

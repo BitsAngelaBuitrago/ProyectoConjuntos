@@ -81,7 +81,7 @@ Feature: Un usuario ingresa a el sistema para crear el tipo de novedad
     And     Que se ejecutó el Escenario 5 <Búsqueda por filtros>
     When    Da clic en icono de buscarr
     Then     El sistema valida que al ingresar más de una <palabra clave> en el campo de consulta, éstas serán concatenadas con AND
-    And     se deben separar por punto y coma ; la <Selección filtro> que se hayan seleccionado en más de un <filtro>
+    And     se deben separar por punto y coma la <Selección filtro> que se hayan seleccionado en más de un <filtro>
     And     El sistema presenta una lista con el <resultado> de los usuarios encontrados <resultado nombres y apellidos> luego de aplicar la consulta y filtrado respectivo
 
     Examples:
@@ -130,7 +130,6 @@ Feature: Un usuario ingresa a el sistema para crear el tipo de novedad
     When    Exiisten <n> usuarios de De Usuarios
     And     Se visualiza el paginador en la parte inferiior de la página
     Then    Se mostraran los usuarios asignados por pagiina
-
 
     Examples:
       | n  | numero | Se muestran los resultados |

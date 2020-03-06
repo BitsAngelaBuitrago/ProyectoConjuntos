@@ -9,7 +9,6 @@ import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
-import cucumber.api.java.en_scouse.An;
 import net.serenitybdd.screenplay.Actor;
 import net.serenitybdd.screenplay.abilities.BrowseTheWeb;
 import net.thucydides.core.annotations.Managed;
@@ -244,16 +243,16 @@ public class CrearParqueadero {
 
     ///Escenario 9
 
-    @And("^Ingresaa la información en cada uno de los campos requeridos de forma correcta$")
-    public void Informacioncadaunadecampos() {
+    @And("^Ingresaa la información en cada uno de los campos requeridos de la forma correcta$")
+    public void informacionCadaUnaDeCampos() {
         actor.attemptsTo(new ClickButtonAction().Execute(new GeneralParams(
                 "El usuario da clic en los campos requeridos",
                 "campo alfa numerico",
                 "Elemento")));
     }
 
-    @When("^Daa clic en el botón Guardar$")
-    public void DDaaClicc() {
+    @When("^Daa click en el botón Guardar$")
+    public void daaClicc() {
         actor.attemptsTo(new EnterTextAction("").Execute(new GeneralParams(
                 "El usuario ingresa el valor en el campo",
                 "valor campo",
@@ -329,8 +328,8 @@ public class CrearParqueadero {
                 "Elemento")));
     }
 
-    @And("^Se presentaa un error de tipo 400$")
-    public void Tipo400() {
+    @And("^Se presenta un error tipo 400$")
+    public void tipo400() {
         actor.attemptsTo(new ClickButtonAction().Execute(new GeneralParams(
                 "El usuario da clic en los campos requeridos",
                 "campo alfa numerico",
