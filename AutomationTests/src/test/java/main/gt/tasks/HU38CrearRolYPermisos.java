@@ -168,4 +168,167 @@ public class HU38CrearRolYPermisos {
         //Check en Crear
         actor.should(seeThat(the("/button[@name='action']"),isSelected()));
     }
+
+    @Then("^Se visualizan todos los hijos y acciones seleccionados$")
+    public void seVisualizanTodosLosHijosYAccionesSeleccionados() {
+        //Check en Configuración
+        actor.should(seeThat(the("/button[@name='action']"),isSelected()));
+        //Check en Unidades Inmobiliarias
+        actor.should(seeThat(the("/button[@name='action']"),isSelected()));
+        //Check en Crear
+        actor.should(seeThat(the("/button[@name='action']"),isSelected()));
+        //Check en COnsultar
+        actor.should(seeThat(the("/button[@name='action']"),isSelected()));
+        //Check en Modificar
+        actor.should(seeThat(the("/button[@name='action']"),isSelected()));
+
+    }
+
+    @Given("^Ingresa el nombre en el campo nombre de rol$")
+    public void ingresaElNombreEnElCampoNombreDeRol() {
+        actor.attemptsTo(new EnterTextAction("nombreRol").Execute(new GeneralParams(
+                "Ingresa información en campo nombre de rol",
+                "Campo nombre de rol",
+                "/button[@name='action']"
+        )));
+    }
+
+    @And("^Que se encuentra seleccionado configuracion$")
+    public void queSeEncuentraSeleccionadoConfiguracion() {
+        actor.should(seeThat(the("/button[@name='action']"),isSelected()));
+    }
+
+    @Then("^Se visualizan todos los hijos desmarcados$")
+    public void seVisualizanTodosLosHijosDesmarcados() {
+        //Check en Unidades Inmobiliarias
+        actor.should(seeThat(the("/button[@name='action']"),isNotSelected()));
+        //Check en Crear
+        actor.should(seeThat(the("/button[@name='action']"),isNotSelected()));
+        //Check en COnsultar
+        actor.should(seeThat(the("/button[@name='action']"),isNotSelected()));
+        //Check en Modificar
+        actor.should(seeThat(the("/button[@name='action']"),isNotSelected()));
+    }
+
+    @When("^se desmarcan los hijos$")
+    public void seDesmarcanLosHijos() {
+        actor.attemptsTo(new ClickButtonAction().Execute(new GeneralParams(
+                "Da clic en HIjo",
+                "Clic Hijo",
+                "//input[@id='idEmail']"
+        )));
+        actor.attemptsTo(new ClickButtonAction().Execute(new GeneralParams(
+                "Da clic en HIjo",
+                "Clic Hijo",
+                "//input[@id='idEmail']"
+        )));
+        actor.attemptsTo(new ClickButtonAction().Execute(new GeneralParams(
+                "Da clic en HIjo",
+                "Clic Hijo",
+                "//input[@id='idEmail']"
+        )));
+    }
+
+    @Then("^Se mantiene seleccionado configuracion$")
+    public void seMantieneSeleccionadoConfiguracion() {
+        actor.should(seeThat(the("/button[@name='action']"),isSelected()));
+    }
+
+    @And("^se encuentran marcados los hijos$")
+    public void seEncuentranMarcadosLosHijos() {
+        //Check en Unidades Inmobiliarias
+        actor.should(seeThat(the("/button[@name='action']"),isSelected()));
+
+        actor.should(seeThat(the("/button[@name='action']"),isSelected()));
+        //Check en
+        actor.should(seeThat(the("/button[@name='action']"),isSelected()));
+        //Check en
+        actor.should(seeThat(the("/button[@name='action']"),isSelected()));
+    }
+
+    @When("^se desmarcan todas las acciones$")
+    public void seDesmarcanTodasLasAcciones() {
+        actor.attemptsTo(new ClickButtonAction().Execute(new GeneralParams(
+                "Da clic en HIjo",
+                "Clic Hijo",
+                "//input[@id='idEmail']"
+        )));
+        actor.attemptsTo(new ClickButtonAction().Execute(new GeneralParams(
+                "Da clic en HIjo",
+                "Clic Hijo",
+                "//input[@id='idEmail']"
+        )));
+        actor.attemptsTo(new ClickButtonAction().Execute(new GeneralParams(
+                "Da clic en HIjo",
+                "Clic Hijo",
+                "//input[@id='idEmail']"
+        )));
+    }
+
+
+    @When("^se desmarca la accion de Editar$")
+    public void seDesmarcaLaAccionDeEditar() {
+        actor.attemptsTo(new ClickButtonAction().Execute(new GeneralParams(
+                "Da clic en HIjo",
+                "Clic Hijo",
+                "//input[@id='idEmail']"
+        )));
+    }
+
+    @Then("^se mantienen seleccionados las demas acciones$")
+    public void seMantienenSeleccionadosLasDemasAcciones() {
+        //Check en Consultar
+        actor.should(seeThat(the("/button[@name='action']"),isSelected()));
+        //Check en crear
+        actor.should(seeThat(the("/button[@name='action']"),isSelected()));
+    }
+
+    @And("^Que se encuentra desmarcada configuracion$")
+    public void queSeEncuentraDesmarcadaConfiguracion() {
+        actor.should(seeThat(the("/button[@name='action']"),isNotSelected()));
+    }
+
+    @When("^se selecciona la accion de Editar$")
+    public void seSeleccionaLaAccionDeEditar() {
+        actor.attemptsTo(new ClickButtonAction().Execute(new GeneralParams(
+                "Da clic en HIjo",
+                "Clic Hijo",
+                "//input[@id='idEmail']"
+        )));
+    }
+
+    @Then("^se muestra seleccionado el padre y el hijo$")
+    public void seMuestraSeleccionadoElPadreYElHijo() {
+        //Check en Unidades Inmobiliarias
+        actor.should(seeThat(the("/button[@name='action']"),isSelected()));
+
+        actor.should(seeThat(the("/button[@name='action']"),isSelected()));
+    }
+
+    @And("^Se selecciona configuracion$")
+    public void seSeleccionaConfiguracion() {
+        actor.attemptsTo(new ClickButtonAction().Execute(new GeneralParams(
+                "Da clic en padre",
+                "Clic padre",
+                "//input[@id='idEmail']"
+        )));
+    }
+
+    @When("^Se da clic en guardar$")
+    public void seDaClicEnGuardar() {
+        actor.attemptsTo(new ClickButtonAction().Execute(new GeneralParams(
+                "Da clic en guardar",
+                "Clic guardar",
+                "//input[@id='idEmail']"
+        )));
+    }
+
+    @Then("^Se muestra el mensaje de creacion$")
+    public void seMuestraElMensajeDeCreacion() {
+        actor.should(new QuestionValidate("Creación del rol exitosa").Execute(new GeneralParams(
+                "Mensaje creación de rol",
+                "Creación rol",
+                "//input[@id='idEmail']"
+        )));
+    }
 }
