@@ -17,13 +17,13 @@ Feature: Crear Persona asociada a Unidad Independiente
     And Campo Nombres
     And Campo Apellidos
     And Campo Correo Electrónico
-    And Campo Teléfono Fijo
+    And Campo Telefono Fijo
     And Campo Teléfono Celular
     And El boton de guardar bloqueado
 
   Scenario Outline: Salir del formulario de Creación de persona asociada
     Given Da clic en Unidades Inmobiliarias
-    And Da clic en el boton crear persona asociada
+    And da clic en el boton crear persona asociada
     When Da clic en una pagina diferente <pagina>
     Then El sistema muestra un mensaje de confirmacion "¿Esta seguro de que desea salir de la pagina crear persona asociada?"
     Examples:
@@ -33,7 +33,7 @@ Feature: Crear Persona asociada a Unidad Independiente
 
   Scenario Outline: Cerrar el mensaje ¿Esta seguro de que desea salir de la página crear persona asociada?
     Given Da clic en Unidades Inmobiliarias
-    And Da clic en el boton crear persona asociada
+    And da clic en el boton crear persona asociada
     And Da clic en una pagina diferente <pagina>
     When Selecciona una opcion del pop up <opcion>
     Then El sistema cierra el pop up
@@ -48,7 +48,7 @@ Feature: Crear Persona asociada a Unidad Independiente
     When Da clic en el <campo_requerido>
     And Da clic por fuera del campo
     Then El sistema presenta el mensaje "Campo requerido"
-    And Boton guardar inhabilitado
+    And El boton de guardar bloqueado
     Examples:
       | campo_requerido     |
       | Tipo de Persona     |
@@ -93,7 +93,7 @@ Feature: Crear Persona asociada a Unidad Independiente
 
   Scenario Outline: Ingresar información errada en campo email
     When Ingresa en el email la informacion <informacion>
-    Then Visualiza el mensaje "‘El correo electrónico no es válido. Ejemplo ususario@h.com"
+    Then Visualiza el mensaje de error
     Examples:
       | informacion            |
       | jobarbosa.com          |
@@ -104,5 +104,5 @@ Feature: Crear Persona asociada a Unidad Independiente
   Scenario: Creación de Persona asociada a Unidad Independiente
     When Ingresa toda información en cada uno de los campos requeridos de forma correcta
     And Da clic en el boton Guardar
-    Then Muestra el mensaje "Persona asociada creada exitosamente"
+    Then Muestra el mensaje creacion exitosa de persona
     And redirige al usuario a la página de Administrar Persona asociada

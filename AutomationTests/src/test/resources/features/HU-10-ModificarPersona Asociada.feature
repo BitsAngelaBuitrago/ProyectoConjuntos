@@ -17,13 +17,13 @@ Feature: Modificar Persona asociada a Unidad Independiente
     And Campo Nombres
     And Campo Apellidos
     And Campo Correo Electrónico
-    And Campo Teléfono Fijo
+    And Campo Telefono Fijo
     And Campo Teléfono Celular
     And El boton de guardar bloqueado
 
   Scenario Outline: Salir del formulario de Mofificación de persona asociada
     Given Da clic en Unidades Inmobiliarias
-    And Da clic en el boton Modificar persona asociada
+    And da clic en el boton Modificar persona asociada
     When Da clic en una pagina diferente <pagina>
     Then El sistema muestra un mensaje de confirmacion "¿Esta seguro de que desea salir de la pagina Modificar persona asociada?"
     Examples:
@@ -33,7 +33,7 @@ Feature: Modificar Persona asociada a Unidad Independiente
 
   Scenario Outline: Cerrar el mensaje ¿Esta seguro de que desea salir de la página Modificar persona asociada?
     Given Da clic en Unidades Inmobiliarias
-    And Da clic en el boton Modificar persona asociada
+    And da clic en el boton Modificar persona asociada
     And Da clic en una pagina diferente <pagina>
     When Selecciona una opcion del pop up <opcion>
     Then El sistema cierra el pop up
@@ -45,10 +45,9 @@ Feature: Modificar Persona asociada a Unidad Independiente
       | Principal | x      |
 
   Scenario Outline: Borrar información en los campos requeridos
-    When Da clic en el <campo_requerido>
-    And Borra la informacion en el campo
+    When Borra la informacion en el campo <campo_requerido>
     Then El sistema presenta el mensaje "Campo requerido"
-    And Boton guardar inhabilitado
+    And El boton de guardar bloqueado
     Examples:
       | campo_requerido     |
       | Tipo de Persona     |
@@ -69,7 +68,7 @@ Feature: Modificar Persona asociada a Unidad Independiente
       | no      | no         |
 
   Scenario Outline: Cambiar información en campos obligatorios
-    When Cambia en el campo <campo_requerido> la informacion <informacion>
+    When Ingresa en el campo <campo_requerido> la informacion <informacion>
     Then Visualiza el resultado esperado <resultado>
     Examples:
       | campo_requerido     | informacion            | resultado          |
@@ -83,7 +82,7 @@ Feature: Modificar Persona asociada a Unidad Independiente
       | Telefono Celular    | 3124456678gfdgf#$%$    | 3124456678         |
 
   Scenario Outline: Cambia información errada en campos numéricos
-    When Cambia en el campo <campo_requerido> la informacion <informacion>
+    When Ingresa en el campo <campo_requerido> la informacion <informacion>
     Then Visualiza el resultado esperado <resultado>
     Examples:
       | campo_requerido     | informacion              | resultado            |
@@ -92,8 +91,8 @@ Feature: Modificar Persona asociada a Unidad Independiente
       | Telefono Celular    | 12345678901111           | 1234567890           |
 
   Scenario Outline: Cambia información errada en campo email
-    When Cambia en el email la informacion <informacion>
-    Then Visualiza el mensaje "‘El correo electrónico no es válido. Ejemplo ususario@h.com"
+    When Ingresa en el email la informacion <informacion>
+    Then Visualiza el mensaje de error
     Examples:
       | informacion            |
       | jobarbosa.com          |
@@ -104,5 +103,5 @@ Feature: Modificar Persona asociada a Unidad Independiente
   Scenario: Modificación de Persona asociada a Unidad Independiente
     When Ingresa toda información en cada uno de los campos requeridos de forma correcta
     And Da clic en el boton Guardar
-    Then Muestra el mensaje "Persona asociada modificada exitosamente"
+    Then Muestra el mensaje modificación exitosa de persona
     And redirige al usuario a la página de Administrar Persona asociada
