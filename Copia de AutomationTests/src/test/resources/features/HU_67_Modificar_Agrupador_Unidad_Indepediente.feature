@@ -1,18 +1,20 @@
-Feature: Como usuario Quiero crear un Agrupador Para iniciar su gestión.
+Feature: Un usuario ingresa a el sistema para Modificar un agrupador
 
- # Background: Un usuario ingresa credencial correctamente ‘HU_35_Ingreso_credenciales_V1.0’
- #  Given Ingresa a la pantalla de Administrar Unidades Inmobiliarias
- # And Da clic sobre la Unidad Inmobiliaria deseada
- # And Da clicc en el Botón Crear Agrupador
+  Background: Administrar Usuarios
+    Given   Un usuario ingresa a la url de la aplicación
+   # And  Ingresa a la pantalla de Administrar Unidades Inmobiliarias
+  # And  Da clic sobre la Agrupador deseada
+  # And  Da clic en el Botón Modificar Agrupador
 
-  Scenario: 1.Información que se presenta al seleccionar el botón de crear
-    Given  Un usuario en la pagina de Unidades inmobiliarias
-    When Sselecciona el botón de Crear
-    Then  El sistema presenta un formulario “Crear Agrupador”
-    And El boton de guardar bloqueadoo
+
+  Scenario:  1.Un usuario en la página de Unidades inmobiliarias
+    Given Un usuario en la página de Unidades inmobiliarias
+    When Selecciona el botón de Modificar
+    Then El sistema presenta un formulario “Modificar Agrupador”
+    And El botón de guardar bloqueado
 
   Scenario Outline: 2.Salir del formulario de Creación de Agrupador
-    Given Un usuario en la pagina de Crear Agrupador
+#    Given Un usuario en la pagina de Modificar Agrupador
     When Selecciona una de las <opciones> para salir de formulario de crear agrupador
     Then El sistema presenta un <mensaje> junto con los botones Si y no
     And La <Opcion> cerrar mensaje
@@ -25,13 +27,13 @@ Feature: Como usuario Quiero crear un Agrupador Para iniciar su gestión.
 
 
   Scenario: 3.Cerrar el mensaje ¿Esta seguro de que desea salir de la pagina crear Agrupador?
-    Given Un usuario en la pagina de Crear agrupadores
+#    Given Un usuario en la pagina de modificar agrupadores
     And   Sellecciona una de las <opciones_formulario> para salir del formulario
     When  Sellecciona una de las <opciones_mensaje> para cerrar el mensaje
     Then  El sistema debe realizar un <acciones> dependiendo de la opción seleccionada
 
   Scenario Outline: 4.No ingresar información en los campos requeridos
-    Given Un usuario en la pagina de Crearr Agrupador
+#    Given Un usuario en la pagina de mofificar Agrupador
     When  Da clicc en el <campo_requerido>
     And   da clic por fuera del campo
     Then  El siistema presenta un <mensaje> indicando que el campo es requerido
@@ -44,7 +46,7 @@ Feature: Como usuario Quiero crear un Agrupador Para iniciar su gestión.
 
 
   Scenario Outline: 5.Se habilita si o no botón de guardar
-    Given  Un usuario en la pagina de Crear Agrupadorr
+#    Given  Un usuario en la pagina de modificar Agrupadorr
     When  Realizar una <accion> sobre los campos
     Then  sistema presenta sí o no <habilitado> el boton de guardar
 
@@ -56,7 +58,7 @@ Feature: Como usuario Quiero crear un Agrupador Para iniciar su gestión.
 
 
   Scenario Outline: 6.Ingresar informacion en campo # de Unidades Independientess
-    Given  Un usuario en la pagina de Crearr Agrupadorr
+#    Given  Un usuario en la pagina de Modificar Agrupadorr
     When Ingresa un <tipo> de <valor> con unas <reglas> definidas para el <campo>
     Then Ell sistema realiza si o no unas <acciones>
 
@@ -69,7 +71,7 @@ Feature: Como usuario Quiero crear un Agrupador Para iniciar su gestión.
 
 
   Scenario Outline: 7.Ingresar información en el campo alfanumérico Nombre Agrupador, incluyendo caracteres especiales y el espacio
-    Given  Un usuario en la página de Crear Agrupador
+#    Given  Un usuario en la página de Modificar Agrupador
     And  el usuario Da clic en el campo Nombre Agrupador
     When Ingressa un <tipo> de <valor> con unas <reglas> definidas para el <campo>
     Then El sistema realiza unas <acciones>
@@ -80,7 +82,7 @@ Feature: Como usuario Quiero crear un Agrupador Para iniciar su gestión.
       | mas de 50 caracteres | Se ingresa mas de 50 |
 
   Scenario Outline: 8.Se habilita botón de guardar
-    Given  Un usuario en la página de Crear Agrupadores
+#    Given  Un usuario en la página de Modificar Agrupadores
     When   Realiza una <Accion> sobre un <campo>
     Then   El sistema presenta si o no <habilitado> el botón de guardar
 
@@ -92,7 +94,7 @@ Feature: Como usuario Quiero crear un Agrupador Para iniciar su gestión.
 
 
   Scenario:  9.Creación de Agrupador
-    Given  Un usuario en la página de Crear Agrrupador
+#    Given  Un usuario en la página de Modificar agrupadores
     And   Ingresa la información en los campos requeridos
     When  Da cliic en el botón Guardar
     Then  El siistema realiza unas <validaciones> en los <campos> enviados
@@ -105,10 +107,10 @@ Feature: Como usuario Quiero crear un Agrupador Para iniciar su gestión.
     And  El sistema presenta un <resultado>
 
     Examples:
-          | campo                          | validaciones                                                      |
-          | numero Unidades Independientes | Minimo 1 caracter                                                 |
-          | 123456                         | se debe presentar el mensaje maxima longitud es de 5 caracteres   |
-          | Af545                          | se debe presentar el mensaje solo admite numeros                  |
+      | campo                          | validaciones                                                      |
+      | numero Unidades Independientes | Minimo 1 caracter                                                 |
+      | 123456                         | se debe presentar el mensaje maxima longitud es de 5 caracteres   |
+      | Af545                          | se debe presentar el mensaje solo admite numeros                  |
 
   Scenario:  11.Validaciones que se realizan en la estructura del campo Nombre Agrupador, incluyendo caracteres especiales y el espacio al seleccionar el botón guardar
     Given Se enviía un <valor> para un <campo> de <tipo_de_campo>
@@ -118,7 +120,7 @@ Feature: Como usuario Quiero crear un Agrupador Para iniciar su gestión.
 
 
   Scenario Outline:  12.Errores al seleccionar el botón guardar
-    Given Un usuario en la pagiina de Crear Agrupador
+#    Given Un usuario en la pagiina de Modificar Agrupador
     And   Ingresa la información en cada uno de los campos requeriidos de forma correcta
     When  Da clic en ell botón Guardar
     Then  sistema guardar informacion
@@ -131,7 +133,7 @@ Feature: Como usuario Quiero crear un Agrupador Para iniciar su gestión.
       | Error 500 se corresponden a errores del sistema | Se presenta el siguiente mensaje El proceso no se termino  satisfactoriamente. Intente nuevamente en unos segundos  |
 
   Scenario:  13. Error 400 al seleccionar el botón guardar
-    Given Un usuario en la página de Unidades inmobiliarias
+#    Given Un usuario en la página de Unidades inmobiliarias
     And Seleccionaa el botón de Crearr
     And  Ingresa lla información en cada uno de los campos requeridos de forma correcta
     When  Da cliic en el botón Guardarr

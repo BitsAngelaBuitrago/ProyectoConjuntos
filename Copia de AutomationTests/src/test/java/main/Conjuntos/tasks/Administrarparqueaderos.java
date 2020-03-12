@@ -14,6 +14,10 @@ import net.serenitybdd.screenplay.abilities.BrowseTheWeb;
 import net.thucydides.core.annotations.Managed;
 import org.openqa.selenium.WebDriver;
 
+import static net.serenitybdd.screenplay.GivenWhenThen.seeThat;
+import static net.serenitybdd.screenplay.matchers.WebElementStateMatchers.isNotVisible;
+import static net.serenitybdd.screenplay.questions.WebElementQuestion.the;
+
 
 public class Administrarparqueaderos {
 
@@ -75,7 +79,6 @@ public class Administrarparqueaderos {
 
 ///Escenario 2
 
-
     @Given("^Da cliic sobre la opción Filtross$")
     public void administarHacerClic() {
         actor.attemptsTo(new ClickButtonAction().Execute(new GeneralParams(
@@ -133,48 +136,175 @@ public class Administrarparqueaderos {
     ///Escenario 4
 
 
-    @When("^Se selecciona uun <elemento> de la <lista> presentada en el <filtro>$")
-    public void caracteresEnElFiltro() {
-        actor.attemptsTo(new EnterTextAction("").Execute(new GeneralParams(
+    @When("^Se selecciona uun elemento de la lista presentada en el (.*)$")
+    public void presentaUnElemenentoYloSelecciona() {
+        actor.attemptsTo(new ClickButtonAction().Execute(new GeneralParams(
                 "El usuario debera ingresar los caracteres en el filtro",
                 "ingresar caracteres",
                 "Eleemento")));
     }
 
-    @Then("^Se debe mostrar el <elemento> de la <lista> seleccionado en el mismo nivel que el <filtro> con la opción (x) para quitar éste$")
-    public void mostarListaAuto() {
+    @Then("^Se debe mostrar el elemento de la lista seleccionado en el mismo nivel que el (.*) con la opcion x para quitar este$")
+    public void SeleccionadoParaQuitarElemento() {
         actor.should(new QuestionValidate(
                 "El sistema debera presentar una lista de parqueaderos asociados").Execute(new GeneralParams(
                 "el sistema presenta resultado",
                 "Elemento")));
     }
 
+///Escenario 5
+
+    @When("^Da clic ssobre el botón de buscar$")
+    public void userClickBuscar() {
+        actor.attemptsTo(new ClickButtonAction().Execute(new GeneralParams(
+                "El usuario hace clic en el boton guardar",
+                "Hace clilc en guardar",
+                "Eleemento")));
+    }
+
+    @Then("^El sistema presentaa un (.*) que tenga la (.*) del (.*)$")
+    public void presentResult() {
+        actor.should(new QuestionValidate(
+                "El sistema debera presentar la informacion de los filtros").Execute(new GeneralParams(
+                "el sistema presenta resultado",
+                "Elemento")));
+    }
+
+    @And("^En el campo de búsquedaa se presenta la <elemento_seleccionado> que se haya seleccionaado en el filtro$")
+    public void optionDelFiltro() {
+        actor.should(new QuestionValidate(
+                "El sistema presenta el elemento seleccionado").Execute(new GeneralParams(
+                "Tipo de seleccion ene l campo",
+                "Elemento")));
+
+    }
+
+    @And("^separar por punto y coma (;) la <elemento_seleccionado> que se hayan seleccionado en mas de un filtro$")
+    public void separarHayanElemento() {
+        actor.should(new QuestionValidate(
+                "El sistema muestra el elemento seleccionad").Execute(new GeneralParams(
+                "Tipo de seleccion ene l campo",
+                "Elemento")));
+
+    }
+
+///Escenario 6
+
+    @When("^Da clic sobre el icono de buscarr$")
+    public void bucasPalabrasClaves() {
+        actor.attemptsTo(new ClickButtonAction().Execute(new GeneralParams(
+                "El usuario hace clic en el boton guardar",
+                "Hace clilc en guardar",
+                "Eleemento")));
+    }
+
+    @Then("^Al ingresar mas de una <palabra_clave> en el campo de consulta, estas seran concatenadas con AND, Al seleccionar mas de un registro en el mismo <filtro> se concatenaran con OR, Al ingresar la <palabra_clave> en la consulta y seleccionar los registros en uno o mas filtros$")
+    public void filtroSeConcatena() {
+        actor.should(new QuestionValidate(
+                "El sistema debera presentar la informacion de los filtros").Execute(new GeneralParams(
+                "el sistema presenta resultado",
+                "Elemento")));
+    }
+
+///Escenario 7
+
+    @When("^Visualiza la tabla de Parqueaderos$")
+    public void verTablaParqueadero() {
+        actor.should(seeThat(the("//p[contains(text(),'Inicio')]"), isNotVisible()));
+
+    }
+
+    @Then("^Identifica lla columna (.*)$")
+    public void identificarColumnas() {
+        actor.should(new QuestionValidate(
+                "El sistema debera presentar la informacion de los filtros").Execute(new GeneralParams(
+                "el sistema presenta resultado",
+                "Elemento")));
+    }
+
+    ///Escenario 8
 
 
+    @When("^Da clic en <Icono> de la columna Acciones$")
+    public void clicColumna() {
+        actor.attemptsTo(new ClickButtonAction().Execute(new GeneralParams(
+                "El usuario da clic en la columna acciones",
+                "columna accion",
+                "Elemento")));
+    }
 
+    @Then("^El sistema realiza la <Acción>$")
+    public void elementoColumnaAccion() {
+        actor.should(new QuestionValidate(
+                "El sistema realizara la accion").Execute(new GeneralParams(
+                "realiza la accion",
+                "Elemento")));
+    }
 
+    ///Escenario 9
 
+    @When("^Se encuentra con Parqueaderos por crear$")
+    public void botonCrearParqueadero() {
+        actor.should(new QuestionValidate(
+                "El usuario da clic en la columna acciones").Execute(new GeneralParams(
+                "columna accion",
+                "Elemento")));
+    }
 
+    @And("^El botón Crear se encuentra Activo$")
+    public void botonSeEncuntraAct() {
+        actor.should(seeThat(the("//p[contains(text(),'Inicio')]"), isNotVisible()));
 
+    }
 
+    @And("^Da clic en el botón de Crear Persona$")
+    public void deCrearPersona() {
+        actor.attemptsTo(new ClickButtonAction().Execute(new GeneralParams(
+                "El sistema muestra el elemento seleccionad",
+                "Tipo de seleccion ene l campo",
+                "Elemento")));
+    }
 
-}
+    @Then("^El sistema redirecciona al usuario a la pantalla de Crear Persona asociada a la Parqueaderos$")
+    public void redireccionaCrearparqueaderos() {
+        actor.should(new QuestionValidate(
+                "El sistema realizara la accion").Execute(new GeneralParams(
+                "realiza la accion",
+                "Elemento")));
+    }
 
+    ///Escenario 10
 
+    @When("^Existen <n> registros de De Parqueaderos$")
+    public void registroDeparqueaderos() {
+        actor.should(new QuestionValidate(
+                "El usuario da clic en la columna acciones").Execute(new GeneralParams(
+                "columna accion",
+                "Elemento")));
+    }
 
+    @And("^Se visualiza el paginador en la parte inferior de la página$")
+    public void inferiorDeLaPagina() {
+        actor.attemptsTo(new ClickButtonAction().Execute(new GeneralParams(
+                "El sistema muestra el elemento seleccionad",
+                "Tipo de seleccion ene l campo",
+                "Elemento")));
+    }
+    @And("^Se da clic en <número>$")
+    public void inferiorPagina() {
+        actor.attemptsTo(new ClickButtonAction().Execute(new GeneralParams(
+                "El sistema muestra el elemento seleccionad",
+                "Tipo de seleccion ene l campo",
+                "Elemento")));
 
+    }
+    @Then("^Se mostrarán los registros asignados por página$")
+    public void registrosAsignados () {
+        actor.should(new QuestionValidate(
+                "El sistema realizara la accion").Execute(new GeneralParams(
+                "realiza la accion",
+                "Elemento")));
 
+    }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+ }

@@ -1,9 +1,11 @@
 Feature: Administrar Unidad Independiente
 
   Background: Como usuario Quiero Administrar la Unidad Independiente seleccionada Para iniciar su gestión.
-#    And Ingresa a la
+#    And Ingresa a la Ingresa las credenciales correctamente
 #    And Ingresa a la pantalla de Administrar Unidades Inmobiliarias
-#    And Ingresa a la
+#    And Ingresa a la Ingresa a la pantalla de la Unidad Inmobiliaria requerida
+#    And Ingresa a la pantalla de Administrar Agrupador
+#    And  Ingresa a la pantalla de Administrar Unidad Independiente
 
 
   Scenario: 1.Realizar una búsqueda de Personas asociadas a la Unidad Independiente

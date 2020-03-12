@@ -1,9 +1,10 @@
 Feature: Como usuario Quiero crear una unidad independiente
 
 Background: Un usuario ingresa credencial correctamente ‘HU_35_Ingreso_credenciales_V1.0’
-#    And Ingresa a la
+#    And Ingresa a la Ingresa las credenciales correctamente
 #    And Ingresa a la pantalla de Administrar Unidades Inmobiliarias
-#    And Ingresa a la
+#    And Ingresa a la Ingresa a la pantalla de la Unidad Inmobiliaria requerida
+#    And Ingresa a la pantalla de Administrar Agrupador
 
 
   Scenario: 1.Información que se presenta al seleccionar el botón de crear
@@ -31,18 +32,18 @@ Background: Un usuario ingresa credencial correctamente ‘HU_35_Ingreso_credenc
     When Selecciiona una de las <opciones_mensaje> para cerrar el mensaje
     Then El sistema debe realizar unas <acciones> dependiendo de la opción seleccionada
 
-Examples:
+    Examples:
 
-|opciones_formulario               | opciones_mensaje  |
-|pagina del menu                   | Cerrar mensaje    |
-|pagina del menu                   | Boton No          |
-|pagina del menu                   | Boton Si          |
-|enlace de la ruta de navegacion   | Cerrar mensaje    |
-|enlace de la ruta de navegacion   | Boton No          |
-|enlace de la ruta de navegacion   | Boton Si          |
-|Cerrar mensaje                    | Cierra el mensaje |
-|icono de cerrar sesion            | Boton No          |
-|icono de cerrar sesion            | Boton Si          |
+   |opciones_formulario               | opciones_mensaje  |
+   |pagina del menu                   | Cerrar mensaje    |
+   |pagina del menu                   | Boton No          |
+   |pagina del menu                   | Boton Si          |
+   |enlace de la ruta de navegacion   | Cerrar mensaje    |
+   |enlace de la ruta de navegacion   | Boton No          |
+   |enlace de la ruta de navegacion   | Boton Si          |
+   |Cerrar mensaje                    | Cierra el mensaje |
+   |icono de cerrar sesion            | Boton No          |
+   | icono de cerrar sesion           | Boton Si          |
 
 
   Scenario Outline: 4.No ingresar información en los campos requeridos

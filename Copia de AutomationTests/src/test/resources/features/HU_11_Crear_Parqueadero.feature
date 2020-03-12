@@ -63,13 +63,13 @@ Feature: Como usuario Quiero crear un Parqueadero Para iniciar su gestión.
     |Tipo de Vehículo      | El campo es requerido|
 
   Scenario Outline: 5.Se habilita si o no botón de guardar
-    Given Un usuario en la página de Crear Parqueaderoo
-    When  Realiza una <acción> sobre los campos
+#    Given Un usuario en la página de Crear Parqueaderoo
+    When  Realiza una <clilc> sobre los campos
     Then  El sistemaa presenta sí o no <habilitado> el botón de guardar
 
     Examples:
 
-   | acción                                                       | habilitado     |
+   | clilc                                                       | habilitado     |
    | Ingresa información correcta en todos los campos requeridos  | si se habilita |
    | Ingresa información en algunos campos requeridos             | no se habilita |
    | Borra información en algunos campos requeridos               | no se habilita |
