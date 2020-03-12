@@ -63,4 +63,5 @@ Feature: Administrar Personas Asociadas a Unidad Independiente
   Scenario: Seleccionar Botón Crear Persona asociada
     When Da clic en Crear Persona asociada
     And El sistema redirecciona a la pagina de Crear Persona asociada
+    
 
