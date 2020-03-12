@@ -21,7 +21,7 @@ Feature: Administrar Personas Asociadas a Unidad Independiente
   Scenario Outline: Comportamiento en cada uno de los filtros
     Given El usuario Da clic sobre la opción Filtros
     When Da clic en cada <filtro>
-    Then El sistema presenta el listado del filtro seleccionado
+    Then El sistema presenta el listado del <filtro> seleccionado
     Examples:
       | filtro          |
       | Tipo de Persona |
@@ -61,6 +61,6 @@ Feature: Administrar Personas Asociadas a Unidad Independiente
 
 
   Scenario: Seleccionar Botón Crear Persona asociada
-    When Da clic en  Crear Persona asociada
+    When Da clic en Crear Persona asociada
     And El sistema redirecciona a la pagina de Crear Persona asociada
 
