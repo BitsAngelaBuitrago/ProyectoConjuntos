@@ -3,6 +3,7 @@ package main.Conjuntos.tasks;
 import core.Helpers.GeneralParams;
 import core.actions.ClickButtonAction;
 import core.actions.EnterTextAction;
+import core.questions.QuestionValidate;
 import cucumber.api.java.Before;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
@@ -301,8 +302,8 @@ public class CrearAgrupadorUnidadIndependiente {
 
     }
 
-    @And("^Ingresa la información en cada uno de los campos requeridos de forma correcta$")
-    public void CamposRequeridoss() {
+    @And("^Ingresa la información en los campos requeridos$")
+    public void validateinfor() {
         actor.attemptsTo(new ClickButtonAction().Execute(new GeneralParams(
                 "El usuario ingresa a la pagina de crear agrupadores",
                 "pagina de administracion de usuarios",
@@ -400,13 +401,6 @@ public class CrearAgrupadorUnidadIndependiente {
 
 ///Escenario 12
 
-     @Given("^Un usuario en la págiina de Crear Agrupador$")
-            public void pagiinaccreara() {
-                actor.attemptsTo(new ClickButtonAction().Execute(new GeneralParams(
-                        "El usuario ingresa a la pagina de crear agrupacion",
-                        "pagina de administracion de usuarios",
-                        "elemento")));
-            }
 
      @And("^Ingresa la información en cada uno de los campos requeriidos de forma correcta$")
             public void CamposForma() {
@@ -424,13 +418,17 @@ public class CrearAgrupadorUnidadIndependiente {
                         "Ingresa valor",
                         "Elemento")));
             }
-     @Then("^El sistema intenta guardar la información$")
-            public void InforSave() {
-                actor.attemptsTo(new EnterTextAction("").Execute(new GeneralParams(
-                        "El sistema presente un mensaje de confirmacion",
-                        "visualiza mensaje de confirmacion",
-                        "Elemento")));
+
+
+    @Then("^sistema guardar informacion$")
+    public void metodoGuardarInformacion() {
+        actor.should(new QuestionValidate(
+                "El sistema presente un mensaje de confirmacion").Execute(new GeneralParams(
+                "visualiza mensaje de confirmacion",
+                "Elemento")));
+
             }
+
      @And("^Se presenta un error de (.*)$")
             public void TipoError() {
                 actor.attemptsTo(new ClickButtonAction().Execute(new GeneralParams(

@@ -25,7 +25,7 @@ Feature: Un usuario ingresa a el sistema para crear usuario
       | boton cancelar                  | Esta seguro de que desea salir de la pagina Crear Usuario |
 
   Scenario Outline:   3.Cerrar el mensaje ¿Está seguro de que desea salir de la página Crear Usuario?
-    Given   Un usuario en la página de Crear Usuario
+#    Given   Un usuario en la página de Crear Usuario
     When    Selecciona una de las <opciones_mensaje> para cerrar el mensaje
     Then    El sistema debe realizar unas <acciones> dependiendo de la opción seleccionada en las <opciones_formulario>
 
@@ -41,7 +41,7 @@ Feature: Un usuario ingresa a el sistema para crear usuario
       | icono de cerrar sesion          | Boton No         |
 
   Scenario Outline:   4.No ingresar o seleccionar información en los campos requeridos
-    Given   Un esta usuario en la pagina de Crear Usuario
+#    Given   Un esta usuario en la pagina de Crear Usuario
     When    Da clic en el <campo_requerido>
     And     Da clic por fuera del campo
     Then    El sistema presenta un <mensaje> indicando que el campo es requerido
@@ -57,7 +57,7 @@ Feature: Un usuario ingresa a el sistema para crear usuario
       | Rol                      | El campo es requerido |
 
   Scenario Outline:  5.Se habilita sí o no botón de guardar
-    Given se encuentra en Crear Usuario
+#    Given se encuentra en Crear Usuario
     When  Realiza una <accion> sobre los campos
     Then El sistema presenta sí o no <habilitado> el botón de guardar
 
@@ -68,20 +68,15 @@ Feature: Un usuario ingresa a el sistema para crear usuario
       | Borra informacion en algunos campos requeridos              | no se habilita |
 
 
-  Scenario Outline:   6.Ingresar información en campo tipo Selección
-    Given    Un usuario se encuentra en la pagina de Crear Usuario
-    And      Da clic en elññ <campo>
+  Scenario:   6.Ingresar información en campo tipo Selección
+#    Given    Un usuario se encuentra en la pagina de Crear Usuario
+    And      Da clic en el1 campo
     When     Selecciona del <listado> una <opcion>
     Then     El sistema realiza las <validaciones> y la <acciones> consecuente
 
-    Examples:
-
-   #   | campo                     | listado                                                              | opcion                              |validaciones    |                                                       |         |
-   #   | Tipo de Identificación    |  CC,TI ,NIT,RC,CE                                                    | CC                                  |ninguna         |
-    #  | Rol                       |  Administrador,   Super Admin,   Residente,    Administrador recibos | Resiendente, Administrador recibos  |ninguna         |
 
   Scenario Outline:   7.Ingresar información en los campos tipo texto
-    Given       Un usuario en la pagina de Crear Usuarios
+#    Given       Un usuario en la pagina de Crear Usuarios
     And         Da clic en el <campo>
     When        Ingresa un <valor> el sistema valida las <reglas> definidas para el Campo <campo>
     Then        El sistema realiza sí o no unas <acciones>
@@ -93,7 +88,7 @@ Feature: Un usuario ingresa a el sistema para crear usuario
       | Nombres   | fabian          |
 
   Scenario Outline:   8.Ingresar información en campo numérico
-    Given    Un usuario en la pagina de Crear Usuari
+#    Given    Un usuario en la pagina de Crear Usuari
     And      Da clic en el campo numerico
     When     Ingresa un <valor> el sistema valida las <reglas> definidas para el Campo # Documento
     Then     El sistema realiza si o no unas <acciones>
@@ -104,43 +99,74 @@ Feature: Un usuario ingresa a el sistema para crear usuario
       | AB23###%&                                                |
       | 83298493849389048329084902384923809085904830958309584390 |
 
-  Scenario:   9.Enlace Tomar Foto
-    Given  ingresa a la de pagina de Crear Usuario
-    When   Da clic en tomar foto
-    Then   El sistema presenta un pop up el cual permitira tomar una foto frontal de la persona o cargarla desde el computador
-    And    El sistema carga la foto en la base de datos al dar clic en aceptar
 
-  Scenario:   10.Enlace eliminar foto
+  Scenario:   9.Enlace agregar foto
+#    Given  Un usuario en la página de Crear Usuario
+    When  Da clic en el enlace tomar foto
+    Then El sistema presenta un pop up el cual permitirá tomar una foto frontal de la persona o cargarla desde el computador.
+
+
+  Scenario:   10.Opciones Agregar Foto
+#    Given  Un usuario en la página de Crear Usuario
+    When   Da clic en el Enlace Agregar Foto
+    And   Da clic en la <opción>
+    Then  El sistema realiza la <acción>
+
+
+  Scenario:   11.Carga de Foto
+#    Given  Un usuario en la página de Crear Usuario
+    And  Agrega una Foto
+    When Sube una Foto
+    Then Se muestra un pop up de carga
+    And El botón de Guardar inhabilitado
+
+
+  Scenario:  12.Girar Foto
+#    Given Un usuario en la página de Crear Usuario
+    And Agrega una Foto
+#    And Esta cargada la foto
+    When Se da clic en el <sentido> del giro
+    Then  Se muestra la foto rotada 90 grados hacía el sentido seleccionado
+
+
+  Scenario:   13.Enlace Tomar Foto
+#    Given  ingresa a la de pagina de Crear Usuario
+    And    Esta cargada la foto
+    When   Se da clic en la foto
+    And    Se selecciona una <opción>
+    Then  Se realiza la <acción>
+
+
+  Scenario:   14.Enlace eliminar foto
 #    Given  Un usuario en la página de Crear Usuario
     And    Esta cargada la foto
     And    Se guardó
-    When   Se da clicc en la fotoo
+    When   da clic en la foto
     And    Se selecciona Eliminar Foto
     And    Selecciona la <opción>
     Then   Se realiza la <acción>
 
 
-  Scenario Outline:   11.Se habilita botón de guardar
+   Scenario:   15.Se habilita botón de guardar
 #    Given    Un usuario en la página de Administrar Usuarios
-    When     Existen <n> usuarios de De Usuarios
-    And      Se visualiza el paginador en la parte inferior de la pagina
-    And      Se da clic en <numero>
-    Then     Se mostraran los usuarios asignados por pagina
+    When Realiza una acción sobre un campo
+    Then El sistema presenta sí o no habilitado el botón de guardar
+
+
+  Scenario Outline: 16.Crear Usuario
+#  Given  Un usuario en la página de Crear Usuario
+  And  Ingresa la información en cada uno de los <campos> requeridos de forma correcta
+  When Da clic en el botón Guardar
+  Then El sistema realiza el registro de Ingreso del Usuario exitosamente y muestra el mensaje “los <registros> <ingresados> ha sido creado exitosamente”
+  And  El sistema debera realizar unas <acciones>
 
     Examples:
-      | n  | numero |
-      | 20 | 2      |
-      | 40 | 4      |
+    |campos                     |registros     | ingresados   | acciones                        |
+    |Numero de identificacion   |Registro 1    | 1023654789   | Valida que el dato no exista en base de datos|
+    |Numero de identificacion   |Registro 2    | 1023654789   | El sistema debera retornar un mensaje que diga el numero de identificacion ya existe|
 
 
-  Scenario: 12.Crear Usuario
-#  Given  Un usuario en la página de Crear Usuario
-  And   Ingresa la información en cada uno de los campos requeridos de forma correcta
-  When  Da clic en el botón Guardar
-  And   El sistema realiza el registro de Ingreso del Usuario exitosamente y muestra el mensaje “El registro de ingreso ha sido creado exitosamente”
-
-
-  Scenario:   13.Errores al seleccionar el botón guardar
+   Scenario:   17.Errores al seleccionar el botón guardar
 #     Given Un usuario en la página de Crear Usuario
      And  Ingresa la información en cada uno de los campos requeridos de forma correcta
      When Da clic en el Botón_Guardar
@@ -150,14 +176,11 @@ Feature: Un usuario ingresa a el sistema para crear usuario
      And  El sistema no debe borrar a información de los campos del formulario
 
 
-  Scenario:  14.Error 400 al seleccionar el botón guardar
+  Scenario:  18.Error 400 al seleccionar el botón guardar
 #     Given  Un usuario en la página de Unidades inmobiliarias
      And  Selecciona el botón de Crear
      And  Ingresa la información en cada uno de los campos requeridos de forma correcta
      When Da clic en el botón Guardar
-     Then El sistema intenta guardar la información
+     Then El sistema guardar la información
      And Se presenta un error de tipo 400
      And El sistema redirecciona a una página en la cual se debe información el error
-
-
-

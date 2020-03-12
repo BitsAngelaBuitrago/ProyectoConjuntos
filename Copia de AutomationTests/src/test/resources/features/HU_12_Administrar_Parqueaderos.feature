@@ -42,7 +42,7 @@ Feature: Como usuario Quiero Administrar los Parqueaderos Para iniciar su gesti�
   Scenario Outline: 3.Autocomplete de cada filtro
 #   Given Que se ejecutó el Escenarioo 2
    When Se vayann registrando <caracteres> en el <filtro>
-  Then Se debe mostrar la <lista> autocomplete de De Parqueaderos asociados al <filtro> con los valores que contengan los <caracteres> registrados actualmente
+   Then Se debe mostrar la <lista> autocomplete de De Parqueaderos asociados al <filtro> con los valores que contengan los <caracteres> registrados actualmente
 
     Examples:
     |filtro                     |
@@ -60,8 +60,8 @@ Feature: Como usuario Quiero Administrar los Parqueaderos Para iniciar su gesti�
 
   Scenario Outline: 4.Seleccionar un elemento de la lista presentada en el filtro
 #    Given Quee se ejecutó el Escenario 3
-    When  Se selecciona uun <elemento> de la <lista> presentada en el <filtro>
-    Then  Se debe mostrar el <elemento> de la <lista> seleccionado en el mismo nivel que el <filtro> con la opción (x) para quitar éste
+    When  Se selecciona uun elemento de la lista presentada en el <filtro>
+    Then  Se debe mostrar el elemento de la lista seleccionado en el mismo nivel que el <filtro> con la opcion x para quitar este
 
     Examples:
 
@@ -74,11 +74,11 @@ Feature: Como usuario Quiero Administrar los Parqueaderos Para iniciar su gesti�
     |Activa                      |
 
   Scenario Outline: 5.Realizar consulta de Parqueaderos por la opción de filtros
-    Given  Que sse ejecutó el Escenario 4
+#    Given  Que sse ejecutó el Escenario 4
     When Da clic ssobre el botón de buscar
     Then  El sistema presentaa un <resultado> que tenga la <información> del <filtro>
     And En el campo de búsquedaa se presenta la <elemento_seleccionado> que se haya seleccionaado en el filtro
-    And se deben separar por punto y coma (;) la <elemento_seleccionado> que se hayan seleccionado en más de un filtro
+    And separar por punto y coma (;) la <elemento_seleccionado> que se hayan seleccionado en mas de un filtro
 
    Examples:
 
@@ -90,36 +90,36 @@ Feature: Como usuario Quiero Administrar los Parqueaderos Para iniciar su gesti�
     |Tipo de Vehiculo                 |
     |Activo                           |
     |Agrupacion; Unidad Independiente |
-    |Agrupacion; Tipo de Vehículo     |
+    |Agrupacion; Tipo de Vehiculo     |
     |Agrupacion; Activo               |
 
 
   Scenario Outline: 6.Realizar consulta de Parqueaderos por las opciones de consulta y de filtros
-   Given Que se ejecutó el Escenario 1 (Búsqueda por consulta)
-   And  Que se ejecutó el Escenario 5 (Búsqueda por filtros)
+#   Given Que se ejecutó el Escenario 1 (Búsqueda por consulta)
+#   And  Que se ejecutó el Escenario 5 (Búsqueda por filtros)
    When  Da clic sobre el icono de buscarr
-   Then  Al ingresar más de una <palabra_clave> en el campo de consulta, éstas serán concatenadas con AND, Al seleccionar más de un registro en el mismo <filtro> se concatenarán con OR, Al ingresar la <palabra_clave> en la consulta y seleccionar los registros en uno o más filtros
+   Then  Al ingresar mas de una <palabra_clave> en el campo de consulta, estas seran concatenadas con AND, Al seleccionar mas de un registro en el mismo <filtro> se concatenaran con OR, Al ingresar la <palabra_clave> en la consulta y seleccionar los registros en uno o mas filtros
 
 
     Examples:
 
     |palabra_clave  | filtro              |
-    |Propi          | Agrupación          |
-    |Activo         | Tipo de Vehículo    |
+    |Propi          | Agrupacion          |
+    |Activo         | Tipo de Vehiculo    |
 
   Scenario Outline: 7.Visualización Tabla de Parqueaderos
-   Given  Un usuario en la página de Administrar Parqueaderos
+#   Given  Un usuario en la página de Administrar Parqueaderos
    When   Visualiza la tabla de Parqueaderos
    Then   Identifica lla columna <Columna>
 
     Examples:
 
     |Columna                 |
-    |Agrupación              |
+    |Agrupacion              |
     |Unidad Independiente    |
-    |Número de Parqueadero   |
+    |Numero de Parqueadero   |
     |Tipo de Parqueadero     |
-    |Tipo de Vehículo        |
+    |Tipo de Vehiculo        |
     |Acciones                |
 
   Scenario: 8.Elementos columna Acciones
@@ -129,7 +129,7 @@ Feature: Como usuario Quiero Administrar los Parqueaderos Para iniciar su gesti�
 
   Scenario: 9.Botón Crear Parqueadero
     Given Un usuario en la página de Administrar Parqueaderos
-    When Se cuenta con Parqueaderos por crear
+    When Se encuentra con Parqueaderos por crear
     And El botón Crear se encuentra Activo
     And Da cliic en el botón de Crearr Personaa
     Then El ssistema redirecciona al usuario a la pantalla de Crear Persona asociada a la Parqueaderos

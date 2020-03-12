@@ -1,4 +1,4 @@
-Feature: Un usuario ingresa a el sistema para crear el tipo de novedad
+Feature: Un usuario ingresa a el sistema para administrar usuarios
 
   Background: Administrar Usuarios
     Given   Un usuario ingresa a la url de la aplicación

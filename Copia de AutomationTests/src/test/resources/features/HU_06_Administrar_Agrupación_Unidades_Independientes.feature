@@ -1,4 +1,4 @@
-Feature: Como usuario Quiero administar la gestion de un agrupador
+Feature: Como usuario Quiero ingresar al sistema para administar las agrupaciónes de unidades independientes
 
   Background: Un usuario ingresa a la url de la aplicación
 #    And Ingresa las credenciales correctamente
@@ -78,23 +78,23 @@ Feature: Como usuario Quiero administar la gestion de un agrupador
     And    se deben separar por punto y como (;) la <elemento_seleccionado> que se hayan seleccionado en más de un filtro
 
     Examples:
-#      | filtro                                            | elemento seleccionado                 |resultado|
-#      |Nombre Unidad Independiente                        | Apartamento 203                       |Carga en la pantalla todos los registros de la tabla que estén relacionados o asociados con el elemento seleccionado.|
-#      |Numero Catastro                                    | 9000500                               |Carga en la pantalla todos los registros de la tabla que estén relacionados o asociados con el elemento seleccionado.|
-#      |Metros Cuadrados                                   | 59                                    |Carga en la pantalla todos los registros de la tabla que estén relacionados o asociados con el elemento seleccionado:    Apartamento 203    Apartamento 303    Apartamento 403|
-#      |Activa                                             | Apartamento 203                       |Carga en la pantalla todos los registros de la tabla que estén relacionados o asociados con el elemento seleccionado.|
-#      |Nombre y Catastro                                  | Apartamento 102; 9000500              |Carga en la pantalla todos los registros de la tabla que estén relacionados o asociados con el elemento seleccionado.|
-#      |Nombre y Catastro                                  | Apartamento 102; 9000501              |Carga en la pantalla todos los registros de la tabla que estén relacionados o asociados con el elemento seleccionado.|
-#      |Nombre, Catastro y Metros cuadrados                | Apartamento 102; 9000500; 45          |Carga en la pantalla todos los registros de la tabla que estén relacionados o asociados con el elemento seleccionado.|
-#      |Nombre, NIT, Catastro, Metros cuadrados            | Apartamento 102; 9000500; 50          |Carga en la pantalla todos los registros de la tabla que estén relacionados o asociados con el elemento seleccionado.|
-#      |Nombre, Catastro, Metros cuadrados y Activa        | Apartamento 102; 9000500; 45;         |Activa    Carga en la pantalla todos los registros de la tabla que estén relacionados o asociados con el elemento seleccionado.|
-#      |Nombre, NIT y Catastro, Metros cuadrados y Activa  | Apartamento 102; 9000500; 50; Activa  |Carga en la pantalla todos los registros de la tabla que estén relacionados o asociados con el elemento seleccionado.|
-#      |Catastro y Metros Cuadrados                        | 9000500; 45                           |Carga en la pantalla todos los registros de la tabla que estén relacionados o asociados con el elemento seleccionado.|
-#      |Catastro y Metros Cuadrados                        | 9000500; 40                           |Carga en la pantalla todos los registros de la tabla que estén relacionados o asociados con el elemento seleccionado.|
-#      |Catastro, Metros Cuadraros y Activa                | 9000500; 45; Activa                   |Carga en la pantalla todos los registros de la tabla que estén relacionados o asociados con el elemento seleccionado.|
-#      |Catastro, Metros Cuadraros y Activa                | 9000500; 50; Activa                   |Carga en la pantalla todos los registros de la tabla que estén relacionados o asociados con el elemento seleccionado.|
-#      |Metros cuadrados y Activa                          | 45; Activa                            |Carga en la pantalla todos los registros de la tabla que estén relacionados o asociados con el elemento seleccionado.|
-#      |Metros cuadrados y Activa                          | 40; Activa                            |Presenta un mensaje indicando que no hay coincidencias |
+#      | filtro                                            | elemento seleccionado                 |
+#      |Nombre Unidad Independiente                        | Apartamento 203                       |
+#      |Numero Catastro                                    | 9000500                               |
+#      |Metros Cuadrados                                   | 59                                    |
+#      |Activa                                             | Apartamento 203                       |
+#      |Nombre y Catastro                                  | Apartamento 102; 9000500              |
+#      |Nombre y Catastro                                  | Apartamento 102; 9000501              |
+#      |Nombre, Catastro y Metros cuadrados                | Apartamento 102; 9000500; 45          |
+#      |Nombre, NIT, Catastro, Metros cuadrados            | Apartamento 102; 9000500; 50          |
+#      |Nombre, Catastro, Metros cuadrados y Activa        | Apartamento 102; 9000500; 45;         |
+#      |Nombre, NIT y Catastro, Metros cuadrados y Activa  | Apartamento 102; 9000500; 50; Activa  |
+#      |Catastro y Metros Cuadrados                        | 9000500; 45                           |
+#      |Catastro y Metros Cuadrados                        | 9000500; 40                           |
+#      |Catastro, Metros Cuadraros y Activa                | 9000500; 45; Activa                   |
+#      |Catastro, Metros Cuadraros y Activa                | 9000500; 50; Activa                   |
+#      |Metros cuadrados y Activa                          | 45; Activa                            |
+#      |Metros cuadrados y Activa                          | 40; Activa                            |
 
   Scenario Outline: 6.Realizar consulta de Unidades Independientes por las opciones de consulta y de filtros
     Given Que se ejecuto el Escenario 1 (Busqueda por consulta)
@@ -105,11 +105,11 @@ Feature: Como usuario Quiero administar la gestion de un agrupador
     And El sistema presenta una lista con el <Resultado> de los registros encontrados (Nombres de Unidades Independientes) luego de aplicar la consulta y filtrado respectivo. 
 
     Examples:
-      | Palabra Clave | filtro            | Selección_filtro         | Resultado                                                                                                                                |
-      | 3543343       | nombre            | Apartamento 102          | Carga en la pantalla todos los registros de la tabla que estén relacionados o asociados con la palabra clave y el elemento seleccionado. |
-      | Apar          | NIT               | 9000500                  | Carga en la pantalla todos los registros de la tabla que estén relacionados o asociados con la palabra clave y el elemento seleccionado. |
-      | 45            | Catastro          | 8373483                  | Carga en la pantalla todos los registros de la tabla que estén relacionados o asociados con la palabra clave y el elemento seleccionado. |
-      | No existe     | Nombre y Catastro | Apartamento 102; 9000501 | Presenta un mensaje indicando que no hay coincidencias                                                                                   |
+      | Palabra Clave | filtro            | Selección_filtro         |
+      | 3543343       | nombre            | Apartamento 102          |
+      | Apar          | NIT               | 9000500                  |
+      | 45            | Catastro          | 8373483                  |
+      | No existe     | Nombre y Catastro | Apartamento 102; 9000501 |
 
 
   Scenario Outline: 7.Tabla de Unidades Independientes

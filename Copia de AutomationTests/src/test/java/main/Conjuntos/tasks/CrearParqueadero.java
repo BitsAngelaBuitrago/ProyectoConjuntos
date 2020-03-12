@@ -148,7 +148,7 @@ public class CrearParqueadero {
     }
 
     @And("^El sistema debe indicar a nivel visual que el campo es obligatorioo$")
-    public void CampoEsObligatorioo() {
+    public void campoEsObligatorioo() {
         actor.should(new QuestionValidate(
                 "El usuario selecciona una de las opciones del formulario").Execute(new GeneralParams(
                 "Selecciona opciones",
@@ -156,16 +156,17 @@ public class CrearParqueadero {
     }
        ///Escenario 5
 
-    @When("^Realiza una (.*) sobre los campos$")
-    public void Realizaunaaccion() {
+    @When("^Realiza una <clilc> sobre los campos$")
+    public void esteusuRealizaClic() {
         actor.attemptsTo(new ClickButtonAction().Execute(new GeneralParams(
-                "El usuario realiza una accion sobre un campo",
-                "Clic en campo",
+                "El usuario realiza una accion sobre los campos",
+                "Realiza una accion",
                 "Elemento")));
+
     }
 
     @Then("^El sistemaa presenta sí o no (.*) el botón de guardar$")
-    public void BotonGuardarrr() {
+    public void botonGuardarrr() {
         actor.should(new QuestionValidate(
                 "El sistema presenta el boton guardar habilitado").Execute(new GeneralParams(
                 "presenta campo",
@@ -175,7 +176,7 @@ public class CrearParqueadero {
     ///Escenario 6
 
     @And("^Daa clic en el <campo>$")
-    public void CamposE() {
+    public void camposE() {
         actor.should(new QuestionValidate(
                 "El usuario da clic en el campo").Execute(new GeneralParams(
                 "Da clic",
