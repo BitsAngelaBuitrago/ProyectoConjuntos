@@ -6,6 +6,30 @@ Feature: Como usuario Quiero crear una Unidad Inmobiliaria Para iniciar su gesti
     And Da clic en Unidades Inmobiliarias
     And Da clic en el boton Crear
 
+  Scenario: Se visualizan los elementos de la página de Crear Unidad
+    Given Da clic en Unidades Inmobiliarias
+    When Da clic en el boton Crear
+    Then El usuario visualiza el formulario de Creacion de Unidad Inmobiliaria
+    And Campo Nombre conjunto
+    And Campo Direccion/Pais
+    And Campo Direccion/Departamento
+    And Campo Direccion/Ciudad
+    And Campo Direccion
+    And Campo Nit
+    And Campo Numero catastro
+    And Campo Tipo documento
+    And Campo Numero documento representante
+    And Campo Nombre representante
+    And Campo Apellido representante
+    And Campo Telefono unidad inmobiliaria
+    And Campo Celular representante
+    And Campo Correo electronico representante
+    And Campo Numero de agrupaciones
+    And Campo Numero de unidades independientes
+    And Campo Numero de entradas a pie
+    And Campo Numero de entradas vehiculares
+    And Campo Numero de parqueaderos
+
   Scenario Outline: Salir del formulario de Creación de unidad inmobiliaria
     Given Da clic en Unidades Inmobiliarias
     And Da clic en el boton Crear

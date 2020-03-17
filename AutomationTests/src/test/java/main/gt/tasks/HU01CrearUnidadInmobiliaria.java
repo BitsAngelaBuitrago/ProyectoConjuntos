@@ -144,7 +144,7 @@ public class HU01CrearUnidadInmobiliaria {
         }
     }
 
-    @When("^Da clic en el <campo_requerido>$")
+    @When("^Da clic en el (.*)$")
     public void daClicEnElCampo_requerido(String campo_requerido) {
         switch (campo_requerido) {
             case "Nombre conjunto":
@@ -424,7 +424,7 @@ public class HU01CrearUnidadInmobiliaria {
 
     @Then("^Se muestra habilitado el boton guardar$")
     public void seMuestraHabilitadoElBotonGuardar() {
-        actor.should(seeThat(the("//p[contains(text(),'Inicio')]"), isVisible()));
+        actor.should(seeThat(the("//p[contains(text(),'Inicio')]"), isEnabled()));
     }
 
     @Then("^Visualiza el resultado esperado <resultado>$")
@@ -1181,6 +1181,106 @@ public class HU01CrearUnidadInmobiliaria {
                 "creacion exitosa",
                 "//p[contains(text(),'correo')] "
         )));
+    }
+
+    @Then("^El usuario visualiza el formulario de Creacion de Unidad Inmobiliaria$")
+    public void elUsuarioVisualizaElFormularioDeCreacionDeUnidadInmobiliaria() {
+        actor.should(seeThat(the("//p[contains(text(),'Inicio')]"), isVisible()));
+    }
+
+    @And("^Campo Nombre conjunto$")
+    public void campoNombreConjunto() {
+        actor.should(seeThat(the("//p[contains(text(),'Inicio')]"), isVisible()));
+    }
+
+    @And("^Campo Direccion/Pais$")
+    public void campoDireccionPais() {
+        actor.should(seeThat(the("//p[contains(text(),'Inicio')]"), isVisible()));
+    }
+
+    @And("^Campo Direccion/Departamento$")
+    public void campoDireccionDepartamento() {
+        actor.should(seeThat(the("//p[contains(text(),'Inicio')]"), isVisible()));
+    }
+
+    @And("^Campo Direccion/Ciudad$")
+    public void campoDireccionCiudad() {
+        actor.should(seeThat(the("//p[contains(text(),'Inicio')]"), isVisible()));
+    }
+
+    @And("^Campo Direccion$")
+    public void campoDireccion() {
+        actor.should(seeThat(the("//p[contains(text(),'Inicio')]"), isVisible()));
+    }
+
+    @And("^Campo Nit$")
+    public void campoNit() {
+        actor.should(seeThat(the("//p[contains(text(),'Inicio')]"), isVisible()));
+    }
+
+    @And("^Campo Numero catastro$")
+    public void campoNumeroCatastro() {
+        actor.should(seeThat(the("//p[contains(text(),'Inicio')]"), isVisible()));
+    }
+
+    @And("^Campo Tipo documento$")
+    public void campoTipoDocumento() {
+        actor.should(seeThat(the("//p[contains(text(),'Inicio')]"), isVisible()));
+    }
+
+    @And("^Campo Numero documento representante$")
+    public void campoNumeroDocumentoRepresentante() {
+        actor.should(seeThat(the("//p[contains(text(),'Inicio')]"), isVisible()));
+    }
+
+    @And("^Campo Nombre representante$")
+    public void campoNombreRepresentante() {
+        actor.should(seeThat(the("//p[contains(text(),'Inicio')]"), isVisible()));
+    }
+
+    @And("^Campo Apellido representante$")
+    public void campoApellidoRepresentante() {
+        actor.should(seeThat(the("//p[contains(text(),'Inicio')]"), isVisible()));
+    }
+
+    @And("^Campo Telefono unidad inmobiliaria$")
+    public void campoTelefonoUnidadInmobiliaria() {
+        actor.should(seeThat(the("//p[contains(text(),'Inicio')]"), isVisible()));
+    }
+
+    @And("^Campo Celular representante$")
+    public void campoCelularRepresentante() {
+        actor.should(seeThat(the("//p[contains(text(),'Inicio')]"), isVisible()));
+    }
+
+    @And("^Campo Correo electronico representante$")
+    public void campoCorreoElectronicoRepresentante() {
+        actor.should(seeThat(the("//p[contains(text(),'Inicio')]"), isVisible()));
+    }
+
+    @And("^Campo Numero de agrupaciones$")
+    public void campoNumeroDeAgrupaciones() {
+        actor.should(seeThat(the("//p[contains(text(),'Inicio')]"), isVisible()));
+    }
+
+    @And("^Campo Numero de unidades independientes$")
+    public void campoNumeroDeUnidadesIndependientes() {
+        actor.should(seeThat(the("//p[contains(text(),'Inicio')]"), isVisible()));
+    }
+
+    @And("^Campo Numero de entradas a pie$")
+    public void campoNumeroDeEntradasAPie() {
+        actor.should(seeThat(the("//p[contains(text(),'Inicio')]"), isVisible()));
+    }
+
+    @And("^Campo Numero de entradas vehiculares$")
+    public void campoNumeroDeEntradasVehiculares() {
+        actor.should(seeThat(the("//p[contains(text(),'Inicio')]"), isVisible()));
+    }
+
+    @And("^Campo Numero de parqueaderos$")
+    public void campoNumeroDeParqueaderos() {
+        actor.should(seeThat(the("//p[contains(text(),'Inicio')]"), isVisible()));
     }
 }
 

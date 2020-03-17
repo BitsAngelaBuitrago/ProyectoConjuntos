@@ -90,6 +90,7 @@ public class HU09CrearPersonaAsociada {
 
     @And("^Ruta de navegacion$")
     public void rutaDeNavegacion() {
+
         actor.should(seeThat(the("//p[contains(text(),'Inicio')]"), isVisible()));
     }
 
