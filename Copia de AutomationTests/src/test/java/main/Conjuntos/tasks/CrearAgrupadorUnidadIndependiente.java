@@ -10,507 +10,399 @@ import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import net.serenitybdd.screenplay.Actor;
+import net.serenitybdd.screenplay.QuestionConsequence;
+import net.serenitybdd.screenplay.abilities.BrowseTheWeb;
+import net.serenitybdd.screenplay.actions.Switch;
+import net.thucydides.core.annotations.Managed;
+import org.openqa.selenium.WebDriver;
+import core.actions.OpenUrlAction;
+import core.Helpers.GeneralParams;
+import core.actions.ClickButtonAction;
+import core.actions.EnterTextAction;
+import core.questions.QuestionValidate;
+import cucumber.api.java.en.And;
+import cucumber.api.java.en.Given;
+import cucumber.api.java.en.Then;
+import cucumber.api.java.en.When;
+import net.serenitybdd.screenplay.Actor;
 import net.serenitybdd.screenplay.abilities.BrowseTheWeb;
 import net.thucydides.core.annotations.Managed;
 import org.openqa.selenium.WebDriver;
+import static net.serenitybdd.screenplay.matchers.WebElementStateMatchers.*;
+import static net.serenitybdd.screenplay.questions.WebElementQuestion.the;
+import static net.serenitybdd.screenplay.GivenWhenThen.seeThat;
+
 public class CrearAgrupadorUnidadIndependiente {
 
     Actor actor;
     @Managed
     WebDriver navegador;
 
-    @Before
-    public void ingresar() {
-        actor = Actor.named("actor");
+    //Escenario 1
+
+    @Given("^Que usuario ingresa a la pagina de inicio$")
+    public void ingresarAUrl() {
+        actor = Actor.named("usuario");
         actor.can(BrowseTheWeb.with(navegador)); //Abrir navegador
+        actor.has(new OpenUrlAction().Execute(new GeneralParams(
+                "http://selfcarecvgt-stg-gt.tigocloud.net/")));
     }
-//Escenario 1
+
+    @When("^Inicia sesión con un usuario$")
+    public void iniciaSesiónConUnUsuario() {
+        actor.attemptsTo(new ClickButtonAction().Execute(new GeneralParams(
+                "El usuario da clic en iniciar sesion",
+                "Clic en iniciar sesion",
+                "Elemento")));
+
+        actor.attemptsTo(new EnterTextAction("angela").Execute(new GeneralParams(
+                "El usuario hace clic en el campo",
+                "Hace clic",
+                "Elemento")));
+
+        actor.attemptsTo(new EnterTextAction("Contraseña").Execute(new GeneralParams(
+                "El usuario ingresa contraseña en el campo",
+                "Ingresa contraseña",
+                "Elemento")));
+
+        actor.attemptsTo(new ClickButtonAction().Execute(new GeneralParams(
+                "EL usuario da clic en aceptar",
+                "Clic en aceptar",
+                "Elemento")));
+    }
+
+    @Then("^El sistema presenta la ventana emergente de Selector$")
+    public void elSistemaPresentaLaVentanaEmergenteDeSelector() {
+        actor.should(seeThat(the("/button[@name='action']"), isVisible()));
+    }
+
+    @And("^Da clic sobre la Unidad Inmobiliaria deseada$")
+    public void daClicSobreLaUnidadInmobiliariaDeseada() {
+        actor.attemptsTo(new ClickButtonAction().Execute(new GeneralParams(
+                "El usuario da clic en la unidad inmobiliaria",
+                "Hace clic en unidad inmobiliaria",
+                "Elemento")));
+    }
+
+    //Escenario 1
 
     @Given("^Un usuario en la pagina de Unidades inmobiliarias$")
-    public void unidadesin() {
+    public void unUsuarioEnLaPaginaDeUnidadesInmobiliarias() {
+        actor.should(new QuestionValidate("UnidadInmobiliaria").Execute(new GeneralParams(
+                "El sistema valida que se encuentre en la pagina de unidad independiente",
+                "El sistema valida",
+                "Elemento")));
+    }
+
+    @When("^Usuario da clic en el boton crear$")
+    public void usuarioDaClicEnElBotonCrear() {
         actor.attemptsTo(new ClickButtonAction().Execute(new GeneralParams(
-                "El usuario ingresa a la pagina de unidades indepoendientes",
-                "pagina de administracion de usuarios",
-                "elemento")));
-    }
-
-    @When("^Sselecciona el botón de Crear$")
-    public void sscrear() {
-        actor.attemptsTo(new ClickButtonAction().Execute(new GeneralParams(
-                "Selecciona el botoncrearr",
-                "botoncrear",
+                "El usuario da clic en el boton crear",
+                "Clic en crear",
                 "Elemento")));
     }
 
-    @Then("^El sistema presenta un formulario “Crear Agrupador”$")
-    public void Agrupador() {
-        actor.attemptsTo(new EnterTextAction("").Execute(new GeneralParams(
-                "El sistema presenta formulario",
-                "visualiza formulario",
-                "Elemento")));
-
+    @Then("^El sistema presenta formulario Crear Agrupador$")
+    public void elSistemaPresentaFormularioCrearAgrupador() {
+        actor.should(seeThat(the("Elemento del formulario"), isVisible()));
     }
 
-    @And("^El boton de guardar bloqueadoo$")
-    public void Botonbloquea() {
-        actor.attemptsTo(new EnterTextAction("").Execute(new GeneralParams(
-                "El usuario da clic en cada filtro",
-                "Da clic en filtro",
-                "Elemento")));
+    @And("^el usuario voisualiza la ruta de navegacion$")
+    public void elUsuarioVoisualizaLaRutaDeNavegacion() {
+        actor.should(seeThat(the("URLpagina"), isVisible()));
     }
 
-//Escenario 2
+    @And("^campo nombre agrupador$")
+    public void campoNombreAgrupador() {
+        actor.should(seeThat(the("Nombre de agrupador "), isVisible()));
+    }
 
+    @And("^campo numero de unidades independientes$")
+    public void campoNumeroDeUnidadesIndependientes() {
+        actor.should(seeThat(the("Numero de unidades independientes"), isVisible()));
+    }
+
+    @And("^boton de guardar bloqueado$")
+    public void botonDeGuardarBloqueado() {
+        actor.should(seeThat(the("Boton crear"), isNotVisible()));
+    }
+
+    //Escenario 2
 
     @Given("^Un usuario en la pagina de Crear Agrupador$")
-    public void crearagru() {
-        actor.attemptsTo(new ClickButtonAction().Execute(new GeneralParams(
-                "El usuario ingresa a la pagina de crear agrupadores",
-                "pagina de administracion de usuarios",
-                "elemento")));
-    }
-
-    @When("^Selecciona una de las (.*) para salir de formulario de crear agrupador$")
-    public void ssalirformulario() {
-        actor.attemptsTo(new ClickButtonAction().Execute(new GeneralParams(
-                "hace clic en una de las opciones del formulario",
-                "Opciones formulario",
+    public void unUsuarioEnLaPaginaDeCrearAgrupador() {
+        actor.should(new QuestionValidate("Crear agrupador").Execute(new GeneralParams(
+                "El sistema validar que se encuentre en la pagina de crear agrupador",
+                "El sistema valida que sencuentre en la pagina crear agrupador",
                 "Elemento")));
     }
 
-    @Then("^El sistema presenta un (.*) junto con los botones Si y no$")
-    public void SioNo() {
-        actor.attemptsTo(new EnterTextAction("").Execute(new GeneralParams(
-                "El sistema presente un mensaje de confirmacion",
-                "visualiza mensaje de confirmacion",
+    @When("^Selecciona una (.*) para salir de formulario$")
+    public void seleccionaUnaOpcionParaSalirDeFormularioDeCrearAgrupador(String Opcion) {
+        switch (Opcion) {
+            case "Parqueaderos":
+                actor.attemptsTo(new ClickButtonAction().Execute(new GeneralParams(
+                        "El usuario da clic en la opcion parqueadero",
+                        "Clic en crear parqueadero",
+                        "Elemento")));
+                break;
+            case "Unidades independientes":
+                actor.attemptsTo(new ClickButtonAction().Execute(new GeneralParams(
+                        "El usuario da clic en la opcion unidades independientes",
+                        "Clic en la opcion unidades inpedendientes ",
+                        "Elemento")));
+                break;
+            case "Cerrar sesion":
+                actor.attemptsTo(new ClickButtonAction().Execute(new GeneralParams(
+                        "El usuario da clic en la opcion cerrar sesion",
+                        "Clic en la opcion cerrar sesion",
+                        "Elemento")));
+
+                break;
+        }
+    }
+
+    @Then("^El sistema presenta pop up de confirmacion de salida$")
+    public void elSistemaPresentaPopUpDeConfirmacionDeSalida() {
+        actor.should(seeThat(the("Elemento"), isVisible()));
+    }
+
+    @And("^El sistema presenta mensaje junto con los botones Si y no$")
+    public void elSistemaPresentaMensajeJuntoConLosBotonesSiYNo() {
+        actor.should(new QuestionValidate("Desea salir de la pagina").Execute(new GeneralParams(
+                "El sistema deberia validar que se presente un mensaje de confirmacion",
+                "El sistema presenta mensaje",
                 "Elemento")));
+        actor.should(seeThat(the("Si"), isVisible()));
+        actor.should(seeThat(the("No"), isVisible()));
+    }
+
+    @And("^opcion cerrar mensaje$")
+    public void opcionCerrarMensaje() {
+        actor.should(seeThat(the("cerrar mensaje"), isVisible()));
+    }
+
+
+    @When("^Selecciona una (.*) para cerrar el mensaje$")
+    public void seleccionaUnaOpciones_mensajeParaCerrarElMensaje(String Opciones_mensaje) {
+        switch (Opciones_mensaje) {
+            case "Si":
+                actor.attemptsTo(new ClickButtonAction().Execute(new GeneralParams(
+                        "El usuario da clilc en la opcion si",
+                        "Hace clic en si",
+                        "Elemento")));
+                break;
+            case "No":
+                actor.attemptsTo(new ClickButtonAction().Execute(new GeneralParams(
+                        "El usuario da clilc en la opcion no",
+                        "Hace clic en no",
+                        "Elemento")));
+                break;
+            case "Icono x":
+                actor.attemptsTo(new ClickButtonAction().Execute(new GeneralParams(
+                        "El usuario da clic en el icono x",
+                        "Hace clic en icono x",
+                        "Elemento")));
+
+                break;
+        }
 
     }
 
-    @And("^La (.*) cerrar mensaje$")
-    public void OpcionC() {
-        actor.attemptsTo(new EnterTextAction("").Execute(new GeneralParams(
-                "El usuario da clic en la opcion cerrar mensaje",
-                "hace clic en cerrar",
-                "Elemento")));
-
+    @Then("^El sistema debe realiza (.*) dependiendo de la opción seleccionada$")
+    public void elSistemaDebeRealizaAccionesDependiendoDeLaOpciónSeleccionada(String acciones) {
+        switch (acciones) {
+            case "Pagina de parqueaderos":
+                actor.should(new QuestionValidate("PAgina de parqueaderos").Execute(new GeneralParams(
+                        "El sistema debera direccionar al usuario a la pagina de parqueaderos",
+                        "redirecciona pagina de inicio",
+                        "Elemento")));
+                break;
+            case "unidades inmobiliarias":
+                actor.should(new QuestionValidate("Pagina de unidades inmobiliarias").Execute(new GeneralParams(
+                        "El sistema debera direccionar al usuario a la pagina de unidades inmobiliarias",
+                        "redirecciona pagina de unidades",
+                        "Elemento")));
+                break;
+            case "unidades Iconoo de cerar sesion":
+                actor.should(new QuestionValidate("Pagina de  unidades inmobiliarias").Execute(new GeneralParams(
+                        "El sistema debera direccionar al usuario a la pagina de unidades inmobiliarias",
+                        "redirecciona pagina de unidades",
+                        "Elemento")));
+                break;
+        }
     }
 
-////ESCENARIO 3
+    @When("^Da clic en (.*)$")
+    public void daClicEnCampo_requerido(String campo) {
+       switch (campo){
+            case"Nombre agrupador":
+                actor.attemptsTo(new ClickButtonAction().Execute(new GeneralParams(
+                        "El usuario da clic en el campo agrupador",
+                        "Da clic",
+                        "Elemento")));
+                break;
+            case "numero de Unidades Independientes":
+                actor.attemptsTo(new ClickButtonAction().Execute(new GeneralParams(
+                        "El usuario da clic en el campo numero de unidades independientes",
+                        "Da clic",
+                        "Elemento")));
+                break;
 
-
-    @Given("^Un usuario en la pagina de Crear agrupadores$")
-    public void paginaagru() {
-        actor.attemptsTo(new ClickButtonAction().Execute(new GeneralParams(
-                "El usuario ingresa a la pagina de crear agrupadores",
-                "pagina de administracion de usuarios",
-                "elemento")));
+        }
     }
-
-    @And("^Sellecciona una de las (.*) para salir del formulario$")
-    public void Salirformula() {
-        actor.attemptsTo(new ClickButtonAction().Execute(new GeneralParams(
-                "El usuario ingresa a la pagina de crear agrupadores",
-                "pagina de administracion de usuarios",
-                "elemento")));
-
-    }
-
-    @When("^Sellecciona una de las (.*) para cerrar el mensaje$")
-    public void cerrarmensajee() {
-        actor.attemptsTo(new ClickButtonAction().Execute(new GeneralParams(
-                "hace clic en una de las opciones del formulario",
-                "Opciones formulario",
-                "Elemento")));
-    }
-
-    @Then("^El sistema debe realizar un <acciones> dependiendo de la opción seleccionada$")
-    public void deberealizaracciones() {
-        actor.attemptsTo(new EnterTextAction("").Execute(new GeneralParams(
-                "El sistema presente un mensaje de confirmacion",
-                "visualiza mensaje de confirmacion",
-                "Elemento")));
-
-
-    }
-////ESCENARIO 4
-
-
-    @Given("^Un usuario en la pagina de Crearr Agrupador$")
-    public void paginaagr() {
-        actor.attemptsTo(new ClickButtonAction().Execute(new GeneralParams(
-                "El usuario ingresa a la pagina de crear agrupadores",
-                "pagina de administracion de usuarios",
-                "elemento")));
-
-    }
-
-    @When("^Da clicc en el <campo_requerido>$")
-    public void MensajeOpciones() {
-        actor.attemptsTo(new ClickButtonAction().Execute(new GeneralParams(
-                "hace clic en una de las opciones del formulario",
-                "Opciones formulario",
-                "Elemento")));
-    }
-
     @And("^da clic por fuera del campo$")
-    public void fueradelcampo() {
-        actor.attemptsTo(new ClickButtonAction().Execute(new GeneralParams(
-                "El usuario ingresa a la pagina de crear agrupadores",
-                "pagina de administracion de usuarios",
-                "elemento")));
-    }
+    public void daClicPorFueraDelCampo() {
+            actor.attemptsTo(new ClickButtonAction().Execute(new GeneralParams(
+                    "El usuario hace clic por fuera del campo",
+                    "Hace clic por fuera del campo",
+                    "Elemento")));
+            }
 
-    @Then("^El siistema presenta un (.*) indicando que el campo es requerido$")
-    public void RealizarAcciones() {
-        actor.attemptsTo(new EnterTextAction("").Execute(new GeneralParams(
-                "El sistema presente un mensaje de confirmacion",
-                "visualiza mensaje de confirmacion",
-                "Elemento")));
-    }
+    @Then("^El sistema presenta mensaje indicando que el campo es requerido$")
+    public void elSistemaPresentaMensajeIndicandoQueElCampoEsRequerido() {
+            actor.should(new QuestionValidate("Este campo es requerido").Execute(new GeneralParams(
+                    "El sistema debera direccionar al usuario a la pagina de unidades inmobiliarias",
+                    "redirecciona pagina de unidades",
+                    "Elemento")));
+        }
+
 
     @And("^El sistema debera indicar a nivel visual que el campo es obligatorio$")
-    public void SelleccionaAgru() {
-        actor.attemptsTo(new ClickButtonAction().Execute(new GeneralParams(
-                "El usuario ingresa a la pagina de crear agrupadores",
-                "pagina de administracion de usuarios",
-                "elemento")));
+    public void elSistemaDeberaIndicarANivelVisualQueElCampoEsObligatorio() {
+        actor.should(seeThat(the("El campo es requerido"), isVisible()));
     }
 
-////ESCENARIO 5
+    //Escenario 5
 
-    @Given("^Un usuario en la pagina de Crear Agrupadorr$")
-    public void seencuentraenlapagi() {
-        actor.attemptsTo(new ClickButtonAction().Execute(new GeneralParams(
-                "El usuario ingresa a la pagina de crear agrupadores",
-                "pagina de administracion de usuarios",
-                "elemento")));
 
-    }
-
-    @When("^Realizar una (.*) sobre los campos$")
-    public void aaccioncampos() {
-        actor.attemptsTo(new ClickButtonAction().Execute(new GeneralParams(
-                "hace clic en una de las opciones del formulario",
-                "Opciones formulario",
+    @When("^ingresa al campo (.*) agrupacion$")
+    public void ingresaAlCampoNombreAgrupación(String nombre) {
+        actor.attemptsTo(new EnterTextAction(nombre).Execute(new GeneralParams(
+                "El usuario ingresa el nombre de la agrupación",
+                "Ingresa nombre de agrupación",
                 "Elemento")));
-    }
+        }
 
-    @Then("^sistema presenta sí o no (.*) el boton de guardar$")
-    public void habilitado() {
-        actor.attemptsTo(new EnterTextAction("").Execute(new GeneralParams(
-                "El sistema presente un mensaje de confirmacion",
-                "visualiza mensaje de confirmacion",
+    @And("^ingresa al campo (.*) de unidades$")
+    public void ingresaAlCampoNumeroDeUnidades(String numero) {
+        actor.attemptsTo(new EnterTextAction(numero).Execute(new GeneralParams(
+                "El usuario ingresa el numero de unidad independiente",
+                "Ingresa numero de unidad independiente",
                 "Elemento")));
-    }
-
-////ESCENARIO 6
-
-    @Given("^Un usuario en la pagina de Crearr Agrupadorr$")
-    public void seencuent() {
-        actor.attemptsTo(new ClickButtonAction().Execute(new GeneralParams(
-                "El usuario ingresa a la pagina de crear agrupacion",
-                "pagina de administracion de usuarios",
-                "elemento")));
 
     }
 
-    @When("^Ingresa un (.*) de (.*) con unas (.*) definidas para el (.*)$")
-    public void ingresapalabrascl() {
-        actor.attemptsTo(new ClickButtonAction().Execute(new GeneralParams(
-                "El uaurio ingresa un tipo de valor",
-                "Ingresa valor",
+    @Then("^sistema presenta (.*) el boton de guardar$")
+    public void sistemaPresentaHabilitadoElBotonDeGuardar() {
+        actor.should(seeThat(the("Habilitado boton"), isVisible()));
+    }
+
+
+    @When("^Ingresa un (.*) para el campo numero de unidades independientes$")
+    public void ingresaUnValorParaElCampoNumeroDeUnidadesIndependientes(String valor) {
+        actor.attemptsTo(new EnterTextAction(valor).Execute(new GeneralParams(
+                "El usuario ingresa un valor en numero de unidad independiente",
+                "Ingresa un valor en numero de unidad independiente",
                 "Elemento")));
+
     }
 
-    @Then("^Ell sistema realiza si o no unas (.*)$")
-    public void habilitadosno() {
-        actor.attemptsTo(new EnterTextAction("").Execute(new GeneralParams(
-                "El sistema presente un mensaje de confirmacion",
-                "visualiza mensaje de confirmacion",
-                "Elemento")));
-    }
-////ESCENARIO 7
+    @Then("^El sistema muestra el (.*)$")
+    public void elSistemaMuestraElResultado(String resultado) {
+    actor.should(new QuestionValidate(resultado).Execute(new GeneralParams(
+            "El sistema debera validar el resultado ingresado en el campo",
+            "valida el resultado",
+            "Elemento")));
 
-    @Given("^Un usuario en la página de Crear Agrupador$")
-    public void AgrupadorC() {
-        actor.attemptsTo(new ClickButtonAction().Execute(new GeneralParams(
-                "El usuario ingresa a la pagina de crear agrupacion",
-                "pagina de administracion de usuarios",
-                "elemento")));
+    }
+
+    @And("^muestra un mensaje en caso de que el usuario ingrese letras en el campo$")
+    public void muestraUnMensajeEnCasoDeQueElUsuarioIngreseLetrasEnElCampo() {
+        actor.should(seeThat(the("En este campo solo puede ingresar numeros"), isVisible()));
     }
 
     @And("^el usuario Da clic en el campo Nombre Agrupador$")
-    public void NombreCampo() {
+    public void elUsuarioDaClicEnElCampoNombreAgrupador() {
         actor.attemptsTo(new ClickButtonAction().Execute(new GeneralParams(
-                "El usuario ingresa a la pagina de crear agrupadores",
-                "pagina de administracion de usuarios",
-                "elemento")));
+                "El usuario da clic en el campo agrupador",
+                "Clic en el campo agrupador",
+                "Elemento")));
+
     }
 
-    @When("^Ingressa un (.*) de (.*) con unas (.*) definidas para el (.*)$")
-    public void Ingresapalabrass() {
-        actor.attemptsTo(new ClickButtonAction().Execute(new GeneralParams(
-                "El uaurio ingresa un tipo de valor",
-                "Ingresa valor",
+    @When("^Ingresa un (.*) para el campo nombre de agrupador$")
+    public void ingresaUnValorParaElCampoNombreDeAgrupador(String valor) {
+        actor.attemptsTo(new EnterTextAction(valor).Execute(new GeneralParams(
+                "El usuario ingresa un valor en el campo",
+                "ingresa un valor",
                 "Elemento")));
     }
 
-    @Then("^El sistema realiza unas (.*)$")
-    public void Validacionescm() {
-        actor.attemptsTo(new EnterTextAction("").Execute(new GeneralParams(
-                "El sistema presente un mensaje de confirmacion",
-                "visualiza mensaje de confirmacion",
+    @Then("^El sistema muestra (.*)$")
+    public void elSistemaMuestraResultado(String resultado) {
+        actor.should(new QuestionValidate(resultado).Execute(new GeneralParams(
+                "El sistema debera mostar el resultado del campo",
+                "Muestra resultado",
                 "Elemento")));
     }
 
-/// Escenario 8
-
-    @Given("^Un usuario en la página de Crear Agrupadores$")
-    public void agrupp() {
-        actor.attemptsTo(new ClickButtonAction().Execute(new GeneralParams(
-                "El usuario ingresa a la pagina de crear agrupacion",
-                "pagina de administracion de usuarios",
-                "elemento")));
+    @When("^ingresa al campo (.*) agrupacion$")
+    public void ingresaAlCampoNombreAgrupacion(String nombre) {
+        actor.attemptsTo(new EnterTextAction(nombre).Execute(new GeneralParams(
+                "El usuario ingresa nombre del agrupador",
+                "Ingresa nombre",
+                "Elemento")));
 
     }
 
-    @When("^Realiza una (.*) sobre un (.*)$")
-    public void seleccionarna() {
-        actor.attemptsTo(new ClickButtonAction().Execute(new GeneralParams(
-                "El uaurio ingresa un tipo de valor",
-                "Ingresa valor",
+    @And("^Ingresa (.*) para el campo nombre de agrupador$")
+    public void ingresaNumeroParaElCampoNombreDeAgrupador(String numero) {
+        actor.attemptsTo(new EnterTextAction(numero).Execute(new GeneralParams(
+                "El usuario ingresa nombre del agrupador",
+                "Ingresa nombre",
                 "Elemento")));
     }
 
-    @Then("^El sistema presenta si o no (.*) el botón de guardar$")
-    public void Cliii() {
-        actor.attemptsTo(new EnterTextAction("").Execute(new GeneralParams(
-                "El sistema presente un mensaje de confirmacion",
-                "visualiza mensaje de confirmacion",
-                "Elemento")));
-    }
-/// Escenario 9
-
-
-    @Given("^Un usuario en la página de Crear Agrrupador$")
-    public void Unagrrupador() {
+    @And("^da clic en boton guardar$")
+    public void daClicEnBotonGuardar() {
         actor.attemptsTo(new ClickButtonAction().Execute(new GeneralParams(
-                "El usuario ingresa a la pagina de crear agrupacion",
-                "pagina de administracion de usuarios",
-                "elemento")));
-
-    }
-
-    @And("^Ingresa la información en los campos requeridos$")
-    public void validateinfor() {
-        actor.attemptsTo(new ClickButtonAction().Execute(new GeneralParams(
-                "El usuario ingresa a la pagina de crear agrupadores",
-                "pagina de administracion de usuarios",
-                "elemento")));
-
-    }
-
-    @When("^Da cliic en el botón Guardar$")
-    public void Guardoo() {
-        actor.attemptsTo(new ClickButtonAction().Execute(new GeneralParams(
-                "El uaurio ingresa un tipo de valor",
-                "Ingresa valor",
+                "El usuario ingresa numero de unidades independientes",
+                "Ingresa numero de unidades independientes",
                 "Elemento")));
     }
 
-    @Then("^El siistema realiza unas (.*) en los (.*) enviados$")
-    public void realizacamposEnviadooo() {
-        actor.attemptsTo(new EnterTextAction("").Execute(new GeneralParams(
-                "El sistema presente un mensaje de confirmacion",
-                "visualiza mensaje de confirmacion",
-                "Elemento")));
-    }
-
-/// Escenario 10
-
-    @Given("^Se envía un (.*) para un (.*) de (.*)$")
-    public void TipoVal() {
-        actor.attemptsTo(new ClickButtonAction().Execute(new GeneralParams(
-                "El usuario ingresa a la pagina de crear agrupacion",
-                "pagina de administracion de usuarios",
-                "elemento")));
-    }
-
-    @When("^Se envía la petición al servicio web$")
-    public void Wenpeticion() {
-        actor.attemptsTo(new ClickButtonAction().Execute(new GeneralParams(
-                "El uaurio ingresa un tipo de valor",
-                "Ingresa valor",
-                "Elemento")));
-    }
-
-    @Then("^El sistema realiza uunas (.*) en los campos enviados$")
-    public void Validacelemento() {
-        actor.attemptsTo(new EnterTextAction("").Execute(new GeneralParams(
-                "El sistema presente un mensaje de confirmacion",
-                "visualiza mensaje de confirmacion",
-                "Elemento")));
-    }
-
-    @And("^El sistema presenta un <resultado>$")
-    public void PresentaRes() {
-        actor.attemptsTo(new ClickButtonAction().Execute(new GeneralParams(
-                "El usuario ingresa a la pagina de crear agrupadores",
-                "pagina de administracion de usuarios",
-                "elemento")));
-    }
-
-
-
- ///Escenario 11
-
-     @Given("^Se enviía un (.*) para un (.*) de (.*)$")
-        public void Envia() {
-            actor.attemptsTo(new ClickButtonAction().Execute(new GeneralParams(
-                    "El usuario ingresa a la pagina de crear agrupacion",
-                    "pagina de administracion de usuarios",
-                    "elemento")));
-        }
-
-     @When("^See envía la petición al servicio web$")
-        public void Webservices() {
-            actor.attemptsTo(new ClickButtonAction().Execute(new GeneralParams(
-                    "El uaurio ingresa un tipo de valor",
-                    "Ingresa valor",
-                    "Elemento")));
-        }
-
-     @Then("^El siistema realiza unas (.*) en los campos enviiados$")
-        public void EnviadosSistema() {
-            actor.attemptsTo(new EnterTextAction("").Execute(new GeneralParams(
-                    "El sistema presente un mensaje de confirmacion",
-                    "visualiza mensaje de confirmacion",
-                    "Elemento")));
-        }
-
-     @And("^El siistema presenta un (.*)$")
-        public void Siistema() {
-            actor.attemptsTo(new ClickButtonAction().Execute(new GeneralParams(
-                    "El usuario ingresa a la pagina de crear agrupadores",
-                    "pagina de administracion de usuarios",
+    @Then("^sistema presenta el mensaje$")
+    public void sistemaPresentaElMensaje() {
+            actor.should(new QuestionValidate("Error").Execute(new GeneralParams(
+                    "El sistema debera validar el tipo de error que presenta el sistema ",
+                    "presena el sistema",
                     "Elemento")));
 
-        }
+ }
 
-
-///Escenario 12
-
-
-     @And("^Ingresa la información en cada uno de los campos requeriidos de forma correcta$")
-            public void CamposForma() {
-                actor.attemptsTo(new ClickButtonAction().Execute(new GeneralParams(
-                        "El usuario ingresa a la pagina de crear agrupadores",
-                        "pagina de administracion de usuarios",
-                        "elemento")));
-
-            }
-
-     @When("^Da clic en ell botón Guardar$")
-           public void EllGuardar() {
-                actor.attemptsTo(new ClickButtonAction().Execute(new GeneralParams(
-                        "El uaurio ingresa un tipo de valor",
-                        "Ingresa valor",
-                        "Elemento")));
-            }
-
-
-    @Then("^sistema guardar informacion$")
-    public void metodoGuardarInformacion() {
-        actor.should(new QuestionValidate(
-                "El sistema presente un mensaje de confirmacion").Execute(new GeneralParams(
-                "visualiza mensaje de confirmacion",
+    @Then("^El sistema presenta un (.*)$")
+    public void elSistemaPresentaUnTipo_de_error(String tiopodeerror) {
+        actor.should(new QuestionValidate(tiopodeerror).Execute(new GeneralParams(
+                "El sistema debera validar el tipo de error que presenta el sistema ",
+                "presena el sistema",
                 "Elemento")));
+    }
 
-            }
+    @And("^presenta un (.*)$")
+    public void presentaUnMensaje(String tipodeerror) {
+            actor.should(new QuestionValidate(tipodeerror).Execute(new GeneralParams(
+                    "El sistema debera validar el tipo de error que presenta el sistema ",
+                    "presena el sistema",
+                    "Elemento")));
 
-     @And("^Se presenta un error de (.*)$")
-            public void TipoError() {
-                actor.attemptsTo(new ClickButtonAction().Execute(new GeneralParams(
-                        "El usuario ingresa a la pagina de crear agrupadores",
-                        "pagina de administracion de usuarios",
-                        "elemento")));
-            }
+    }
 
-     @And("^El sistema presenta un (.*)$")
-            public void pantallapresent() {
-                actor.attemptsTo(new ClickButtonAction().Execute(new GeneralParams(
-                        "El usuario ingresa a la pagina de crear agrupadores",
-                        "pagina de administracion de usuarios",
-                        "elemento")));
-
-            }
-      @And("^El sistema no debe borrar a información de los campos del formulario$")
-                public void BorraInformacioncampos() {
-          actor.attemptsTo(new ClickButtonAction().Execute(new GeneralParams(
-                  "El usuario ingresa a la pagina de crear agrupadores",
-                  "pagina de administracion de usuarios",
-                  "elemento")));
-
-      }
-
-
-      ///Escenario 13
-
-          @Given("^Un usuario en la página de Unidades inmobiliarias$")
-          public void unidadinmobiliaria() {
-              actor.attemptsTo(new ClickButtonAction().Execute(new GeneralParams(
-                      "El usuario ingresa a la pagina de crear agrupacion",
-                      "pagina de administracion de usuarios",
-                      "elemento")));
-          }
-
-         @And("^Seleccionaa el botón de Crearr$")
-         public void Bbotoncrear() {
-             actor.attemptsTo(new ClickButtonAction().Execute(new GeneralParams(
-                     "El usuario ingresa a la pagina de crear agrupadores",
-                     "pagina de administracion de usuarios",
-                     "elemento")));
-         }
-
-          @And("^Ingresa lla información en cada uno de los campos requeridos de forma correcta$")
-          public void Cadaunodeloscamposrequeridos() {
-              actor.attemptsTo(new ClickButtonAction().Execute(new GeneralParams(
-                      "El usuario ingresa a la pagina de crear agrupadores",
-                      "pagina de administracion de usuarios",
-                      "elemento")));
-          }
-
-          @When("^Da cliic en el botón Guardarr$")
-          public void GuardarCClic() {
-              actor.attemptsTo(new ClickButtonAction().Execute(new GeneralParams(
-                      "El uaurio ingresa un tipo de valor",
-                      "Ingresa valor",
-                      "Elemento")));
-          }
-
-          @Then("^El sistema iintenta guardar la información$")
-          public void IIntentaguardarlainfo() {
-              actor.attemptsTo(new EnterTextAction("").Execute(new GeneralParams(
-                      "El sistema presente un mensaje de confirmacion",
-                      "visualiza mensaje de confirmacion",
-                      "Elemento")));
-          }
-
-          @And("^Se prresenta un error de tiipo 400$")
-          public void Tipo400() {
-              actor.attemptsTo(new ClickButtonAction().Execute(new GeneralParams(
-                      "El usuario ingresa a la pagina de crear agrupadores",
-                      "pagina de administracion de usuarios",
-                      "Elemento")));
-          }
-
-          @And("^El sistema redirecciona a una página en la cual se debe información el error$")
-          public void DebeInformacionError() {
-              actor.attemptsTo(new ClickButtonAction().Execute(new GeneralParams(
-                "El usuario ingresa a la pagina de crear agrupadores",
-                "pagina de administracion de usuarios",
+    @And("^El sistema no debe borrar la información de los campos del formulario$")
+    public void elSistemaNoDebeBorrarLaInformaciónDeLosCamposDelFormulario() {
+        actor.should(new QuestionValidate("").Execute(new GeneralParams(
+                "El sistema no debera borrar la informacion ingresada",
+                "no borra informacion ingresada",
                 "Elemento")));
-
-         }
+    }
 }
