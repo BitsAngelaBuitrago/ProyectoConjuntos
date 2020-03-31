@@ -317,6 +317,18 @@ public class HU47HeaderCambiarContrasena {
                 "//p[contains(text(),'correo')] "
         )));
     }
+
+    @And("^(.*) Se habilita el boton guardar$")
+    public void sionoSeHabilitaElBotonGuardar(String SioNo) {
+        switch (SioNo){
+            case "Si":
+                actor.should(seeThat(the("//button[@name='action']"), isVisible()));
+                break;
+            case "No":
+                actor.should(seeThat(the("//button[@name='action']"), isNotVisible()));
+                break;
+        }
+    }
 }
 
 

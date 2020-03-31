@@ -3,6 +3,7 @@ import core.actions.OpenUrlAction;
 import core.Helpers.GeneralParams;
 import core.actions.ClickButtonAction;
 import core.actions.EnterTextAction;
+import core.questions.QuestionValidate;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
@@ -76,6 +77,15 @@ public class HU40ModificarRolYPermisos {Actor actor;
                 "Ingresa información en campo nombre de rol",
                 "Campo nombre de rol",
                 "/button[@name='action']"
+        )));
+    }
+
+    @Then("^Se muestra el mensaje de modificación$")
+    public void seMuestraElMensajeDeModificacion() {
+        actor.should(new QuestionValidate("Modificación del rol exitosa").Execute(new GeneralParams(
+                "Mensaje creación de rol",
+                "Creación rol",
+                "//input[@id='idEmail']"
         )));
     }
 }

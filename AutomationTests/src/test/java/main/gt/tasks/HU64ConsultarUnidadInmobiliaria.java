@@ -17,35 +17,6 @@ public class HU64ConsultarUnidadInmobiliaria {
 
     Actor actor;
 
-    @Managed
-    WebDriver navegador;
-
-    @Given("^Que usuario ingresa a la pagina de inicio$")
-    public void ingresarAUrl() {
-        actor = Actor.named("usuario");
-        actor.can(BrowseTheWeb.with(navegador)); //Abrir navegador
-        actor.has(new OpenUrlAction().Execute(new GeneralParams(
-                "http://selfcarecvgt-stg-gt.tigocloud.net/")));
-
-    }
-
-    @And("^Inicia sesión$")
-    public void iniciarSesion() {
-        actor.attemptsTo(new EnterTextAction("jbarbosam").Execute(new GeneralParams(
-                "Usuario ingresa texto en el campo usuario",
-                "Campo usuario",
-                "//input[@id='idEmail']"
-        )));
-
-        actor.attemptsTo(new EnterTextAction("TigoTest123#").Execute(
-                new GeneralParams(
-                        "Usuario ingresa texto en un campo clave",
-                        "Campo clave",
-                        "//input[@id='password']"
-                )
-        ));
-
-    }
 
     @When("^Da clic en Consultar Unidad Inmobiliaria Bits$")
     public void daClicEnConsultarUnidadInmobiliariaBits() {

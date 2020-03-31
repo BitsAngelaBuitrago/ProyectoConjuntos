@@ -6,36 +6,60 @@ Feature: Como usuario Quiero modificar una Unidad Inmobiliaria Para continuar su
     And Da clic en Unidades Inmobiliarias
     And Da clic en el boton modificar
 
+  Scenario: Se visualizan los elementos de la página de Modificar Unidad
+    Given Da clic en Unidades Inmobiliarias
+    When Da clic en el boton modificar
+    Then El usuario visualiza el formulario de Modificacion de Unidad Inmobiliaria
+    And Campo Nombre conjunto
+    And Campo Direccion/Pais
+    And Campo Direccion/Departamento
+    And Campo Direccion/Ciudad
+    And Campo Direccion
+    And Campo Nit
+    And Campo Numero catastro
+    And Campo Tipo documento
+    And Campo Numero documento representante
+    And Campo Nombre representante
+    And Campo Apellido representante
+    And Campo Telefono unidad inmobiliaria
+    And Campo Celular representante
+    And Campo Correo electronico representante
+    And Campo Numero de agrupaciones
+    And Campo Numero de unidades independientes
+    And Campo Numero de entradas a pie
+    And Campo Numero de entradas vehiculares
+    And Campo Numero de parqueaderos
+
   Scenario Outline: Salir del formulario de Modificación de unidad inmobiliaria
     Given Da clic en Unidades Inmobiliarias
     And Da clic en el boton modificar
     When Da clic en una pagina diferente <pagina>
-    Then El sistema muestra un mensaje de confirmacion "¿Esta seguro de que desea salir de la pagina modificar unidad inmobiliaria?"
+    Then El sistema muestra un mensaje de confirmacion
     Examples:
       | pagina        |
       | Principal     |
       | Cerrar_sesion |
 
-  Scenario Outline: Cerrar el mensaje ¿Esta seguro de que desea salir de la página modificar unidad inmobiliaria?
+  Scenario Outline: Acciones pop up de confirmación de salir del formulario
     Given Da clic en Unidades Inmobiliarias
     And Da clic en el boton modificar
     And Da clic en una pagina diferente <pagina>
     When Selecciona una opcion del pop up <opcion>
     Then El sistema cierra el pop up
-    And Muestra la pagina segun la opcion seleccionada
+    And Muestra la <accion> segun la opcion seleccionada
     Examples:
-      | pagina    | opcion |
-      | Principal | si     |
-      | Principal | no     |
-      | Principal | x      |
+      | pagina    | opcion | accion                    |
+      | Principal | si     | Principal                 |
+      | Principal | no     | Crear Unidad inmobiliaria |
+      | Principal | x      | Crear Unidad inmobiliaria |
 
-  Scenario Outline: No ingresar información en los campos requeridos
+  Scenario Outline: Borrar información en los campos requeridos
     Given Da clic en Unidades Inmobiliarias
     And Da clic en el boton modificar
     When Da clic en el <campo_requerido>
     And Borra la informacion del <campo_requerido>
     And Da clic por fuera del campo
-    Then El sistema presenta el mensaje "Campo requerido"
+    Then El sistema presenta mensaje de Campo requerido
     Examples:
       | campo_requerido                   |
       | Nombre conjunto                   |
@@ -58,35 +82,15 @@ Feature: Como usuario Quiero modificar una Unidad Inmobiliaria Para continuar su
       | Numero de entradas vehiculares    |
       | Numero de parqueaderos            |
 
-  Scenario Outline: Se habilita si o no botón de guardar
+  Scenario: Se habilita si el botón de guardar
     Given Da clic en Unidades Inmobiliarias
     And Da clic en el boton modificar
-    When Borra la informacion del <campo_requerido>
-    And Ingresa en el campo <campo_requerido> la informacion <informacion>
+    When Ingresa en todos los campos la informacion correcta
     Then Se muestra habilitado el boton guardar
-    Examples:
-      | campo_requerido                   | informacion                   |
-      | Nombre conjunto                   | Conjunto Bits                 |
-      | Direccion/Pais                    | Colombia                      |
-      | Direccion/Departamento            | Bogota                        |
-      | Direccion/Ciudad                  | Bogota                        |
-      | Direccion                         | calle 106 56                  |
-      | Nit                               | 3543543                       |
-      | Numero catastro                   | 2465465                       |
-      | Tipo documento                    | cc                            |
-      | Numero documento representante    | 46546454                      |
-      | Nombre representante              | Jose                          |
-      | Apellido representante            | Barbosa                       |
-      | Telefono unidad inmobiliaria      | 34554354                      |
-      | Celular representante             | 3214567890                    |
-      | Correo electronico representante  | bitsamericas@bitsamericas.com |
-      | Numero de agrupaciones            | 5                             |
-      | Numero de unidades independientes | 100                           |
-      | Numero de entradas a pie          | 2                             |
-      | Numero de entradas vehiculares    | 2                             |
-      | Numero de parqueaderos            | 100                           |
 
   Scenario Outline: Ingresar información en campos numéricos
+    Given Da clic en Unidades Inmobiliarias
+    And Da clic en el boton modificar
     When Borra la informacion del <campo_requerido>
     And Da clic en el <campo_requerido>
     And Ingresa en el campo <campo_requerido> la informacion <informacion>
@@ -108,6 +112,8 @@ Feature: Como usuario Quiero modificar una Unidad Inmobiliaria Para continuar su
       | Numero de parqueaderos            | 343434      | 34343     |
 
   Scenario Outline: Ingresar información en campos alfanuméricos
+    Given Da clic en Unidades Inmobiliarias
+    And Da clic en el boton modificar
     When Borra la informacion del <campo_requerido>
     And Ingresa en el campo <campo_requerido> la informacion <informacion>
     Then Visualiza el resultado esperado <resultado>

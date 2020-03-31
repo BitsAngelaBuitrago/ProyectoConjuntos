@@ -12,7 +12,6 @@ import cucumber.api.java.en.When;
 import net.serenitybdd.screenplay.Actor;
 import net.serenitybdd.screenplay.abilities.BrowseTheWeb;
 import net.thucydides.core.annotations.Managed;
-import org.hamcrest.Matchers;
 import org.openqa.selenium.WebDriver;
 import static net.serenitybdd.screenplay.matchers.WebElementStateMatchers.*;
 import static net.serenitybdd.screenplay.questions.WebElementQuestion.the;
@@ -107,4 +106,14 @@ public class HU35IngresoCredenciales {
     }
 
 
+    @Then("^El sistema un mensaje de error (.*)$")
+    public void elSistemaUnMensajeDeErrorMensaje(String mensaje) {
+        actor.should(new QuestionValidate(mensaje).Execute(
+                new GeneralParams(
+                        "Error de autenticación",
+                        "Mensaje de error de ingreso",
+                        "//p[contains(text(),)] "
+                )
+        ));
+    }
 }

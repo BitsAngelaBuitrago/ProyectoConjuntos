@@ -29,7 +29,7 @@ Feature: Cambiar datos de usuario
     And Da clic en la opción Cambiar datos
     When Ingresa en el campo de <campo> y borra la informacion
     Then El boton de guardar se visualiza inhabilitado
-    And Se presenta el mensaje "el campo es requerido"
+    And Se presenta el mensaje de campo es requerido
     Examples:
       | campo    |
       | nombre   |
@@ -46,20 +46,17 @@ Feature: Cambiar datos de usuario
   Scenario Outline: Cambiar la información de los campos
     Given Un usuario da clic sobre la foto de perfil 
     And Da clic en la opción Cambiar datos
-    When ingresa en el <campo> la <informacion>
+    When Se ingresan los datos <nombre>, <apellido>,<correo> y <telefono>
     And Da clic en el boton Guardar
-    Then Se verifica que el cambio se aplico
+    Then Se verifica que el cambio se aplico en los datos de los datos <nombre>, <apellido>,<correo> y <telefono>
     Examples:
-      | campo    | informacion       |
-      | nombre   | Sandra            |
-      | apellido | Barbosa           |
-      | correo   | sbarbosa@bits.com |
-      | telefono | 2334456           |
+      | nombre | apellido | correo                    | telefono |
+      | Jose   | Barbosa  | jbarbosa@bitsamericas.com | 34745847 |
 
   Scenario Outline: Validación de los campos
     Given Un usuario da clic sobre la foto de perfil 
     And Da clic en la opción Cambiar datos
-    When When ingresa en el <campo> la <informacion>
+    When Se ingresa en el <campo> la <informacion>
     Then El boton de guardar se visualiza inhabilitado
     And muestra el <resultado>
     Examples:
@@ -75,7 +72,7 @@ Feature: Cambiar datos de usuario
     And Da clic sobre el campo teléfono
     And Da clic sobre el campo pais
     When Selecciona el pais Colombia
-    Then Se presenta el prefijo +57
+    Then Se presenta el prefijo de Colombia
 
   Scenario Outline: Campos tipo telefono
     Given Un usuario da clic sobre la foto de perfil 
@@ -103,7 +100,13 @@ Feature: Cambiar datos de usuario
       | ssbits@hotmail.com | Cumple con la estructura                                            |
       | ssbits.hotmail.com | el correo electronico ingresado no es valido. Ejemplo usuario@h.com |
 
-
+  Scenario: Se habilita botón de guardar
+    Given Un usuario da clic sobre la foto de perfil 
+    And Da clic en la opción Cambiar datos
+    And Ingresa correctamente toda la informacion de los campos
+    And El boton de guardar se visualiza habilitado
+    When El usuario da clic en el botón guardar
+    Then Se muestra el mensaje de actualización exitosa
 
 
 

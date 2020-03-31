@@ -1,7 +1,6 @@
 package main.gt.tasks;
 
 
-import core.actions.OpenUrlAction;
 import core.Helpers.GeneralParams;
 import core.actions.ClickButtonAction;
 import core.actions.EnterTextAction;
@@ -11,9 +10,8 @@ import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import net.serenitybdd.screenplay.Actor;
-import net.serenitybdd.screenplay.abilities.BrowseTheWeb;
-import net.thucydides.core.annotations.Managed;
-import org.openqa.selenium.WebDriver;
+import net.serenitybdd.screenplay.QuestionConsequence;
+
 import static net.serenitybdd.screenplay.matchers.WebElementStateMatchers.*;
 import static net.serenitybdd.screenplay.questions.WebElementQuestion.the;
 import static net.serenitybdd.screenplay.GivenWhenThen.seeThat;
@@ -21,40 +19,6 @@ import static net.serenitybdd.screenplay.GivenWhenThen.seeThat;
 public class HU48HeaderCambiarDatos {
     Actor actor;
 
-    @Managed
-    WebDriver navegador;
-
-    @Given("^Que usuario ingresa a la pagina de inicio$")
-    public void ingresarAUrl() {
-        actor = Actor.named("usuario");
-        actor.can(BrowseTheWeb.with(navegador)); //Abrir navegador
-        actor.has(new OpenUrlAction().Execute(new GeneralParams(
-                "http://selfcarecvgt-stg-gt.tigocloud.net/")));
-
-    }
-
-    @And("^Inicia sesión$")
-    public void iniciarSesion() {
-        actor.attemptsTo(new EnterTextAction("jbarbosam").Execute(new GeneralParams(
-                "Usuario ingresa texto en el campo usuario",
-                "Campo usuario",
-                "//input[@id='idEmail']"
-        )));
-
-        actor.attemptsTo(new EnterTextAction("TigoTest123#").Execute(
-                new GeneralParams(
-                        "Usuario ingresa texto en un campo clave",
-                        "Campo clave",
-                        "//input[@id='password']"
-                )
-        ));
-
-        actor.attemptsTo(new ClickButtonAction().Execute(new GeneralParams(
-                "Usuario da Clic en continuar",
-                "Boton continuar",
-                "//button[@name='action']"
-        )));
-    }
 
     @Given("^Un usuario da clic sobre la foto de perfil $")
     public void unUsuarioDaClicSobreLaFotoDePerfil() {
@@ -130,7 +94,7 @@ public class HU48HeaderCambiarDatos {
                 "contrasenaActual",
                 "//button[@name='action']"
         )));
-        switch (campo){
+        switch (campo) {
             case "nombre":
                 actor.attemptsTo(new EnterTextAction("").Execute(new GeneralParams(
                         "Borrar nombre",
@@ -221,17 +185,17 @@ public class HU48HeaderCambiarDatos {
 
     @Then("^Se verifica que el cambio se aplico$")
     public void seVerificaQueElCambioSeAplico() {
-        actor.should(new QuestionValidate("Pepito").Execute(new GeneralParams(
+        actor.should(new QuestionValidate("Jose").Execute(new GeneralParams(
                 "Cambio exitoso de nombre",
                 "Cambio de nombre",
                 "//p[contains(text(),'correo')] "
         )));
-        actor.should(new QuestionValidate("Perez").Execute(new GeneralParams(
+        actor.should(new QuestionValidate("Barbosa").Execute(new GeneralParams(
                 "Cambio exitoso de apellido",
                 "Cambio de apellido",
                 "//p[contains(text(),'correo')] "
         )));
-        actor.should(new QuestionValidate("pepitoperez@hotmail.com").Execute(new GeneralParams(
+        actor.should(new QuestionValidate("jbarbosa@").Execute(new GeneralParams(
                 "Cambio exitoso de correo",
                 "Cambio de correo",
                 "//p[contains(text(),'correo')] "
@@ -341,7 +305,7 @@ public class HU48HeaderCambiarDatos {
 
     @Then("^El sistema muestra la (.*) y Presenta el (.*) al poner el cursor encima$")
     public void elSistemaMuestraLaValidacion(String validacion, String mensaje) {
-        if (validacion.equals("correcto")){
+        if (validacion.equals("correcto")) {
             actor.should(seeThat(the("//button[@name='action']"), isVisible()));
             actor.attemptsTo(new ClickButtonAction().Execute(new GeneralParams(
                     "clic en icono correcto",
@@ -351,7 +315,7 @@ public class HU48HeaderCambiarDatos {
                     "mensaje icono correcto",
                     "//button[@name='action']"
             )));
-        } else if (validacion.equals("incorrecto")){
+        } else if (validacion.equals("incorrecto")) {
             actor.should(seeThat(the("//button[@name='action']"), isVisible()));
             actor.attemptsTo(new ClickButtonAction().Execute(new GeneralParams(
                     "clic en icono incorrecto",
@@ -387,6 +351,155 @@ public class HU48HeaderCambiarDatos {
                 "mensaje icono validado",
                 "mensaje presentado",
                 "//button[@name='action']"
+        )));
+    }
+
+    @And("^Presenta el campo correo electrónico habilitado y correo de usuario$")
+    public void presentaElCampoCorreoElectronicoHabilitadoYCorreoDeUsuario() {
+        actor.should(seeThat(the("//button[@name='action']"), isVisible()));
+        actor.should(seeThat(the("//button[@name='action']"), isEnabled()));
+    }
+
+    @And("^Presenta el campo teléfono habilitado y telefono de usuario$")
+    public void presentaElCampoTelefonoHabilitadoYTelefonoDeUsuario() {
+        actor.should(seeThat(the("//button[@name='action']"), isVisible()));
+        actor.should(seeThat(the("//button[@name='action']"), isEnabled()));
+    }
+
+    @And("^Se presenta el mensaje de campo es requerido$")
+    public void sePresentaElMensajeDeCampoEsRequerido() {
+        actor.should(new QuestionValidate("Campo requerido").Execute(new GeneralParams(
+                "mensaje icono correcto",
+                "//button[@name='action']"
+        )));
+    }
+
+    @When("^Se ingresa en el (.*) la (.*)$")
+    public void seIngresaEnElCampoLaInformacion(String campo, String informacion) {
+        switch (campo) {
+            case "nombre":
+                actor.attemptsTo(new EnterTextAction(informacion).Execute(new GeneralParams(
+                        "Ingresar correo",
+                        "correo",
+                        "//button[@name='action']"
+                )));
+                break;
+            case "apellido":
+                actor.attemptsTo(new EnterTextAction(informacion).Execute(new GeneralParams(
+                        "Ingresar correo",
+                        "correo",
+                        "// button[@name='action']"
+                )));
+                break;
+            case "telefono":
+                actor.attemptsTo(new EnterTextAction(informacion).Execute(new GeneralParams(
+                        "Ingresar correo",
+                        "correo",
+                        "// but ton[@name='action']"
+                )));
+                break;
+            case "correo":
+                actor.attemptsTo(new EnterTextAction(informacion).Execute(new GeneralParams(
+                        "Ingresar correo",
+                        "correo",
+                        "// button[@name='act ion']"
+                )));
+                break;
+
+
+        }
+    }
+
+    @And("^muestra el (.*)$")
+    public void muestraElResultado(String resultado) {
+        actor.should(new QuestionValidate(resultado).Execute(new GeneralParams(
+                "Prefijo",
+                "prefijo",
+                "//p[contains(text(),'+57')] "
+        )));
+
+    }
+
+
+    @And("^Presenta el (.*) al poner el cursor encima$")
+    public void presentaElResultadoAlPonerElCursorEncima(String resultado) {
+        actor.should(new QuestionValidate(resultado).Execute(new GeneralParams(
+                "Mensaje de resultado",
+                "mensaje de resultado",
+                "//p[contains(text(),'+57')] "
+        )));
+    }
+
+    @And("^Da clic sobre el campo correo$")
+    public void daClicSobreElCampoCorreo() {
+        actor.attemptsTo(new ClickButtonAction().Execute(new GeneralParams(
+                "clic en correo",
+                "//button[@name='action']"
+        )));
+    }
+
+    @When("^El usuario da clic en el botón guardar$")
+    public void elUsuarioDaClicEnElBotonGuardar() {
+        actor.attemptsTo(new ClickButtonAction().Execute(new GeneralParams(
+                "clic en guardar",
+                "//button[@name='action']"
+        )));
+    }
+
+    @Then("^Se muestra el mensaje de actualización exitosa$")
+    public void seMuestraElMensajeDeActualizacionExitosa() {
+        actor.should(new QuestionValidate("Se ha realizado el cambio de datos de forma correcta").Execute(new GeneralParams(
+                "Mensaje de resultado",
+                "mensaje de resultado",
+                "//p[contains(text(),'+57')] "
+        )));
+    }
+
+    @When("^Se ingresan los datos (.*), (.*),(.*) y (.*)$")
+    public void seIngresanLosDatosNombreApellidoCorreoYTelefono(String nombre, String apellido, String correo, String telefono) {
+        actor.attemptsTo(new EnterTextAction(nombre).Execute(new GeneralParams(
+                "Ingresar correo",
+                "correo",
+                "// button[@name='act ion']"
+        )));
+        actor.attemptsTo(new EnterTextAction(apellido).Execute(new GeneralParams(
+                "Ingresar correo",
+                "correo",
+                "// button[@name='act ion']"
+        )));
+        actor.attemptsTo(new EnterTextAction(correo).Execute(new GeneralParams(
+                "Ingresar correo",
+                "correo",
+                "// button[@name='act ion']"
+        )));
+        actor.attemptsTo(new EnterTextAction(telefono).Execute(new GeneralParams(
+                "Ingresar correo",
+                "correo",
+                "// button[@name='act ion']"
+        )));
+    }
+
+    @Then("^Se verifica que el cambio se aplico en los datos de los datos (.*), (.*),(.*) y (.*)$")
+    public void seVerificaQueElCambioSeAplicoEnLosDatosDeLosDatosNombreApellidoCorreoYTelefono(String nombre, String apellido, String correo, String telefono) {
+        actor.should(new QuestionValidate(nombre).Execute(new GeneralParams(
+                "Ingresar correo",
+                "correo",
+                "// button[@name='act ion']"
+        )));
+        actor.should(new QuestionValidate(apellido).Execute(new GeneralParams(
+                "Ingresar correo",
+                "correo",
+                "// button[@name='act ion']"
+        )));
+        actor.should(new QuestionValidate(correo).Execute(new GeneralParams(
+                "Ingresar correo",
+                "correo",
+                "// button[@name='act ion']"
+        )));
+        actor.should(new QuestionValidate(telefono).Execute(new GeneralParams(
+                "Ingresar correo",
+                "correo",
+                "// button[@name='act ion']"
         )));
     }
 }

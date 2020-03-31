@@ -34,29 +34,31 @@ Feature: Como usuario Quiero crear una Unidad Inmobiliaria Para iniciar su gesti
     Given Da clic en Unidades Inmobiliarias
     And Da clic en el boton Crear
     When Da clic en una pagina diferente <pagina>
-    Then El sistema muestra un mensaje de confirmacion "¿Esta seguro de que desea salir de la pagina crear unidad inmobiliaria?"
+    Then El sistema muestra un mensaje de confirmacion
     Examples:
       | pagina        |
       | Principal     |
       | Cerrar_sesion |
 
-  Scenario Outline: Cerrar el mensaje ¿Esta seguro de que desea salir de la página crear unidad inmobiliaria?
+  Scenario Outline: Acciones pop up de confirmación de salir del formulario
     Given Da clic en Unidades Inmobiliarias
     And Da clic en el boton Crear
     And Da clic en una pagina diferente <pagina>
     When Selecciona una opcion del pop up <opcion>
     Then El sistema cierra el pop up
-    And Muestra la pagina segun la opcion seleccionada
+    And Muestra la <accion> segun la opcion seleccionada
     Examples:
-      | pagina    | opcion |
-      | Principal | si     |
-      | Principal | no     |
-      | Principal | x      |
+      | pagina    | opcion | accion                    |
+      | Principal | si     | Principal                 |
+      | Principal | no     | Crear Unidad inmobiliaria |
+      | Principal | x      | Crear Unidad inmobiliaria |
 
   Scenario Outline: No ingresar información en los campos requeridos
+    Given Da clic en Unidades Inmobiliarias
+    And Da clic en el boton Crear
     When Da clic en el <campo_requerido>
     And Da clic por fuera del campo
-    Then El sistema presenta el mensaje "Campo requerido"
+    Then El sistema presenta mensaje de Campo requerido
     Examples:
       | campo_requerido                   |
       | Nombre conjunto                   |
@@ -79,32 +81,15 @@ Feature: Como usuario Quiero crear una Unidad Inmobiliaria Para iniciar su gesti
       | Numero de entradas vehiculares    |
       | Numero de parqueaderos            |
 
-  Scenario Outline: Se habilita si o no botón de guardar
-    When Ingresa en el campo <campo_requerido> la informacion <informacion>
+  Scenario: Se habilita si el botón de guardar
+    Given Da clic en Unidades Inmobiliarias
+    And Da clic en el boton Crear
+    When Ingresa en todos los campos la informacion correcta
     Then Se muestra habilitado el boton guardar
-    Examples:
-      | campo_requerido                   | informacion                   |
-      | Nombre conjunto                   | Conjunto Bits                 |
-      | Direccion/Pais                    | Colombia                      |
-      | Direccion/Departamento            | Bogota                        |
-      | Direccion/Ciudad                  | Bogota                        |
-      | Direccion                         | calle 106 56                  |
-      | Nit                               | 3543543                       |
-      | Numero catastro                   | 2465465                       |
-      | Tipo documento                    | cc                            |
-      | Numero documento representante    | 46546454                      |
-      | Nombre representante              | Jose                          |
-      | Apellido representante            | Barbosa                       |
-      | Telefono unidad inmobiliaria      | 34554354                      |
-      | Celular representante             | 3214567890                    |
-      | Correo electronico representante  | bitsamericas@bitsamericas.com |
-      | Numero de agrupaciones            | 5                             |
-      | Numero de unidades independientes | 100                           |
-      | Numero de entradas a pie          | 2                             |
-      | Numero de entradas vehiculares    | 2                             |
-      | Numero de parqueaderos            | 100                           |
 
   Scenario Outline: Ingresar información en campos numéricos
+    Given Da clic en Unidades Inmobiliarias
+    And Da clic en el boton Crear
     When Da clic en el <campo_requerido>
     And Ingresa en el campo <campo_requerido> la informacion <informacion>
     Then Visualiza el resultado esperado <resultado>
@@ -125,6 +110,8 @@ Feature: Como usuario Quiero crear una Unidad Inmobiliaria Para iniciar su gesti
       | Numero de parqueaderos            | 343434      | 34343     |
 
   Scenario Outline: Ingresar información en campos alfanuméricos
+    Given Da clic en Unidades Inmobiliarias
+    And Da clic en el boton Crear
     When Ingresa en el campo <campo_requerido> la informacion <informacion>
     Then Visualiza el resultado esperado <resultado>
     Examples:
@@ -139,7 +126,9 @@ Feature: Como usuario Quiero crear una Unidad Inmobiliaria Para iniciar su gesti
       | Nombre conjunto                  | Bits $$ - 2                                              | Bits - 2                                            |
 
   Scenario Outline: Dependencia de los campos de dirección (País y Departamento)
-    Given Da clic en el campo Pais
+    Given Da clic en Unidades Inmobiliarias
+    And Da clic en el boton Crear
+    And Da clic en el campo Pais
     When Selecciona uno de los <valores_paises> configurados
     Then Debe habilitar el campo de Departamento
     And presenta en el campo el listado de <valores_departamentos>
@@ -149,17 +138,21 @@ Feature: Como usuario Quiero crear una Unidad Inmobiliaria Para iniciar su gesti
       | Colombia       | informacion           | +57     |
 
   Scenario Outline: Dependencia de los campos de dirección (Departamento y ciudad)
+    Given Da clic en Unidades Inmobiliarias
+    And Da clic en el boton Crear
     Given Da clic en el campo Pais
     And Selecciona uno de los <valores_paises> configurados
     And Da clic el campo de Departamento
     When Selecciona uno de los <valores_departamentos> configurados
     Then presenta en el campo ‘ciudad’ habilitado
-    And presenta en el campo el listado de <valores_ciudades> del departamento seleccionado
+    And presenta en el campo el listado de <valores_ciudades>
     Examples:
-      | valores_departamentos | valores_ciudades |
-      | Bogota                | Bogota           |
+      | valores_paises | valores_departamentos | valores_ciudades |
+      | Colombia       | Bogota                | Bogota           |
 
   Scenario Outline: Seleccionar informacion en campos de listas
+    Given Da clic en Unidades Inmobiliarias
+    And Da clic en el boton Crear
     When Da clic en el campo <campo>
     Then presenta un listado de los <valores> configurados para el campo
     Examples:
@@ -167,6 +160,8 @@ Feature: Como usuario Quiero crear una Unidad Inmobiliaria Para iniciar su gesti
       | Tipo de documento | CC, TI, CE |
 
   Scenario Outline: Visualizar el prefijo despues de seleccionar pais
+    Given Da clic en Unidades Inmobiliarias
+    And Da clic en el boton Crear
     When Da clic en Pais del campo Celular Representante
     And Selecciona uno de los <valores_paises> configurados
     Then se presenta el <prefijo> que se encuentre configurado para el pais seleccionado
@@ -175,6 +170,8 @@ Feature: Como usuario Quiero crear una Unidad Inmobiliaria Para iniciar su gesti
       | Colombia       | +57     |
 
   Scenario Outline: Ingresar informacion en campos de tipo telefono
+    Given Da clic en Unidades Inmobiliarias
+    And Da clic en el boton Crear
     When Ingresa en el <campo> un <numero> de telefono
     Then El sistema muestra el resultado <resultado>
     Examples:
@@ -185,6 +182,8 @@ Feature: Como usuario Quiero crear una Unidad Inmobiliaria Para iniciar su gesti
       | Celular representante        | 234343434343433498989898 | 234343434343433                |
 
   Scenario Outline: Ingresar informacion en campos de tipo correo electronico
+    Given Da clic en Unidades Inmobiliarias
+    And Da clic en el boton Crear
     Given Da clic en el campo correo electronico
     When Ingresa un correo <correo>
     Then El sistema muestra el resultado <resultado>
@@ -196,10 +195,14 @@ Feature: Como usuario Quiero crear una Unidad Inmobiliaria Para iniciar su gesti
       | usuario@h           | El correo electronico no es valido. Ejemplo ususario@h.com |
 
   Scenario: No Se habilita el boton de guardar
+    Given Da clic en Unidades Inmobiliarias
+    And Da clic en el boton Crear
     When Ingresa solo algunos datos en los campos
     Then No se muestra habilitado el boton guardar
 
   Scenario Outline: Ingreso de numero de documento de representante ya existe
+    Given Da clic en Unidades Inmobiliarias
+    And Da clic en el boton Crear
     When Ingresa la informacion <numero> en el campo Numero documento representante
     And Da clic por fuera del campo
     Then El sistema muestra la informacion de los campos de <Nombre>, <Apellidos>, <Celular> y <correo> ya diligenciados
@@ -209,11 +212,16 @@ Feature: Como usuario Quiero crear una Unidad Inmobiliaria Para iniciar su gesti
       | 93854983 |        |           |            |                            |
 
   Scenario: Creacion de unidad inmobiliaria con datos existentes
+    Given Da clic en Unidades Inmobiliarias
+    And Da clic en el boton Crear
     When Ingresa todos los datos de direccion, nit, catastro, telefono unidad y correo ya existentes
     Then Da clic en el boton guardar
     And presenta los mensajes de error datos unicos
 
   Scenario: Creacion exitosa de Unidad inmobiliaria
+    Given Da clic en Unidades Inmobiliarias
+    And Da clic en el boton Crear
     When Ingresa los datos del formulario correctamente
     And Da clic en el boton guardar
     Then Se muestra el mensaje de creacion esxitosa
+    And redirige al usuario a la página de Administrar Unidades Inmobiliarias

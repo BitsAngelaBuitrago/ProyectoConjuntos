@@ -83,6 +83,7 @@ Feature: Crear rol y asignar permisos
     And se desmarca la accion de Editar
     When Se da clic en guardar
     Then Se muestra el mensaje de creacion
+    And redirige al usuario a la página de Administrar Roles
 
 
 

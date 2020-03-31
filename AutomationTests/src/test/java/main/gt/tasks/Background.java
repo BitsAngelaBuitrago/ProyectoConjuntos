@@ -30,6 +30,11 @@ public class Background {
 
     @And("^Inicia sesión$")
     public void iniciarSesion() {
+        actor.attemptsTo(new ClickButtonAction().Execute(new GeneralParams(
+                "Da clic en Iniciar Sesión",
+                "clic en Iniciar sesión",
+                "/button[@name='action']"
+        )));
         actor.attemptsTo(new EnterTextAction("jbarbosam").Execute(new GeneralParams(
                 "Usuario ingresa texto en el campo usuario",
                 "Campo usuario",

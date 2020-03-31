@@ -123,9 +123,9 @@ Feature: Seleccionar unidad inmobiliaria
     And Da clic en el boton Buscar
     Then El sistema muestra un <resultado> con la informacion del filtro
     Examples:
-      | palabra | filtro    | informacion | elemento      | resultado     |
-      | 23            | nombre    | conj        | conjunto Bits | conjunto Bits |
-      | conjunto      | nit       | 23          | 234567        | conjunto Bits |
-      | bits          | catastro  | 1234        | 123456        | conjunto Bits |
-      | bits          | direccion | calle 7     | calle 74      | conjunto Bits |
+      | palabra  | filtro    | informacion | elemento      | resultado     |
+      | 23       | nombre    | conj        | conjunto Bits | conjunto Bits |
+      | conjunto | nit       | 23          | 234567        | conjunto Bits |
+      | bits     | catastro  | 1234        | 123456        | conjunto Bits |
+      | bits     | direccion | calle 7     | calle 74      | conjunto Bits |
 

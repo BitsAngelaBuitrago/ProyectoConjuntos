@@ -72,10 +72,11 @@ Feature: Cambiar contraseña
     When Ingresa una <NuevaContrasena>
     And Ingresa la <confirmacionContrasena>
     Then Se muestra el <resultado> y Se pasa el cursor por el check y se muestra un mensaje
+    And <SioNo> Se habilita el boton guardar
     Examples:
-      | contrasenaActual | NuevaContrasena | confirmacionContrasena | resultado        |
-      | Bits2020         | Bits2021        | Bits2021               | Check correcto   |
-      | Bits2020         | B1t52021        | Bits2021               | Check incorrecto |
+      | contrasenaActual | NuevaContrasena | confirmacionContrasena | resultado        | SioNo |
+      | Bits2020         | Bits2021        | Bits2021               | Check correcto   | Si    |
+      | Bits2020         | B1t52021        | Bits2021               | Check incorrecto | No    |
 
   Scenario: Se habilita el botón Guardar
     Given Un usuario da clic sobre la foto de perfil

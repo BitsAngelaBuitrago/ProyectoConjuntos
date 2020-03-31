@@ -1,6 +1,5 @@
 package main.gt.tasks;
 
-import core.actions.OpenUrlAction;
 import core.Helpers.GeneralParams;
 import core.actions.ClickButtonAction;
 import core.actions.EnterTextAction;
@@ -11,51 +10,17 @@ import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import net.serenitybdd.screenplay.Actor;
-import net.serenitybdd.screenplay.abilities.BrowseTheWeb;
-import net.thucydides.core.annotations.Managed;
-import org.openqa.selenium.WebDriver;
+import net.serenitybdd.screenplay.actions.Click;
+import org.openqa.selenium.By;
+
 import java.util.function.Predicate;
+
 import static net.serenitybdd.screenplay.matchers.WebElementStateMatchers.*;
 import static net.serenitybdd.screenplay.questions.WebElementQuestion.the;
 import static net.serenitybdd.screenplay.GivenWhenThen.seeThat;
 
 public class HU01CrearUnidadInmobiliaria {
     Actor actor;
-
-    @Managed
-    WebDriver navegador;
-
-    @Given("^Que usuario ingresa a la pagina de inicio$")
-    public void ingresarAUrl() {
-        actor = Actor.named("usuario");
-        actor.can(BrowseTheWeb.with(navegador)); //Abrir navegador
-        actor.has(new OpenUrlAction().Execute(new GeneralParams(
-                "http://selfcarecvgt-stg-gt.tigocloud.net/")));
-
-    }
-
-    @And("^Inicia sesión$")
-    public void iniciarSesion() {
-        actor.attemptsTo(new EnterTextAction("jbarbosam").Execute(new GeneralParams(
-                "Usuario ingresa texto en el campo usuario",
-                "Campo usuario",
-                "//input[@id='idEmail']"
-        )));
-
-        actor.attemptsTo(new EnterTextAction("TigoTest123#").Execute(
-                new GeneralParams(
-                        "Usuario ingresa texto en un campo clave",
-                        "Campo clave",
-                        "//input[@id='password']"
-                )
-        ));
-
-        actor.attemptsTo(new ClickButtonAction().Execute(new GeneralParams(
-                "Usuario da Clic en continuar",
-                "Boton continuar",
-                "//button[@name='action']"
-        )));
-    }
 
     @And("^Da clic en Unidades Inmobiliarias$")
     public void clicUnidadesInmobiliarias() {
@@ -92,7 +57,7 @@ public class HU01CrearUnidadInmobiliaria {
         }
     }
 
-    @Then("^El sistema muestra un mensaje de confirmacion \"([^\"]*)\"$")
+    @Then("^El sistema muestra un mensaje de confirmacion$")
     public void elSistemaMuestraUnMensajeDeConfirmacion() {
         actor.should(new QuestionValidate(
                 "¿Esta seguro de que desea salir de la pagina crear unidad inmobiliaria?").Execute(new GeneralParams(
@@ -129,17 +94,17 @@ public class HU01CrearUnidadInmobiliaria {
         actor.should(seeThat(the("//p[contains(text(),'Inicio')]"), isNotVisible()));
     }
 
-    @And("^Muestra la pagina segun la opcion seleccionada$")
+    @And("^Muestra la (.*) segun la opcion seleccionada$")
     public void muestraLaPaginaSegunLaOpcionSeleccionada(String pagina) {
         if (pagina.equals("principal")) {
             actor.should(new QuestionValidate(
                     "Pagina principal").Execute(new GeneralParams(
                     "Pagina principal",
                     "//p[contains(text(),'Pagina principal')]")));
-        } else if (pagina.equals("cerrar sesion")) {
+        } else if (pagina.equals("Crear Unidad inmobiliaria")) {
             actor.should(new QuestionValidate(
-                    "Pagina ingreso").Execute(new GeneralParams(
-                    "Pagina ingreso",
+                    "Página crear unidad inmobiliaria").Execute(new GeneralParams(
+                    "Pagina crear unidad inmobiliaria",
                     "//p[contains(text(),'Pagina principal')]")));
         }
     }
@@ -283,143 +248,105 @@ public class HU01CrearUnidadInmobiliaria {
         }
     }
 
-    @And("^Ingresa en el campo (.*) la informacion (.*)$")
-    public void ingresaInformacionInformacionEnCadaCampo(String campo_requerido, String informacion) {
-        switch (campo_requerido) {
-            case "Nombre conjunto":
-                actor.attemptsTo(new EnterTextAction(informacion).Execute(new GeneralParams(
-                        "Usuario ingresa texto en un campo Nombre Conjunto",
-                        "Campo Nombre Conjunto",
-                        "//input[@id='idEmail']"
-                )));
-                break;
-            case "Direccion/pais":
-                actor.attemptsTo(new EnterTextAction(informacion).Execute(new GeneralParams(
-                        "Usuario da Clic en campo Direccion/pais",
-                        "campo Direccion/pais",
-                        "//button[@name='action']"
-                )));
-                break;
-            case "Direccion/departamento":
-                actor.attemptsTo(new EnterTextAction(informacion).Execute(new GeneralParams(
-                        "Usuario da Clic en campo Direccion/departamento",
-                        "campo Direccion/departamento",
-                        "//button[@name='action']"
-                )));
-                break;
-            case "Direccion/ciudad":
-                actor.attemptsTo(new EnterTextAction(informacion).Execute(new GeneralParams(
-                        "Usuario da Clic en campo Direccion/ciudad",
-                        "campo Direccion/ciudad",
-                        "//button[@name='action']"
-                )));
-                break;
-            case "Direccion":
-                actor.attemptsTo(new EnterTextAction(informacion).Execute(new GeneralParams(
-                        "Usuario da Clic en campo Direccion",
-                        "campo Direccion",
-                        "//button[@name='action']"
-                )));
-                break;
-            case "Nit":
-                actor.attemptsTo(new EnterTextAction(informacion).Execute(new GeneralParams(
-                        "Usuario da Clic en campo Nit",
-                        "campo Nit",
-                        "//button[@name='action']"
-                )));
-                break;
-            case "Numero catastro":
-                actor.attemptsTo(new EnterTextAction(informacion).Execute(new GeneralParams(
-                        "Usuario da Clic en campo Numero catastro",
-                        "campo Numero catastro",
-                        "//button[@name='action']"
-                )));
-                break;
-            case "Tipo documento":
-                actor.attemptsTo(new EnterTextAction(informacion).Execute(new GeneralParams(
-                        "Usuario da Clic en campo Tipo documento",
-                        "campo Tipo documento",
-                        "//button[@name='action']"
-                )));
-                break;
-            case "Numero de documento representante":
-                actor.attemptsTo(new EnterTextAction(informacion).Execute(new GeneralParams(
-                        "Usuario da Clic en campo Numero de documento representante",
-                        "campo Numero de documento representante",
-                        "//button[@name='action']"
-                )));
-                break;
-            case "Nombre representante":
-                actor.attemptsTo(new EnterTextAction(informacion).Execute(new GeneralParams(
-                        "Usuario da Clic en campo Nombre representante",
-                        "campo Nombre representante",
-                        "//button[@name='action']"
-                )));
-                break;
-            case "Apellido representante":
-                actor.attemptsTo(new EnterTextAction(informacion).Execute(new GeneralParams(
-                        "Usuario da Clic en campo Apellido representante",
-                        "campo Apellido representante",
-                        "//button[@name='action']"
-                )));
-                break;
-            case "Telefono unidad inmobiliaria":
-                actor.attemptsTo(new EnterTextAction(informacion).Execute(new GeneralParams(
-                        "Usuario da Clic en campo Telefono unidad inmobiliaria",
-                        "campo Telefono unidad inmobiliaria",
-                        "//button[@name='action']"
-                )));
-                break;
-            case "Celular representante":
-                actor.attemptsTo(new EnterTextAction(informacion).Execute(new GeneralParams(
-                        "Usuario da Clic en campo Celular representante",
-                        "campo Celular representante",
-                        "//button[@name='action']"
-                )));
-                break;
-            case "Correo electronico representante":
-                actor.attemptsTo(new EnterTextAction(informacion).Execute(new GeneralParams(
-                        "Usuario da Clic en campo Correo electronico representante",
-                        "campo Correo electronico representante",
-                        "//button[@name='action']"
-                )));
-                break;
-            case "Numero de agrupaciones":
-                actor.attemptsTo(new EnterTextAction(informacion).Execute(new GeneralParams(
-                        "Usuario da Clic en campo Numero de agrupaciones",
-                        "campo Numero de agrupaciones",
-                        "//button[@name='action']"
-                )));
-                break;
-            case "Numero de unidades independientes":
-                actor.attemptsTo(new EnterTextAction(informacion).Execute(new GeneralParams(
-                        "Usuario da Clic en campo Numero de unidades independientes",
-                        "campo Numero de unidades independientes",
-                        "//button[@name='action']"
-                )));
-                break;
-            case "Numero de entradas a pie":
-                actor.attemptsTo(new EnterTextAction(informacion).Execute(new GeneralParams(
-                        "Usuario da Clic en campo Numero de entradas a pie",
-                        "campo Numero de entradas a pie",
-                        "//button[@name='action']"
-                )));
-                break;
-            case "Numero de entradas vehiculares":
-                actor.attemptsTo(new EnterTextAction(informacion).Execute(new GeneralParams(
-                        "Usuario da Clic en campo Numero de entradas vehiculares",
-                        "campo Numero de entradas vehiculares",
-                        "//button[@name='action']"
-                )));
-                break;
-            case "Numero de parqueaderos":
-                actor.attemptsTo(new EnterTextAction(informacion).Execute(new GeneralParams(
-                        "Usuario da Clic en campo Numero de parqueaderos",
-                        "campo Numero de parqueaderos",
-                        "//button[@name='action']"
-                )));
-                break;
-        }
+    @And("^Ingresa en todos los campos la informacion correcta$")
+    public void ingresaInformacionInformacionEnCadaCampo() {
+        actor.attemptsTo(new EnterTextAction("Bits Americas").Execute(new GeneralParams(
+                "Usuario ingresa texto en un campo Nombre Conjunto",
+                "Campo Nombre Conjunto",
+                "//input[@id='idEmail']"
+        )));
+
+        actor.attemptsTo(Click.on(By.cssSelector("#pais"), By.linkText("Colombia")));
+        actor.attemptsTo(Click.on(By.cssSelector("#departamento"), By.linkText("Bogotá")));
+        actor.attemptsTo(Click.on(By.cssSelector("#ciudad"), By.linkText("Bogotá")));
+
+        actor.attemptsTo(new EnterTextAction("Calle 106").Execute(new GeneralParams(
+                "Usuario da Clic en campo Direccion",
+                "campo Direccion",
+                "//button[@name='action']"
+        )));
+
+        actor.attemptsTo(new EnterTextAction("94854955").Execute(new GeneralParams(
+                "Usuario da Clic en campo Nit",
+                "campo Nit",
+                "//button[@name='action']"
+        )));
+
+        actor.attemptsTo(new EnterTextAction("98544985").Execute(new GeneralParams(
+                "Usuario da Clic en campo Numero catastro",
+                "campo Numero catastro",
+                "//button[@name='action']"
+        )));
+
+        actor.attemptsTo(Click.on(By.cssSelector("#tipodoc"), By.linkText("CC")));
+
+        actor.attemptsTo(new EnterTextAction("978787").Execute(new GeneralParams(
+                "Usuario da Clic en campo Numero de documento representante",
+                "campo Numero de documento representante",
+                "//button[@name='action']"
+        )));
+
+        actor.attemptsTo(new EnterTextAction("Alexander").Execute(new GeneralParams(
+                "Usuario da Clic en campo Nombre representante",
+                "campo Nombre representante",
+                "//button[@name='action']"
+        )));
+
+        actor.attemptsTo(new EnterTextAction("Salcedo").Execute(new GeneralParams(
+                "Usuario da Clic en campo Apellido representante",
+                "campo Apellido representante",
+                "//button[@name='action']"
+        )));
+
+        actor.attemptsTo(new EnterTextAction("394858934").Execute(new GeneralParams(
+                "Usuario da Clic en campo Telefono unidad inmobiliaria",
+                "campo Telefono unidad inmobiliaria",
+                "//button[@name='action']"
+        )));
+
+        actor.attemptsTo(new EnterTextAction("3214556789").Execute(new GeneralParams(
+                "Usuario da Clic en campo Celular representante",
+                "campo Celular representante",
+                "//button[@name='action']"
+        )));
+
+        actor.attemptsTo(new EnterTextAction("bitsamericas@bitsamericas.com").Execute(new GeneralParams(
+                "Usuario da Clic en campo Correo electronico representante",
+                "campo Correo electronico representante",
+                "//button[@name='action']"
+        )));
+
+        actor.attemptsTo(new EnterTextAction("15").Execute(new GeneralParams(
+                "Usuario da Clic en campo Numero de agrupaciones",
+                "campo Numero de agrupaciones",
+                "//button[@name='action']"
+        )));
+
+        actor.attemptsTo(new EnterTextAction("150").Execute(new GeneralParams(
+                "Usuario da Clic en campo Numero de unidades independientes",
+                "campo Numero de unidades independientes",
+                "//button[@name='action']"
+        )));
+
+        actor.attemptsTo(new EnterTextAction("2").Execute(new GeneralParams(
+                "Usuario da Clic en campo Numero de entradas a pie",
+                "campo Numero de entradas a pie",
+                "//button[@name='action']"
+        )));
+
+        actor.attemptsTo(new EnterTextAction("2").Execute(new GeneralParams(
+                "Usuario da Clic en campo Numero de entradas vehiculares",
+                "campo Numero de entradas vehiculares",
+                "//button[@name='action']"
+        )));
+
+        actor.attemptsTo(new EnterTextAction("80").Execute(new GeneralParams(
+                "Usuario da Clic en campo Numero de parqueaderos",
+                "campo Numero de parqueaderos",
+                "//button[@name='action']"
+        )));
+
+
     }
 
     @Then("^Se muestra habilitado el boton guardar$")
@@ -427,7 +354,7 @@ public class HU01CrearUnidadInmobiliaria {
         actor.should(seeThat(the("//p[contains(text(),'Inicio')]"), isEnabled()));
     }
 
-    @Then("^Visualiza el resultado esperado <resultado>$")
+    @Then("^Visualiza el resultado esperado (.*)$")
     public void visualizaElResultadoEsperadoResultado(String resultado) {
         switch (resultado) {
             case "Nombre conjunto":
@@ -578,11 +505,7 @@ public class HU01CrearUnidadInmobiliaria {
     @When("^Selecciona uno de los (.*) configurados$")
     public void seleccionaUnoDeLosValores_paisesConfigurados(String pais) {
         if (pais.equals("Colombia")) {
-            actor.attemptsTo(new ClickButtonAction().Execute(new GeneralParams(
-                    "Usuario da Clic en pais Colombia",
-                    "pais Colombia",
-                    "//button[@name='action']"
-            )));
+            actor.attemptsTo(Click.on(By.cssSelector("#pais"), By.linkText("Colombia")));
         }
 
     }
@@ -843,7 +766,7 @@ public class HU01CrearUnidadInmobiliaria {
 
     @Then("^No se muestra habilitado el boton guardar$")
     public void noSeMuestraHabilitadoElBotonGuardar() {
-        actor.should(seeThat(the("//button[@name='action']"),isNotEnabled()));
+        actor.should(seeThat(the("//button[@name='action']"), isNotEnabled()));
     }
 
     @When("^Ingresa la informacion (.*) en el campo Numero documento representante$")
@@ -863,6 +786,7 @@ public class HU01CrearUnidadInmobiliaria {
         actor.should(seeThat(the("//button[@name='action']"), Predicate.isEqual(correo)));
 
     }
+
     @When("^Ingresa todos los datos de direccion, nit, catastro, telefono unidad y correo ya existentes$")
     public void ingresaTodosLosDatosDeDireccionNitCatastroTelefonoUnidadYCorreoYaExistentes() {
         actor.attemptsTo(new EnterTextAction("Conjunto Bits").Execute(new GeneralParams(
@@ -1282,6 +1206,165 @@ public class HU01CrearUnidadInmobiliaria {
     public void campoNumeroDeParqueaderos() {
         actor.should(seeThat(the("//p[contains(text(),'Inicio')]"), isVisible()));
     }
+
+
+    @And("^Ingresa en el campo (.*) la informacion (.*)$")
+    public void ingresaEnElCampoCampo_requeridoLaInformacionInformacion(String campo_requerido, String informacion) {
+        switch (campo_requerido) {
+            case "Nombre conjunto":
+                actor.attemptsTo(new EnterTextAction(informacion).Execute(new GeneralParams(
+                        "Usuario ingresa texto en un campo Nombre Conjunto",
+                        "Campo Nombre Conjunto",
+                        "//input[@id='idEmail']"
+                )));
+                break;
+            case "Direccion/pais":
+                actor.attemptsTo(new EnterTextAction(informacion).Execute(new GeneralParams(
+                        "Usuario da Clic en campo Direccion/pais",
+                        "campo Direccion/pais",
+                        "//button[@name='action']"
+                )));
+                break;
+            case "Direccion/departamento":
+                actor.attemptsTo(new EnterTextAction(informacion).Execute(new GeneralParams(
+                        "Usuario da Clic en campo Direccion/departamento",
+                        "campo Direccion/departamento",
+                        "//button[@name='action']"
+                )));
+                break;
+            case "Direccion/ciudad":
+                actor.attemptsTo(new EnterTextAction(informacion).Execute(new GeneralParams(
+                        "Usuario da Clic en campo Direccion/ciudad",
+                        "campo Direccion/ciudad",
+                        "//button[@name='action']"
+                )));
+                break;
+            case "Direccion":
+                actor.attemptsTo(new EnterTextAction(informacion).Execute(new GeneralParams(
+                        "Usuario da Clic en campo Direccion",
+                        "campo Direccion",
+                        "//button[@name='action']"
+                )));
+                break;
+            case "Nit":
+                actor.attemptsTo(new EnterTextAction(informacion).Execute(new GeneralParams(
+                        "Usuario da Clic en campo Nit",
+                        "campo Nit",
+                        "//button[@name='action']"
+                )));
+                break;
+            case "Numero catastro":
+                actor.attemptsTo(new EnterTextAction(informacion).Execute(new GeneralParams(
+                        "Usuario da Clic en campo Numero catastro",
+                        "campo Numero catastro",
+                        "//button[@name='action']"
+                )));
+                break;
+            case "Tipo documento":
+                actor.attemptsTo(new EnterTextAction(informacion).Execute(new GeneralParams(
+                        "Usuario da Clic en campo Tipo documento",
+                        "campo Tipo documento",
+                        "//button[@name='action']"
+                )));
+                break;
+            case "Numero de documento representante":
+                actor.attemptsTo(new EnterTextAction(informacion).Execute(new GeneralParams(
+                        "Usuario da Clic en campo Numero de documento representante",
+                        "campo Numero de documento representante",
+                        "//button[@name='action']"
+                )));
+                break;
+            case "Nombre representante":
+                actor.attemptsTo(new EnterTextAction(informacion).Execute(new GeneralParams(
+                        "Usuario da Clic en campo Nombre representante",
+                        "campo Nombre representante",
+                        "//button[@name='action']"
+                )));
+                break;
+            case "Apellido representante":
+                actor.attemptsTo(new EnterTextAction(informacion).Execute(new GeneralParams(
+                        "Usuario da Clic en campo Apellido representante",
+                        "campo Apellido representante",
+                        "//button[@name='action']"
+                )));
+                break;
+            case "Telefono unidad inmobiliaria":
+                actor.attemptsTo(new EnterTextAction(informacion).Execute(new GeneralParams(
+                        "Usuario da Clic en campo Telefono unidad inmobiliaria",
+                        "campo Telefono unidad inmobiliaria",
+                        "//button[@name='action']"
+                )));
+                break;
+            case "Celular representante":
+                actor.attemptsTo(new EnterTextAction(informacion).Execute(new GeneralParams(
+                        "Usuario da Clic en campo Celular representante",
+                        "campo Celular representante",
+                        "//button[@name='action']"
+                )));
+                break;
+            case "Correo electronico representante":
+                actor.attemptsTo(new EnterTextAction(informacion).Execute(new GeneralParams(
+                        "Usuario da Clic en campo Correo electronico representante",
+                        "campo Correo electronico representante",
+                        "//button[@name='action']"
+                )));
+                break;
+            case "Numero de agrupaciones":
+                actor.attemptsTo(new EnterTextAction(informacion).Execute(new GeneralParams(
+                        "Usuario da Clic en campo Numero de agrupaciones",
+                        "campo Numero de agrupaciones",
+                        "//button[@name='action']"
+                )));
+                break;
+            case "Numero de unidades independientes":
+                actor.attemptsTo(new EnterTextAction(informacion).Execute(new GeneralParams(
+                        "Usuario da Clic en campo Numero de unidades independientes",
+                        "campo Numero de unidades independientes",
+                        "//button[@name='action']"
+                )));
+                break;
+            case "Numero de entradas a pie":
+                actor.attemptsTo(new EnterTextAction(informacion).Execute(new GeneralParams(
+                        "Usuario da Clic en campo Numero de entradas a pie",
+                        "campo Numero de entradas a pie",
+                        "//button[@name='action']"
+                )));
+                break;
+            case "Numero de entradas vehiculares":
+                actor.attemptsTo(new EnterTextAction(informacion).Execute(new GeneralParams(
+                        "Usuario da Clic en campo Numero de entradas vehiculares",
+                        "campo Numero de entradas vehiculares",
+                        "//button[@name='action']"
+                )));
+                break;
+            case "Numero de parqueaderos":
+                actor.attemptsTo(new EnterTextAction(informacion).Execute(new GeneralParams(
+                        "Usuario da Clic en campo Numero de parqueaderos",
+                        "campo Numero de parqueaderos",
+                        "//button[@name='action']"
+                )));
+                break;
+        }
+    }
+
+    @Then("^El sistema presenta mensaje de Campo requerido$")
+    public void elSistemaPresentaMensajeDeCampoRequerido() {
+        actor.should(new QuestionValidate("Campo requerido").Execute(new GeneralParams(
+                "Mensaje campo requerido",
+                "Campo requerido",
+                "//button[@name='action']"
+        )));
+    }
+
+    @And("^redirige al usuario a la página de Administrar Unidades Inmobiliarias$")
+    public void redirigeAlUsuarioALaPaginaDeAdministrarUnidadesInmobiliarias() {
+        actor.should(new QuestionValidate("Administración de Unidades Inmobiliarias").Execute(new GeneralParams(
+                "Página de Administración de Unidades Inmobiliarias",
+                "Administración de Unidades Inmobiliarias",
+                "//p[contains(text()] "
+        )));
+    }
 }
+
 
     

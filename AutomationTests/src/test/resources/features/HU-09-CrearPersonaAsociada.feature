@@ -25,7 +25,7 @@ Feature: Crear Persona asociada a Unidad Independiente
     Given Da clic en Unidades Inmobiliarias
     And da clic en el boton crear persona asociada
     When Da clic en una pagina diferente <pagina>
-    Then El sistema muestra un mensaje de confirmacion "¿Esta seguro de que desea salir de la pagina crear persona asociada?"
+    Then El sistema muestra un mensaje de confirmacion
     Examples:
       | pagina        |
       | Principal     |
@@ -105,4 +105,4 @@ Feature: Crear Persona asociada a Unidad Independiente
     When Ingresa toda información en cada uno de los campos requeridos de forma correcta
     And Da clic en el boton Guardar
     Then Muestra el mensaje creacion exitosa de persona
-    And redirige al usuario a la página de Administrar Persona asociada
+    And redirige al usuario a la página de Administrar Unidad independiente

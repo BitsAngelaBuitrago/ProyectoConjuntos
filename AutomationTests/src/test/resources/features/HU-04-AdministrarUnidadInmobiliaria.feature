@@ -15,9 +15,36 @@ Feature: Administrar Unidad Inmobiliari
     And Da clic en buscar
     Then El sistema muestra los resultados <resultado>
     Examples:
-      | busqueda | resultado             |
-      | Torre 1    | Torre 1, Torre 10         |
-      | Edificio 2 | Edificio 2 |
+      | busqueda   | resultado         |
+      | Torre 1    | Torre 1, Torre 10 |
+      | Edificio 2 | Edificio 2        |
+
+  Scenario: Comportamiento en cada uno de los filtros
+    Given El usuario Da clic sobre la opción Filtros
+    When Da clic sobre el filtro Agrupaciones de Unidad Inmobiliaria
+    Then El sistema presenta el listado de las agrupaciones
+
+  Scenario Outline: Autocomplete de cada filtro
+    Given El usuario Da clic sobre la opción Filtros
+    When Da clic sobre el filtro Agrupaciones de Unidad Inmobiliaria
+    And En Agrupacion Se ingresa <informacion>
+    Then En Agrupacion muestra el <resultado>
+    Examples:
+      | informacion | resultado |
+      | Torre 2     | Torre 2   |
+      | Torre 12    | Torre 12  |
+
+  Scenario Outline: Seleccionar un elemento de la lista presentada en el filtro
+    Given El usuario Da clic sobre la opción Filtros
+    When Da clic sobre el filtro Agrupaciones de Unidad Inmobiliaria
+    And En Agrupacion Se ingresa <informacion>
+    And En Agrupacion muestra el <resultado>
+    Then EL usuario seleccion el primer elemento
+    And Se muestran los resultados en la tabla
+    Examples:
+      | informacion | resultado |
+      | Torre 2     | Torre 2   |
+      | Torre 12    | Torre 12  |
 
   Scenario Outline: Seleccionar icono de acciones
     When Selecciona una <opcion>
@@ -31,3 +58,7 @@ Feature: Administrar Unidad Inmobiliari
   Scenario: Seleccionar Botón Crear Agrupación
     When Da clic en Crear Agrupacion
     And El sistema redirecciona a la pagina de Crear Agrupacion
+
+  Scenario: Seleccionar Botón Parqueaderos
+    When Da clic en Parqueaderos
+    And El sistema redirecciona a la pagina de Administrar Parqueaderos

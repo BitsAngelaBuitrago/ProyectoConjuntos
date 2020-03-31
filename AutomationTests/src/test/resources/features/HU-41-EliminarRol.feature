@@ -27,10 +27,3 @@ Feature: Eliminar rol
       | si     | El rol ya se encuentra asignado a uno o varios usuarios |
       | no     |                                                         |
 
-  Scenario Outline: Eliminar rol
-    When Da clic sobre el icono de Eliminar rol de XXX
-    Then Selecciona del rol XXX una <opcion> del pop up y genera una accion
-    Examples:
-      | opcion | mensaje                                                 |
-      | si     | El rol ya se encuentra asignado a uno o varios usuarios |
-      | no     |                                                         |

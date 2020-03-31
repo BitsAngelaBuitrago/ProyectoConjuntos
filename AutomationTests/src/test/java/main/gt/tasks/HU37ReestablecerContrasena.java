@@ -31,15 +31,15 @@ public class HU37ReestablecerContrasena {
         actor.has(new OpenUrlAction().Execute(new GeneralParams(
                 "http://selfcarecvgt-stg-gt.tigocloud.net/")));
     }
-    @When("Da clic en el campo requerido (.*)")
+    @When("^Da clic en el campo requerido (.*)$")
     public void campoRequerido(String Campo){
-        if (Campo == "Nueva contrasena") {
+        if (Campo.equals( "Nueva contrasena")) {
         actor.attemptsTo(new ClickButtonAction().Execute(new GeneralParams(
                 "Usuario da Clic en el campo",
                 "Campo nueva contrasena",
                 "//button[@name='action']"
         )));}
-        else if (Campo=="Confirmacion contrasena"){
+        else if (Campo.equals("Confirmacion contrasena")){
             actor.attemptsTo(new ClickButtonAction().Execute(new GeneralParams(
                     "Usuario da Clic en el campo",
                     "Campo confirmar contrasena",
@@ -48,7 +48,7 @@ public class HU37ReestablecerContrasena {
         }
 
     }
-    @And("Da clic por fuera del campo")
+    @And("^Da clic por fuera del campo$")
     public void clicFueraCampo(){
         actor.attemptsTo(new ClickButtonAction().Execute(new GeneralParams(
                 "Usuario da Clic fuera del campo",
@@ -56,14 +56,13 @@ public class HU37ReestablecerContrasena {
                 "//button[@name='action']"
         )));
     }
-    @Then("El sistema presenta un mensaje indicando que el campo es requerido")
+    @Then("^El sistema presenta un mensaje indicando que el campo es requerido$")
     public void mensajeCampoRequerido(){
-        actor.should(new QuestionValidate(
-                "Campo Requerido").Execute(new GeneralParams(
+        actor.should(new QuestionValidate("Campo Requerido").Execute(new GeneralParams(
                 "Pagina principal",
                 "//p[contains(text(),'Campo Requerido')]")));
     }
-    @When("Ingresa la (.*) en el campo nueva contrasena")
+    @When("^Ingresa la (.*) en el campo nueva contrasena$")
     public void ingresaNuevaContrasena(String nuevaContrasena){
         actor.attemptsTo(new EnterTextAction(nuevaContrasena).Execute(new GeneralParams(
                 "Usuario ingresa texto en un campo Nueva contrasena",
@@ -71,11 +70,12 @@ public class HU37ReestablecerContrasena {
                 "//input[@id='idContrasena']"
         )));
     }
-    @Then("El sistema informa que la nueva contraseña ingresada cumple con las reglas")
+    @Then("^El sistema informa que la nueva contraseña ingresada cumple con las reglas$")
     public void cumpleReglas(){
         actor.should(seeThat(the("//button[@name='action']"),isVisible()));
     }
-    @When("Ingresa la confirmación de la (.*)")
+
+    @When("^Ingresa la confirmación de la (.*)$")
     public void ingresaConfirmacionContrasena(String confirmacionContrasena){
         actor.attemptsTo(new EnterTextAction(confirmacionContrasena).Execute(new GeneralParams(
                 "Usuario ingresa texto en un campo Confirmacion contrasena",
@@ -83,8 +83,9 @@ public class HU37ReestablecerContrasena {
                 "//input[@id='idContrasena']"
         )));
     }
-    @Then("El sistema informa que la confirmación de la contraseña ingresada cumple con las reglas")
+    @Then("^El sistema informa que la confirmación de la contraseña ingresada cumple con las reglas$")
     public void cumpleReglasConfirmacion(){
+
         actor.should(seeThat(the("//button[@name='action']"),isVisible()));
     }
     @When("Coloca el cursor encima del icono de check o x")
@@ -95,11 +96,13 @@ public class HU37ReestablecerContrasena {
                 "//button[@name='action']"
         )));
     }
-    @Then("El sistema muestra el mensaje (.*)")
+    @Then("^El sistema muestra el mensaje (.*)$")
     public void mensajeIcono(String mensaje){
-        actor.should(seeThat(the("//button[@name='action']"), hasValue(mensaje)));
+        actor.should(new QuestionValidate(mensaje).Execute(new GeneralParams(
+                "Pagina principal",
+                "//p[contains(text(),'Campo Requerido')]")));
     }
-    @When("Da clic en el botón reestablecer")
+    @When("^Da clic en el botón reestablecer$")
     public void clicBotonReestablecer(){
         actor.attemptsTo(new ClickButtonAction().Execute(new GeneralParams(
                 "Usuario da Clic en reestablecer",
@@ -107,7 +110,7 @@ public class HU37ReestablecerContrasena {
                 "//button[@name='action']"
         )));
     }
-    @And("Da clic en el botón Ingresar")
+    @And("^Da clic en el botón Ingresar$")
     public void clicBotonIngresar(){
         actor.attemptsTo(new ClickButtonAction().Execute(new GeneralParams(
                 "Usuario da Clic en ingresar",

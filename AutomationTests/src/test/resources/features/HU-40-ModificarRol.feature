@@ -40,3 +40,48 @@ Feature: Modificar rol y asignar permisos
     And Se da clic en Unidades Inmobiliarias
     And Se da clic en Crear
     Then Se visualizan seleccionados cada check
+
+  Scenario: Seleccionar permisos padre
+    When Se da clic en Configuracion
+    Then Se visualizan todos los hijos y acciones seleccionados
+
+  Scenario: Desmarcar permisos padre
+    Given Ingresa el nombre en el campo nombre de rol
+    And Que se encuentra seleccionado configuracion
+    When Se da clic en Configuracion
+    Then Se visualizan todos los hijos desmarcados
+
+  Scenario: Desmarcar hijos
+    Given Ingresa el nombre en el campo nombre de rol
+    And Que se encuentra seleccionado configuracion
+    When se desmarcan los hijos
+    Then Se mantiene seleccionado configuracion
+
+  Scenario: Desmarcar acciones
+    Given Ingresa el nombre en el campo nombre de rol
+    And Que se encuentra seleccionado configuracion
+    And se encuentran marcados los hijos
+    When se desmarcan todas las acciones
+    Then se encuentran marcados los hijos
+
+  Scenario: Desmarcar una acción
+    Given Ingresa el nombre en el campo nombre de rol
+    And Que se encuentra seleccionado configuracion
+    And se encuentran marcados los hijos
+    When se desmarca la accion de Editar
+    Then se mantienen seleccionados las demas acciones
+
+  Scenario: Marcar permiso padre
+    Given Ingresa el nombre en el campo nombre de rol
+    And Que se encuentra desmarcada configuracion
+    When se selecciona la accion de Editar
+    Then se muestra seleccionado el padre y el hijo
+
+  Scenario: Modificación del rol con permisos
+    Given Ingresa el nombre en el campo nombre de rol
+    And Se selecciona configuracion
+    And se desmarca la accion de Editar
+    When Se da clic en guardar
+    Then Se muestra el mensaje de modificación
+    And redirige al usuario a la página de Administrar Roles
+

@@ -16,6 +16,7 @@ import net.serenitybdd.screenplay.actions.ScrollTo;
 import net.thucydides.core.annotations.Managed;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+
 import static net.serenitybdd.screenplay.matchers.WebElementStateMatchers.*;
 import static net.serenitybdd.screenplay.questions.WebElementQuestion.the;
 import static net.serenitybdd.screenplay.GivenWhenThen.seeThat;
@@ -300,4 +301,33 @@ public class HU50SelectorUnidadInmobiliaria {
     }
 
 
+    @And("^Da clic en un (.*)$")
+    public void daClicEnUnFiltro(String filtro) {
+        switch (filtro) {
+            case "nombre":
+                actor.attemptsTo(new ClickButtonAction().Execute(new GeneralParams(
+                        "clic en icono buscar",
+                        "//button[@name='action']"
+                )));
+                break;
+            case "nit":
+                actor.attemptsTo(new ClickButtonAction().Execute(new GeneralParams(
+                        "clic en icono buscar",
+                        "//bu tton[@name='action']"
+                )));
+                break;
+            case "catastro":
+                actor.attemptsTo(new ClickButtonAction().Execute(new GeneralParams(
+                        "clic en icono buscar",
+                        "//button[@name='act ion']"
+                )));
+                break;
+            case "dirección":
+                actor.attemptsTo(new ClickButtonAction().Execute(new GeneralParams(
+                        "clic en icono buscar",
+                        "//button[@nam e='action']"
+                )));
+                break;
+        }
+    }
 }

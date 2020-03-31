@@ -1,18 +1,13 @@
 package main.gt.tasks;
 
-import core.actions.OpenUrlAction;
 import core.Helpers.GeneralParams;
 import core.actions.ClickButtonAction;
 import core.actions.EnterTextAction;
 import core.questions.QuestionValidate;
 import cucumber.api.java.en.And;
-import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import net.serenitybdd.screenplay.Actor;
-import net.serenitybdd.screenplay.abilities.BrowseTheWeb;
-import net.thucydides.core.annotations.Managed;
-import org.openqa.selenium.WebDriver;
 import static net.serenitybdd.screenplay.matchers.WebElementStateMatchers.*;
 import static net.serenitybdd.screenplay.questions.WebElementQuestion.the;
 import static net.serenitybdd.screenplay.GivenWhenThen.seeThat;
@@ -21,40 +16,6 @@ public class HU09CrearPersonaAsociada {
 
     Actor actor;
 
-    @Managed
-    WebDriver navegador;
-
-    @Given("^Que usuario ingresa a la pagina de inicio$")
-    public void ingresarAUrl() {
-        actor = Actor.named("usuario");
-        actor.can(BrowseTheWeb.with(navegador)); //Abrir navegador
-        actor.has(new OpenUrlAction().Execute(new GeneralParams(
-                "http://selfcarecvgt-stg-gt.tigocloud.net/")));
-
-    }
-
-    @And("^Inicia sesión$")
-    public void iniciarSesion() {
-        actor.attemptsTo(new EnterTextAction("jbarbosam").Execute(new GeneralParams(
-                "Usuario ingresa texto en el campo usuario",
-                "Campo usuario",
-                "//input[@id='idEmail']"
-        )));
-
-        actor.attemptsTo(new EnterTextAction("TigoTest123#").Execute(
-                new GeneralParams(
-                        "Usuario ingresa texto en un campo clave",
-                        "Campo clave",
-                        "//input[@id='password']"
-                )
-        ));
-
-        actor.attemptsTo(new ClickButtonAction().Execute(new GeneralParams(
-                "Usuario da Clic en continuar",
-                "Boton continuar",
-                "//button[@name='action']"
-        )));
-    }
 
     @And("^Ingresa al agrupador deseado$")
     public void ingresaAlAgrupadorDeseado() {
@@ -287,11 +248,11 @@ public class HU09CrearPersonaAsociada {
         )));
     }
 
-    @And("^redirige al usuario a la página de Administrar Persona asociada$")
-    public void redirigeAlUsuarioALaPaginaDeAdministrarPersonaAsociada() {
-        actor.should(new QuestionValidate("Administración de Personas asociadas").Execute(new GeneralParams(
-                "Página de Administración de personas asociadas",
-                "Administración de personas asociadas",
+    @And("^redirige al usuario a la página de Administrar Unidad independiente$")
+    public void redirigeAlUsuarioALaPaginaDeAdministrarUnidadIndependiente() {
+        actor.should(new QuestionValidate("Administración de Unidad Independiente").Execute(new GeneralParams(
+                "Página de Administración de Unidad Independiente",
+                "Administración de Unidad Independiente",
                 "//p[contains(text()] "
         )));
     }

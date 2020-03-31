@@ -6,14 +6,19 @@ Feature: Funcionamiento de elementos header, menu y cierre de sesión
     When Inicia sesión
 
   Scenario: Información que se debe presentar en el header
-    Then Visualiza la informacion del Header
+    Then Visualiza el logo de la unidad inmobiliaria
+    And Visualiza Nombre de la unidad inmobiliaria
+    And Visualiza Ruta de navegacion
+    And Visualiza Icono de cambiar de unidad inmobiliaria
+    And Visualiza Seccion perfil con el usuario y foto
+    And Visualiza cierre de sesion
 
   Scenario: Seleccionar la sección del logo de la unidad inmobiliaria en el header
     When Da clic en el logo de la unidad inmobiliaria en el header
     Then El sistema presenta una ventana emergente para realizar la configuración de logo
     And Con un botón de Seleccionar imagen
-    And Texto descriptivo del formato ‘Puede seleccionar una imagen JPG/JPEG/PNG’ y tamaño máximo de la imagen
-    And Texto descriptivo del tamaño máximo de la imagen ‘con un tamaño máximo de 5MB’
+    And Texto descriptivo del formato y tamaño máximo de la imagen
+    And Texto descriptivo del tamaño máximo de la imagen
     And Con un botón de guardar
     And Un botón de Cancelar
     And Con opción de cerrar ventana
@@ -49,7 +54,7 @@ Feature: Funcionamiento de elementos header, menu y cierre de sesión
     When Da clic sobre una <pagina> del menu
     Then El sistema muestra la <ruta_de_navegacion>
     And Debe presentar como enlace la informacion antes de la ultima en la <ruta_de_navegacion>
-    And Debe presentar de un color diferente la última información de la <ruta_de_navegacion>
+
     Examples:
       | pagina                    | ruta_de_navegacion        |
       | Inicio                    | Inicio                    |
@@ -74,8 +79,8 @@ Feature: Funcionamiento de elementos header, menu y cierre de sesión
     And Da clic sobre opción de cambiar foto perfil
     Then El sistema presenta una ventana emergente para realizar el cambio de imagen
     And botón de Seleccionar imagen
-    And Texto descriptivo del formato ‘Puede seleccionar una imagen JPG/JPEG/PNG’ y tamaño máximo de la imagen
-    And Texto descriptivo del tamaño máximo de la imagen ‘con un tamaño máximo de 5MB’
+    And Texto descriptivo del formato y tamaño máximo de la imagen
+    And Texto descriptivo del tamaño máximo de la imagen
     And Con un botón de guardar
     And Un botón de Cancelar
     And Con opción de cerrar ventana
