@@ -1,140 +1,125 @@
-Feature: Como usuario Quiero crear un Agrupador Para iniciar su gestión.
+Feature: Crear agrupador
+  Como usuario Quiero crear un Agrupador Para iniciar su gestión.
 
- # Background: Un usuario ingresa credencial correctamente ‘HU_35_Ingreso_credenciales_V1.0’
- #  Given Ingresa a la pantalla de Administrar Unidades Inmobiliarias
- # And Da clic sobre la Unidad Inmobiliaria deseada
- # And Da clicc en el Botón Crear Agrupador
+  Background: Información que se debe presentar en el selector
+    Given Que usuario ingresa a la pagina de inicio
+    When Inicia sesión con un usuario
+    Then El sistema presenta la ventana emergente de Selector
+    And Da clic sobre la Unidad Inmobiliaria deseada
 
   Scenario: 1.Información que se presenta al seleccionar el botón de crear
     Given  Un usuario en la pagina de Unidades inmobiliarias
-    When Sselecciona el botón de Crear
-    Then  El sistema presenta un formulario “Crear Agrupador”
-    And El boton de guardar bloqueadoo
+    When  Usuario da clic en el boton crear
+    Then  El sistema presenta formulario Crear Agrupador
+    And  el usuario voisualiza la ruta de navegacion
+    And campo nombre agrupador
+    And campo numero de unidades independientes
+    And boton de guardar bloqueado
 
   Scenario Outline: 2.Salir del formulario de Creación de Agrupador
     Given Un usuario en la pagina de Crear Agrupador
-    When Selecciona una de las <opciones> para salir de formulario de crear agrupador
-    Then El sistema presenta un <mensaje> junto con los botones Si y no
-    And La <Opcion> cerrar mensaje
+    When Selecciona una <Opcion> para salir de formulario
+    Then El sistema presenta pop up de confirmacion de salida
+    And  El sistema presenta mensaje junto con los botones Si y no
+    And  opcion cerrar mensaje
 
     Examples:
-      | Opcion                       | mensaje                                                     |
-      | pagina del menu              | Esta seguro de que desea salir de la pagina crear Agrupador |
-      | Enlace de ruta de navegacion | Esta seguro de que desea salir de la pagina crear Agrupador |
-      | Iconoo de cerar cesion       | Esta seguro de que desea salir de la pagina crear Agrupador |
 
+      | Opcion                 |
+      | Parqueaderos           |
+      | Unidades inmobiliarias |
+      | Iconoo de cerar sesion |
 
-  Scenario: 3.Cerrar el mensaje ¿Esta seguro de que desea salir de la pagina crear Agrupador?
-    Given Un usuario en la pagina de Crear agrupadores
-    And   Sellecciona una de las <opciones_formulario> para salir del formulario
-    When  Sellecciona una de las <opciones_mensaje> para cerrar el mensaje
-    Then  El sistema debe realizar un <acciones> dependiendo de la opción seleccionada
+  Scenario Outline: 3.Cerrar el mensaje Está seguro de que desea salir de la página crear Agrupador
+    Given Un usuario en la pagina de Crear Agrupador
+    And  Selecciona una <Opcion> para salir de formulario
+    And  El sistema presenta pop up de confirmacion de salida
+    And  El sistema presenta mensaje junto con los botones Si y no
+    When Selecciona una <opciones_mensaje> para cerrar el mensaje
+    Then El sistema debe realiza <acciones> dependiendo de la opción seleccionada
+
+    Examples:
+
+      | Opcion                 | opciones_mensaje | acciones                                                 |
+      | Paqueaderos            | Si               | El sistema debera direccionarlo a la pagina seleccionada |
+      | Unidades inmobiliarias | No               | El sistema debera dejarlo en la misma pagina             |
+      | Iconoo de cerar sesion | X                | El sistema debera dejarlo en la misma pagina             |
 
   Scenario Outline: 4.No ingresar información en los campos requeridos
-    Given Un usuario en la pagina de Crearr Agrupador
-    When  Da clicc en el <campo_requerido>
+    Given Un usuario en la pagina de Crear Agrupador
+    When  Da clic en <campo_requerido>
     And   da clic por fuera del campo
-    Then  El siistema presenta un <mensaje> indicando que el campo es requerido
+    Then  El sistema presenta mensaje indicando que el campo es requerido
     And   El sistema debera indicar a nivel visual que el campo es obligatorio
 
     Examples:
-      | campo_requerido                   | mensaje               |
-      | Nombre Agrupador                  | El campo es requerido |
-      | numero de Unidades Independientes | El campo es requerido |
+      | campo_requerido                   |
+      | Nombre Agrupador                  |
+      | numero de Unidades Independientes |
 
 
   Scenario Outline: 5.Se habilita si o no botón de guardar
-    Given  Un usuario en la pagina de Crear Agrupadorr
-    When  Realizar una <accion> sobre los campos
-    Then  sistema presenta sí o no <habilitado> el boton de guardar
+    Given  Un usuario en la pagina de Crear Agrupador
+    When  ingresa al campo <nombre> agrupacion
+    And   ingresa al campo <numero> de unidades
+    Then  sistema presenta <habilitado> el boton de guardar
 
     Examples:
-      | accion                                                      | habilitado     |
-      | Ingresa informacion correcta en todos los campos requeridos | si se habilita |
-      | Ingresa informacion en algunos campos requeridos            | no se habilita |
-      | norra informacion en algunos campos requeridos              | no se habilita |
-
+      | nombre      | numero | habilitado |
+      | Agrupacion1 | 2      | Si         |
+      | Agrupacion2 |        | No         |
+      |             | 3      | No         |
 
   Scenario Outline: 6.Ingresar informacion en campo # de Unidades Independientess
-    Given  Un usuario en la pagina de Crearr Agrupadorr
-    When Ingresa un <tipo> de <valor> con unas <reglas> definidas para el <campo>
-    Then Ell sistema realiza si o no unas <acciones>
+    Given  Un usuario en la pagina de Crear Agrupador
+    When Ingresa un <valor> para el campo numero de unidades independientes
+    Then El sistema muestra el <resultado>
+    And muestra un mensaje en caso de que el usuario ingrese letras en el campo
 
     Examples:
-      | tipo                              | valor  |
-      | valido                            | 10     |
-      | caracteres alfanumericos          | 55a    |
-      | mas de 5 numeros                  | 123456 |
-      | caracteres especiales con espacio | 12 (6  |
-
+      | valor  | resultado |
+      | 10     | 10        |
+      | 55ab   | 55        |
+      | 123456 | 123456    |
+      | 12(6   | 126       |
 
   Scenario Outline: 7.Ingresar información en el campo alfanumérico Nombre Agrupador, incluyendo caracteres especiales y el espacio
-    Given  Un usuario en la página de Crear Agrupador
+    Given  Un usuario en la pagina de Crear Agrupador
     And  el usuario Da clic en el campo Nombre Agrupador
-    When Ingressa un <tipo> de <valor> con unas <reglas> definidas para el <campo>
-    Then El sistema realiza unas <acciones>
+    When Ingresa un <valor> para el campo nombre de agrupador
+    Then El sistema muestra <resultado>
 
     Examples:
-      | tipo                 | valor                |
-      | Valido               | Agrupacion 4         |
-      | mas de 50 caracteres | Se ingresa mas de 50 |
 
-  Scenario Outline: 8.Se habilita botón de guardar
-    Given  Un usuario en la página de Crear Agrupadores
-    When   Realiza una <Accion> sobre un <campo>
-    Then   El sistema presenta si o no <habilitado> el botón de guardar
-
-    Examples:
-      | Accion                                              | campo                        | habilitado |
-      | borra toda la informacion                           | todos los campos             | no         |
-      | ingresa informacion                                 | algunos campos               | no         |
-      | Ingresa informacion que no cumple con la estructura | correo electronico, telefono | no         |
+      | valor                                                           | resultado                                             |
+      | Agrupador 4                                                     | agrupador 4                                           |
+      | 123456789123456789123456789123456789123456789123456789123456789 | 12345678912345678912345678912345678912345678912345678 |
 
 
-  Scenario:  9.Creación de Agrupador
-    Given  Un usuario en la página de Crear Agrrupador
-    And   Ingresa la información en los campos requeridos
-    When  Da cliic en el botón Guardar
-    Then  El siistema realiza unas <validaciones> en los <campos> enviados
-
-
-  Scenario Outline:  10.Validaciones que se realizan en la estructura del campo # Unidades Independientes al seleccionar el botón guardar
-    Given  Se envía un <valor> para un <campo> de <tipo_de_campo>
-    When  Se envía la petición al servicio web
-    Then  El sistema realiza uunas <validaciones> en los campos enviados
-    And  El sistema presenta un <resultado>
+  Scenario Outline:  9.Creación de Agrupador
+    Given Un usuario en la pagina de Crear Agrupador
+    When  ingresa al campo <nombre> agrupacion
+    And   Ingresa <numero> para el campo nombre de agrupador
+    And   da clic en boton guardar
+    Then  sistema presenta el mensaje
 
     Examples:
-          | campo                          | validaciones                                                      |
-          | numero Unidades Independientes | Minimo 1 caracter                                                 |
-          | 123456                         | se debe presentar el mensaje maxima longitud es de 5 caracteres   |
-          | Af545                          | se debe presentar el mensaje solo admite numeros                  |
-
-  Scenario:  11.Validaciones que se realizan en la estructura del campo Nombre Agrupador, incluyendo caracteres especiales y el espacio al seleccionar el botón guardar
-    Given Se enviía un <valor> para un <campo> de <tipo_de_campo>
-    When See envía la petición al servicio web
-    Then El siistema realiza unas <validaciones> en los campos enviiados
-    And  El siistema presenta un <resultado>
-
+      | nombre      | numero |
+      | Agrupacion1 | 2      |
+      | Agrupacion1 | 2      |
+      | Agrupacion2 | 50     |
+      |             | 3      |
 
   Scenario Outline:  12.Errores al seleccionar el botón guardar
-    Given Un usuario en la pagiina de Crear Agrupador
-    And   Ingresa la información en cada uno de los campos requeriidos de forma correcta
-    When  Da clic en ell botón Guardar
-    Then  sistema guardar informacion
-    And  Se presenta un error de <tipo> 
-    And  El sistema presenta un <mensaje> 
-    And  El sistema no debe borrar a información de los campos del formulario
+    Given Un usuario en la pagina de Crear Agrupador
+    And ingresa al campo <nombre> agrupacion
+    And Ingresa <numero> para el campo nombre de agrupador
+    When  da clic en boton guardar
+    Then  El sistema presenta un <tipo_de_error>
+    And   presenta un <mensaje>
+    And   El sistema no debe borrar la información de los campos del formulario
 
     Examples:
-      | tipo                                            | mensaje                                                                                                             |
-      | Error 500 se corresponden a errores del sistema | Se presenta el siguiente mensaje El proceso no se termino  satisfactoriamente. Intente nuevamente en unos segundos  |
-
-  Scenario:  13. Error 400 al seleccionar el botón guardar
-    Given Un usuario en la página de Unidades inmobiliarias
-    And Seleccionaa el botón de Crearr
-    And  Ingresa lla información en cada uno de los campos requeridos de forma correcta
-    When  Da cliic en el botón Guardarr
-    Then El sistema iintenta guardar la información
-    And  Se prresenta un error de tiipo 400
-    And  El sistema redirecciona a una página en la cual se debe información el error
+      | tipo_de_error | mensaje                                                                                                            |
+      | 500             | Se presenta el siguiente mensaje El proceso no se termino  satisfactoriamente. Intente nuevamente en unos segundos |
+      | 400             | Se presenta el siguiente mensaje El proceso no se termino  satisfactoriamente. Intente nuevamente en unos segundos |

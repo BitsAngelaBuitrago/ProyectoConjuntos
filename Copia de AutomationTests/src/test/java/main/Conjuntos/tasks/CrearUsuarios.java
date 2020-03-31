@@ -28,11 +28,12 @@ public class CrearUsuarios {
         actor.can(BrowseTheWeb.with(navegador)); //Abrir navegador
 
     }
+
 //Escenario 1
 
     @Given("^Un usuario en la pagina de Administracion de Usuarios$")
     public void administracion() {
-        actor.attemptsTo((Performable) new QuestionValidate("Pagina de inico").Execute(new GeneralParams(
+        actor.should(new QuestionValidate("Pagina de inico").Execute(new GeneralParams(
                 "El usuario ingresa a la pagina de administrar usuarios",
                 "pagina de administracion de usuarios",
                 "Elemento")));
