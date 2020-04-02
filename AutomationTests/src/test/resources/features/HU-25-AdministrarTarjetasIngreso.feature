@@ -1,14 +1,17 @@
-Feature: Administrar Unidad Inmobiliaria
-  Como usuario super administrador Quiero Administar la Unidad Inmobiliaria Para realizar su gestión en el sistema
+Feature: Administrar Tarjetas de Ingreso
+  Como usuario super administrador Quiero Administar las Tarjetas de Ingreso Para realizar su gestión en el sistema
 
   Background: Ingresar a la aplicación
     When Que usuario ingresa a la pagina de inicio
     And Inicia sesión
-    And Da clic en Unidades Inmobiliarias
-    And Da clic sobre la unidad inmobiliaria Bits
+    And Da clic en Tarjetas de Ingreso
 
-  Scenario: Información que se presenta al ingresar la opción de administrar Unidad Inmobiliaria
-    Then El sistema muestra la informacion de la Unidad Inmobiliaria
+  Scenario: Información que se presenta al ingresar la opción de administrar Tarjetas de Ingreso
+    Then El sistema presenta la Ruta de navegacion
+    And Label Administracion de Tarjetas
+    And Tabla de registros
+    And Boton carga masiva
+    And El boton de Crear ID
 
   Scenario Outline: Realizar búsqueda de Agrupador de Unidad Inmobiliaria
     When Ingresa información en filtro de busqueda <busqueda>

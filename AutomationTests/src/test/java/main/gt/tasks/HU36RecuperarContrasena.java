@@ -54,6 +54,7 @@ public class HU36RecuperarContrasena {
     }
     @Then("El sistema presenta habilitado el botón Enviar")
     public void botonEnviarHabilitado(){
+
         actor.should(seeThat(the("//p[contains(text(),'Inicio')]"), isEnabled()));
     }
 
@@ -128,5 +129,60 @@ public class HU36RecuperarContrasena {
                 "campo usuario",
                 "//button[@name='action']"
         )));
+    }
+
+    @Then("^Visualiza El sistema presenta la Ruta de navegacion$")
+    public void visualizaElSistemaPresentaLaRutaDeNavegacion() {
+        actor.should(seeThat(the("//p[contains(text(),'Inicio')]"), isVisible()));
+    }
+
+    @And("^Visualiza Label Recuperar contraseña$")
+    public void visualizaLabelRecuperarContrasena() {
+        actor.should(seeThat(the("//p[contains(text(),'Inicio')]"), isVisible()));
+    }
+
+    @And("^Visualiza Label Ingresa tu documento o correo$")
+    public void visualizaLabelIngresaTuDocumentoOCorreo() {
+        actor.should(seeThat(the("//p[contains(text(),'Inicio')]"), isVisible()));
+    }
+
+    @And("^Visualiza Campo tipo texto$")
+    public void visualizaCampoTipoTexto() {
+        actor.should(seeThat(the("//p[contains(text(),'Inicio')]"), isVisible()));
+    }
+
+    @And("^Visualiza Icono de ayuda$")
+    public void visualizaIconoDeAyuda() {
+        actor.should(seeThat(the("//p[contains(text(),'Inicio')]"), isVisible()));
+    }
+
+    @And("^Visualiza El boton Enviar$")
+    public void visualizaElBotonEnviar() {
+        actor.should(seeThat(the("//p[contains(text(),'Inicio')]"), isVisible()));
+    }
+
+    @And("^Visualiza Boton volver$")
+    public void visualizaBotonVolver() {
+        actor.should(seeThat(the("//p[contains(text(),'Inicio')]"), isVisible()));
+    }
+
+    @When("^Da clic en icono de ayuda$")
+    public void daClicEnIconoDeAyuda() {
+        actor.attemptsTo(new ClickButtonAction().Execute(new GeneralParams(
+                "Usuario da Clic en icono de ayuda",
+                "icono de ayuda",
+                "//button[@name='action']"
+        )));
+    }
+
+    @Then("^Se muestra un pop up con el mensaje de ayuda$")
+    public void seMuestraUnPopUpConElMensajeDeAyuda() {
+        actor.should(seeThat(the("//p[contains(text(),'Inicio')]"), isVisible()));
+        actor.should(new QuestionValidate("Ingrese en el campo el tipo de documento con el número de documento (ej: CE123456) o el correo electrónico (ej: bitsamericas@bitsamericas.com) del usuario").Execute(new GeneralParams(
+                        "Mensaje de ayuda",
+                        "Icono de ayuda",
+                        "//p[contains(text(),'nuevo email')] "
+                )
+        ));
     }
 }

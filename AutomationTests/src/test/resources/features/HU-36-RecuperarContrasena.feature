@@ -1,8 +1,17 @@
 Feature: Como usuario Quiero recuperar la contraseña Para ingresar a la aplicación
 
-  Scenario: Un usuario ingresa a la aplicación de conjuntos
+  Background: Un usuario ingresa a la aplicación de conjuntos
     When Que usuario ingresa a la pagina de inicio
     And Da clic en el enlace ¿Olvidaste tu contrasena?
+
+  Scenario: Información que se presenta al ingresar al enlace Olvidaste tu contraseña
+    Then Visualiza El sistema presenta la Ruta de navegacion
+    And Visualiza Label Recuperar contraseña
+    And Visualiza Label Ingresa tu documento o correo
+    And Visualiza Campo tipo texto
+    And Visualiza Icono de ayuda
+    And Visualiza El boton Enviar
+    And Visualiza Boton volver
 
   Scenario: Seleccionar el botón de volver
     Given Da clic en el enlace ¿Olvidaste tu contrasena?
@@ -34,8 +43,8 @@ Feature: Como usuario Quiero recuperar la contraseña Para ingresar a la aplicac
     And El sistema borra la información del campo usuario
     Examples:
       | usuario | Mensaje                                                                                                       |
-      |         | Usuario invalido                                                                                              |
-      |         | El usuario no se encuentra activo                                                                             |
+      |         | Documento o correo invalido                                                                                              |
+      |         | Documento o correo no se encuentra activo                                                                             |
       |         | Debes tener un nuevo email en tu correo electronico admi...bits.com para que puedas restablecer la contrasena |
 
   Scenario Outline: Selección del botón de volver al realizar la recuperación de contraseña
@@ -50,3 +59,8 @@ Feature: Como usuario Quiero recuperar la contraseña Para ingresar a la aplicac
       | usuario  |
       | usuario1 |
       | usuario2 |
+
+    Scenario: Icono de ayuda
+      Given Da clic en el enlace ¿Olvidaste tu contrasena?
+      When Da clic en icono de ayuda
+      Then Se muestra un pop up con el mensaje de ayuda
