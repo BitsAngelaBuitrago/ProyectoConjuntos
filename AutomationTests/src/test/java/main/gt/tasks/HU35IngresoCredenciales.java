@@ -1,21 +1,20 @@
 package main.gt.tasks;
 
-import core.actions.OpenUrlAction;
 import core.Helpers.GeneralParams;
 import core.actions.ClickButtonAction;
 import core.actions.EnterTextAction;
 import core.questions.QuestionValidate;
+import cucumber.api.java.Before;
 import cucumber.api.java.en.And;
-import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import net.serenitybdd.screenplay.Actor;
 import net.serenitybdd.screenplay.abilities.BrowseTheWeb;
 import net.thucydides.core.annotations.Managed;
 import org.openqa.selenium.WebDriver;
+
 import static net.serenitybdd.screenplay.matchers.WebElementStateMatchers.*;
 import static net.serenitybdd.screenplay.questions.WebElementQuestion.the;
-
 import static net.serenitybdd.screenplay.GivenWhenThen.seeThat;
 
 public class HU35IngresoCredenciales {
@@ -24,42 +23,41 @@ public class HU35IngresoCredenciales {
     @Managed
     WebDriver navegador;
 
-    @Given("^Que usuario ingresa a la pagina de inicio$")
-    public void ingresarAUrl() {
+    @Before
+    public void abrirNavegador() {
         actor = Actor.named("usuario");
-        actor.can(BrowseTheWeb.with(navegador)); //Abrir navegador
-        actor.has(new OpenUrlAction().Execute(new GeneralParams(
-                "http://selfcarecvgt-stg-gt.tigocloud.net/")));
-
+        actor.can(BrowseTheWeb.with(navegador));
     }
 
     @When("^Ingresa información de usuario de (.*)$")
     public void ingresarUsuario(String usuario){
         actor.attemptsTo(new EnterTextAction(usuario).Execute(new GeneralParams(
-                "Usuario ingresa texto en un campo usuario",
+                "Usuario ingresa texto en el campo usuario",
                 "Campo usuario",
-                "//input[@id='idUsuario']"
+                "//input[@id='userName']"
         )));
     }
     @And("^Ingresa la información de contrasena (.*)$")
     public void ingresarContrasena(String contrasena) {
-        actor.attemptsTo(new EnterTextAction(contrasena).Execute(new GeneralParams(
-                "Usuario ingresa texto en un campo contrasena",
-                "Campo contrasena",
-                "//input[@id='idContrasena']"
-        )));
+        actor.attemptsTo(new EnterTextAction(contrasena).Execute(
+                new GeneralParams(
+                        "Usuario ingresa texto en un campo clave",
+                        "Campo clave",
+                        "//input[@id='password']"
+                )
+        ));
     }
     @Then("El sistema (.*) presenta habilitado el botón de ingresar")
     public void botonHabilitado() {
 
-        actor.should(seeThat(the("//p[contains(text(),'Inicio')]"), isEnabled()));
+        actor.should(seeThat(the("//a[contains(text(),'Ingresar')]"), isEnabled()));
     }
     @And("^Da clic sobre el botón Ingresar$")
     public void ingresar(){
         actor.attemptsTo(new ClickButtonAction().Execute(new GeneralParams(
                 "Usuario da Clic en Ingresar",
                 "Boton Ingresar",
-                "//button[@name='action']"
+                "//a[contains(text(),'Ingresar')]"
         )));
     }
 
@@ -113,6 +111,17 @@ public class HU35IngresoCredenciales {
                         "Error de autenticación",
                         "Mensaje de error de ingreso",
                         "//p[contains(text(),)] "
+                )
+        ));
+    }
+
+    @Then("^El sistema presenta la página Administracion de roles$")
+    public void elSistemaPresentaLaPaginaAdministracionDeRoles() {
+        actor.should(new QuestionValidate("Administración de Roles").Execute(
+                new GeneralParams(
+                        "Después de 5 intentos se bloquea el usuario",
+                        "Usuario Bloqueado",
+                        "//p[contains(text(),'Administración de Roles')]"
                 )
         ));
     }

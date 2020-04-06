@@ -4,10 +4,15 @@ import core.Helpers.GeneralParams;
 import core.actions.ClickButtonAction;
 import core.actions.EnterTextAction;
 import core.questions.QuestionValidate;
+import cucumber.api.java.Before;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import net.serenitybdd.screenplay.Actor;
+import net.serenitybdd.screenplay.abilities.BrowseTheWeb;
+import net.thucydides.core.annotations.Managed;
+import org.openqa.selenium.WebDriver;
+
 import static net.serenitybdd.screenplay.matchers.WebElementStateMatchers.*;
 import static net.serenitybdd.screenplay.questions.WebElementQuestion.the;
 import static net.serenitybdd.screenplay.GivenWhenThen.seeThat;
@@ -16,6 +21,14 @@ public class HU10ModificarPersonaAsociada {
 
     Actor actor;
 
+    @Managed
+    WebDriver navegador;
+
+    @Before
+    public void abrirNavegador() {
+        actor = Actor.named("usuario");
+        actor.can(BrowseTheWeb.with(navegador));
+    }
 
     @And("^da clic en el boton Modificar persona asociada$")
     public void daClicEnElBotonModificarPersonaAsociada() {
@@ -93,12 +106,12 @@ public class HU10ModificarPersonaAsociada {
         )));}
     }
 
-    @Then("^Visualiza el resultado esperado (.*)$")
+    @Then("^Persona asociada Visualiza el resultado esperado (.*)$")
     public void visualizaElResultadoEsperadoResultado(String resultado) {
         actor.should(new QuestionValidate(resultado).Execute(new GeneralParams(
                 "Resultado de ingreso",
                 "resultado de ingreso",
-                "//p[contains(text()] "
+                "//p[con tains(text()] "
         )));
     }
 
@@ -108,7 +121,7 @@ public class HU10ModificarPersonaAsociada {
         actor.should(new QuestionValidate("Persona asociada modificada exitosamente").Execute(new GeneralParams(
                 "Mensaje de modificación exitosa de persona asociada",
                 "modificación exitosa de persona asociada",
-                "//p[contains(text()] "
+                "//p[contain s(text()] "
         )));
     }
 }

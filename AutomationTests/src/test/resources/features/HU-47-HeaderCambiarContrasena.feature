@@ -70,7 +70,7 @@ Feature: Cambiar contraseña
     And Da clic en contrasena actual
     And Ingresa una <contrasenaActual>
     When Ingresa una <NuevaContrasena>
-    And Ingresa la <confirmacionContrasena>
+    And Confirmacion de contrasena ingresada <confirmacionContrasena>
     Then Se muestra el <resultado> y Se pasa el cursor por el check y se muestra un mensaje
     And <SioNo> Se habilita el boton guardar
     Examples:

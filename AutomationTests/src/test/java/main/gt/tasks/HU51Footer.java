@@ -5,6 +5,7 @@ import core.Helpers.GeneralParams;
 import core.actions.ClickButtonAction;
 import core.actions.EnterTextAction;
 import core.questions.QuestionValidate;
+import cucumber.api.java.Before;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
@@ -25,31 +26,10 @@ public class HU51Footer {
     @Managed
     WebDriver navegador;
 
-    @Given("^Que usuario ingresa a la pagina de inicio$")
-    public void ingresarAUrl() {
+    @Before
+    public void abrirNavegador() {
         actor = Actor.named("usuario");
-        actor.can(BrowseTheWeb.with(navegador)); //Abrir navegador
-        actor.has(new OpenUrlAction().Execute(new GeneralParams(
-                "http://selfcarecvgt-stg-gt.tigocloud.net/")));
-
-    }
-
-    @And("^Inicia sesión con un usuario con una unidad$")
-    public void iniciarSesionUnaUnidad() {
-        actor.attemptsTo(new EnterTextAction("jbarbosam").Execute(new GeneralParams(
-                "Usuario ingresa texto en el campo usuario",
-                "Campo usuario",
-                "//input[@id='idEmail']"
-        )));
-
-        actor.attemptsTo(new EnterTextAction("TigoTest123#").Execute(
-                new GeneralParams(
-                        "Usuario ingresa texto en un campo clave",
-                        "Campo clave",
-                        "//input[@id='password']"
-                )
-        ));
-
+        actor.can(BrowseTheWeb.with(navegador));
     }
 
     @When("^El usuario se ubica al final de la pantalla$")

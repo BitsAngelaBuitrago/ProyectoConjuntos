@@ -11,12 +11,7 @@ import org.junit.runner.RunWith;
 
 @CucumberOptions(
 
-        features = {"src/test/resources/features/HU-PromotionalBalance.feature",
-                "src/test/resources/features/HU-LogInByMail.feature",
-                "src/test/resources/features/HU-MessagesBalance.feature",
-                "src/test/resources/features/HU-MinutesBalance.feature",
-                "src/test/resources/features/HU-OpeningBalance.feature",
-                "src/test/resources/features/HU-TigoAwards.feature"}
+        features = {"src/test/resources/features/HU-35-PruebaIngresoCredenciales.feature"}
 )
 
 public class Runner {

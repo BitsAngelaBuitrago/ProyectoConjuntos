@@ -5,6 +5,7 @@ import core.Helpers.GeneralParams;
 import core.actions.ClickButtonAction;
 import core.actions.EnterTextAction;
 import core.questions.QuestionValidate;
+import cucumber.api.java.Before;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
@@ -23,6 +24,12 @@ public class HU37ReestablecerContrasena {
 
     @Managed
     WebDriver navegador;
+
+    @Before
+    public void abrirNavegador() {
+        actor = Actor.named("usuario");
+        actor.can(BrowseTheWeb.with(navegador));
+    }
 
     @Given("^Un usuario en la página de reestablecer contrasena$")
     public void ingresarAPaginaReestablecer() {

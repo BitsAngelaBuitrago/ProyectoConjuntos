@@ -69,7 +69,7 @@ Feature: Modificar Persona asociada a Unidad Independiente
 
   Scenario Outline: Cambiar información en campos obligatorios
     When Ingresa en el campo <campo_requerido> la informacion <informacion>
-    Then Visualiza el resultado esperado <resultado>
+    Then Persona asociada Visualiza el resultado esperado <resultado>
     Examples:
       | campo_requerido     | informacion            | resultado          |
       | Tipo de Persona     | Propietario            | Propietario        |

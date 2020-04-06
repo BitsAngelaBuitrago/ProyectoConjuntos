@@ -5,6 +5,7 @@ import core.Helpers.GeneralParams;
 import core.actions.ClickButtonAction;
 import core.actions.EnterTextAction;
 import core.questions.QuestionValidate;
+import cucumber.api.java.Before;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
@@ -26,37 +27,12 @@ public class HU47HeaderCambiarContrasena {
     @Managed
     WebDriver navegador;
 
-    @Given("^Que usuario ingresa a la pagina de inicio$")
-    public void ingresarAUrl() {
+    @Before
+    public void abrirNavegador() {
         actor = Actor.named("usuario");
-        actor.can(BrowseTheWeb.with(navegador)); //Abrir navegador
-        actor.has(new OpenUrlAction().Execute(new GeneralParams(
-                "http://selfcarecvgt-stg-gt.tigocloud.net/")));
-
+        actor.can(BrowseTheWeb.with(navegador));
     }
 
-    @And("^Inicia sesión$")
-    public void iniciarSesion() {
-        actor.attemptsTo(new EnterTextAction("jbarbosam").Execute(new GeneralParams(
-                "Usuario ingresa texto en el campo usuario",
-                "Campo usuario",
-                "//input[@id='idEmail']"
-        )));
-
-        actor.attemptsTo(new EnterTextAction("TigoTest123#").Execute(
-                new GeneralParams(
-                        "Usuario ingresa texto en un campo clave",
-                        "Campo clave",
-                        "//input[@id='password']"
-                )
-        ));
-
-        actor.attemptsTo(new ClickButtonAction().Execute(new GeneralParams(
-                "Usuario da Clic en continuar",
-                "Boton continuar",
-                "//button[@name='action']"
-        )));
-    }
 
     @Given("^Un usuario da clic sobre la foto de perfil$")
     public void unUsuarioDaClicSobreLaFotoDePerfil() {
@@ -242,7 +218,7 @@ public class HU47HeaderCambiarContrasena {
         }
     }
 
-    @And("^Ingresa la (.*)$")
+    @And("^Confirmacion de contrasena ingresada (.*)$")
     public void ingresaLaConfirmacionContrasena(String confirmacionContrasena) {
         actor.attemptsTo(new EnterTextAction(confirmacionContrasena).Execute(new GeneralParams(
                 "Ingresar Confirmación de contrasena",

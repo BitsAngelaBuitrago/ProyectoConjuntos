@@ -24,24 +24,20 @@ public class Background {
         actor = Actor.named("usuario");
         actor.can(BrowseTheWeb.with(navegador)); //Abrir navegador
         actor.has(new OpenUrlAction().Execute(new GeneralParams(
-                "http://selfcarecvgt-stg-gt.tigocloud.net/")));
+                "https://app-frontresidentialcomplex-dev-001.azurewebsites.net/account/login")));
 
     }
 
     @And("^Inicia sesión$")
     public void iniciarSesion() {
-        actor.attemptsTo(new ClickButtonAction().Execute(new GeneralParams(
-                "Da clic en Iniciar Sesión",
-                "clic en Iniciar sesión",
-                "/button[@name='action']"
-        )));
-        actor.attemptsTo(new EnterTextAction("jbarbosam").Execute(new GeneralParams(
+
+        actor.attemptsTo(new EnterTextAction("test").Execute(new GeneralParams(
                 "Usuario ingresa texto en el campo usuario",
                 "Campo usuario",
-                "//input[@id='idEmail']"
+                "//input[@id='userName']"
         )));
 
-        actor.attemptsTo(new EnterTextAction("TigoTest123#").Execute(
+        actor.attemptsTo(new EnterTextAction("test").Execute(
                 new GeneralParams(
                         "Usuario ingresa texto en un campo clave",
                         "Campo clave",
@@ -50,9 +46,9 @@ public class Background {
         ));
 
         actor.attemptsTo(new ClickButtonAction().Execute(new GeneralParams(
-                "Usuario da Clic en continuar",
-                "Boton continuar",
-                "//button[@name='action']"
+                "Usuario da Clic en ingresar",
+                "Boton ingresar",
+                "//a[contains(text(),'Ingresar')]"
         )));
     }
 

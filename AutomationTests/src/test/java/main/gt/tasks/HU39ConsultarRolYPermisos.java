@@ -3,17 +3,29 @@ package main.gt.tasks;
 import core.Helpers.GeneralParams;
 import core.actions.ClickButtonAction;
 import core.questions.QuestionValidate;
+import cucumber.api.java.Before;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import net.serenitybdd.screenplay.Actor;
+import net.serenitybdd.screenplay.abilities.BrowseTheWeb;
+import net.thucydides.core.annotations.Managed;
+import org.openqa.selenium.WebDriver;
+
 import static net.serenitybdd.screenplay.matchers.WebElementStateMatchers.*;
 import static net.serenitybdd.screenplay.questions.WebElementQuestion.the;
 import static net.serenitybdd.screenplay.GivenWhenThen.seeThat;
 
 public class HU39ConsultarRolYPermisos {
     Actor actor;
+    @Managed
+    WebDriver navegador;
 
+    @Before
+    public void abrirNavegador() {
+        actor = Actor.named("usuario");
+        actor.can(BrowseTheWeb.with(navegador));
+    }
 
     @When("^Da clic en Consultar el rol de Administrador$")
     public void daClicEnConsultarElRolDeAdministrador() {

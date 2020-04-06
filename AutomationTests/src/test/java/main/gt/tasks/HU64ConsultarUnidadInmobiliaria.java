@@ -5,6 +5,7 @@ import core.Helpers.GeneralParams;
 import core.actions.ClickButtonAction;
 import core.actions.EnterTextAction;
 import core.questions.QuestionValidate;
+import cucumber.api.java.Before;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
@@ -16,7 +17,14 @@ import org.openqa.selenium.WebDriver;
 public class HU64ConsultarUnidadInmobiliaria {
 
     Actor actor;
+    @Managed
+    WebDriver navegador;
 
+    @Before
+    public void abrirNavegador() {
+        actor = Actor.named("usuario");
+        actor.can(BrowseTheWeb.with(navegador));
+    }
 
     @When("^Da clic en Consultar Unidad Inmobiliaria Bits$")
     public void daClicEnConsultarUnidadInmobiliariaBits() {

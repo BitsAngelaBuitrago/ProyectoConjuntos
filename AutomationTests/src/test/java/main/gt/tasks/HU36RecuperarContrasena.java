@@ -4,10 +4,15 @@ import core.Helpers.GeneralParams;
 import core.actions.ClickButtonAction;
 import core.actions.EnterTextAction;
 import core.questions.QuestionValidate;
+import cucumber.api.java.Before;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import net.serenitybdd.screenplay.Actor;
+import net.serenitybdd.screenplay.abilities.BrowseTheWeb;
+import net.thucydides.core.annotations.Managed;
+import org.openqa.selenium.WebDriver;
+
 import static net.serenitybdd.screenplay.matchers.WebElementStateMatchers.*;
 import static net.serenitybdd.screenplay.questions.WebElementQuestion.the;
 
@@ -15,7 +20,14 @@ import static net.serenitybdd.screenplay.GivenWhenThen.seeThat;
 
 public class HU36RecuperarContrasena {
     Actor actor;
+    @Managed
+    WebDriver navegador;
 
+    @Before
+    public void abrirNavegador() {
+        actor = Actor.named("usuario");
+        actor.can(BrowseTheWeb.with(navegador));
+    }
     @When("Da clic en el enlace ¿Olvidaste tu contrasena?")
     public void clicOlvitasteContrasena(){
         actor.attemptsTo(new ClickButtonAction().Execute(new GeneralParams(
@@ -58,15 +70,7 @@ public class HU36RecuperarContrasena {
         actor.should(seeThat(the("//p[contains(text(),'Inicio')]"), isEnabled()));
     }
 
-    @And("Ingresa información de (.*) en el campo de usuario")
-    public void ingresaUsuarios(String usuario) {
-        actor.attemptsTo(new EnterTextAction(usuario).Execute(new GeneralParams(
-                        "Usuario ingresa texto en un campo usuario",
-                        "Campo usuario",
-                        "//input[@id='usuario']"
-                )
-        ));
-    }
+
     @When("Da clic en el boton Enviar")
     public void clicBotonEnviar(){
         actor.attemptsTo(new ClickButtonAction().Execute(new GeneralParams(

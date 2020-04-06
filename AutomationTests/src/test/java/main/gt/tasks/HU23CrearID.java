@@ -4,12 +4,17 @@ import core.Helpers.GeneralParams;
 import core.actions.ClickButtonAction;
 import core.actions.EnterTextAction;
 import core.questions.QuestionValidate;
+import cucumber.api.java.Before;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import net.serenitybdd.screenplay.Actor;
+import net.serenitybdd.screenplay.abilities.BrowseTheWeb;
 import net.serenitybdd.screenplay.actions.Click;
+import net.thucydides.core.annotations.Managed;
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+
 import static net.serenitybdd.screenplay.matchers.WebElementStateMatchers.*;
 import static net.serenitybdd.screenplay.questions.WebElementQuestion.the;
 import static net.serenitybdd.screenplay.GivenWhenThen.seeThat;
@@ -18,15 +23,14 @@ public class HU23CrearID {
 
     Actor actor;
 
-    @And("^Da clic en Tarjetas de Ingreso$")
-    public void daClicEnTarjetasDeIngreso() {
-        actor.attemptsTo(new ClickButtonAction().Execute(new GeneralParams(
-                "Usuario da Clic en tarjetas de ingreso",
-                "Tarjetas de ingreso",
-                "//button[@name='action']"
-        )));
-    }
+    @Managed
+    WebDriver navegador;
 
+    @Before
+    public void abrirNavegador() {
+        actor = Actor.named("usuario");
+        actor.can(BrowseTheWeb.with(navegador));
+    }
     @And("^Da clic sobre Crear ID$")
     public void daClicSobreCrearID() {
         actor.attemptsTo(new ClickButtonAction().Execute(new GeneralParams(

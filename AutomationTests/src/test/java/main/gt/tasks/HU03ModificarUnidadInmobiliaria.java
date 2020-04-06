@@ -4,16 +4,29 @@ import core.Helpers.GeneralParams;
 import core.actions.ClickButtonAction;
 import core.actions.EnterTextAction;
 import core.questions.QuestionValidate;
+import cucumber.api.java.Before;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import net.serenitybdd.screenplay.Actor;
+import net.serenitybdd.screenplay.abilities.BrowseTheWeb;
 import net.serenitybdd.screenplay.actions.Enter;
+import net.thucydides.core.annotations.Managed;
 import org.openqa.selenium.Keys;
+import org.openqa.selenium.WebDriver;
 
 public class HU03ModificarUnidadInmobiliaria {
     Actor actor;
+
+    @Managed
+    WebDriver navegador;
+
+    @Before
+    public void abrirNavegador() {
+        actor = Actor.named("usuario");
+        actor.can(BrowseTheWeb.with(navegador));
+    }
 
 
     @And("^Da clic en el boton modificar$")
