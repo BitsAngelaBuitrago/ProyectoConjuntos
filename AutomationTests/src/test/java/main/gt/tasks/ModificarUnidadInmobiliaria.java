@@ -16,7 +16,7 @@ import net.thucydides.core.annotations.Managed;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 
-public class HU03ModificarUnidadInmobiliaria {
+public class ModificarUnidadInmobiliaria {
     Actor actor;
 
     @Managed

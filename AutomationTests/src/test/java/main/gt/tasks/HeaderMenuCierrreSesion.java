@@ -17,7 +17,7 @@ import static net.serenitybdd.screenplay.matchers.WebElementStateMatchers.isNotV
 import static net.serenitybdd.screenplay.matchers.WebElementStateMatchers.isVisible;
 import static net.serenitybdd.screenplay.questions.WebElementQuestion.the;
 
-public class HU46HeaderMenuCierrreSesion {
+public class HeaderMenuCierrreSesion {
     Actor actor;
     @Managed
     WebDriver navegador;

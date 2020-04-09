@@ -20,7 +20,7 @@ import static net.serenitybdd.screenplay.matchers.WebElementStateMatchers.*;
 import static net.serenitybdd.screenplay.questions.WebElementQuestion.the;
 import static net.serenitybdd.screenplay.GivenWhenThen.seeThat;
 
-public class HU51Footer {
+public class Footer {
     Actor actor;
 
     @Managed

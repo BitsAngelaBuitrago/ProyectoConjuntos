@@ -2,14 +2,15 @@ package main.gt.tasks;
 
 import core.actions.OpenUrlAction;
 import core.Helpers.GeneralParams;
-import core.actions.ClickButtonAction;
-import core.actions.EnterTextAction;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import net.serenitybdd.screenplay.Actor;
 import net.serenitybdd.screenplay.abilities.BrowseTheWeb;
+import net.serenitybdd.screenplay.actions.Enter;
+import net.serenitybdd.screenplay.actions.MoveMouse;
 import net.thucydides.core.annotations.Managed;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.interactions.Actions;
 
 public class Background {
 
@@ -31,25 +32,16 @@ public class Background {
     @And("^Inicia sesión$")
     public void iniciarSesion() {
 
-        actor.attemptsTo(new EnterTextAction("test").Execute(new GeneralParams(
-                "Usuario ingresa texto en el campo usuario",
-                "Campo usuario",
-                "//input[@id='userName']"
-        )));
+        actor.attemptsTo(
+                Enter.keyValues("test").into("//input[@id='userName']")
+        );
+        actor.attemptsTo(
+                Enter.keyValues("test").into("//input[@id='password']")
+        );
 
-        actor.attemptsTo(new EnterTextAction("test").Execute(
-                new GeneralParams(
-                        "Usuario ingresa texto en un campo clave",
-                        "Campo clave",
-                        "//input[@id='password']"
-                )
-        ));
+        actor.attemptsTo(
+                MoveMouse.to("//a[contains(text(),'Ingresar')]").andThen(Actions::click));
 
-        actor.attemptsTo(new ClickButtonAction().Execute(new GeneralParams(
-                "Usuario da Clic en ingresar",
-                "Boton ingresar",
-                "//a[contains(text(),'Ingresar')]"
-        )));
     }
 
 

@@ -15,7 +15,7 @@ import net.thucydides.core.annotations.Managed;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
-public class HU15ModificarZonaLogistica {
+public class ModificarZonaLogistica {
     Actor actor;
 
     @Managed

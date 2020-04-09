@@ -12,7 +12,6 @@ import net.serenitybdd.screenplay.Actor;
 import net.serenitybdd.screenplay.abilities.BrowseTheWeb;
 import net.thucydides.core.annotations.Managed;
 import org.openqa.selenium.WebDriver;
-
 import static net.serenitybdd.screenplay.matchers.WebElementStateMatchers.*;
 import static net.serenitybdd.screenplay.questions.WebElementQuestion.the;
 import static net.serenitybdd.screenplay.GivenWhenThen.seeThat;
@@ -31,15 +30,15 @@ public class HU65AdministrarRoles {
     @Then("^El sistema muestra la informacion de los roles existentes$")
     public void elSistemaLaInformacionDeLosRolesExistentes() {
         // Filtro de búsqueda
-        actor.should(seeThat(the("/button[@name='action']"), isVisible()));
+        //actor.should(seeThat(the("/button[@name='action']"), isVisible()));
         //Etiqueta ‘Administración de roles’
-        actor.should(seeThat(the("/button[@name='action']"), isVisible()));
+        actor.should(seeThat(the("//p[contains(text(),'Administración de Roles')]"), isVisible()));
         //Sección Tabla
-        actor.should(seeThat(the("/button[@name='action']"), isVisible()));
+        actor.should(seeThat(the("//div[@class='container']"), isVisible()));
         //Botón Crear Rol
-        actor.should(seeThat(the("/button[@name='action']"), isVisible()));
+        actor.should(seeThat(the("//div[@class='header-actions']//button"), isVisible()));
         //Paginación
-        actor.should(seeThat(the("/button[@name='action']"), isVisible()));
+        //actor.should(seeThat(the("/button[@name='action']"), isVisible()));
 
     }
 
@@ -80,28 +79,28 @@ public class HU65AdministrarRoles {
                 actor.attemptsTo(new ClickButtonAction().Execute(new GeneralParams(
                         "Usuario da clic en consultar",
                         "Botón consultar",
-                        "//input[@id='password']"
+                        "//button[@id='consult36']"
                 )));
                 break;
             case "modificar":
                 actor.attemptsTo(new ClickButtonAction().Execute(new GeneralParams(
                         "Usuario da clic en modificar",
                         "Botón modificar",
-                        "//input[@id='password']"
+                        "//button[@id='edit36']"
                 )));
                 break;
             case "eliminar":
                 actor.attemptsTo(new ClickButtonAction().Execute(new GeneralParams(
                         "Usuario da clic en eliminar",
                         "Botón eliminar",
-                        "//input[@id='password']"
+                        "//button[@id='delete36']"
                 )));
                 break;
             case "activar":
                 actor.attemptsTo(new ClickButtonAction().Execute(new GeneralParams(
                         "Usuario da clic en activar",
                         "Check activar",
-                        "//input[@id='password']"
+                        "//mat-checkbox[@id='mat-checkbox-51']"
                 )));
                 break;
         }
@@ -109,35 +108,35 @@ public class HU65AdministrarRoles {
 
     }
 
-    @Then("^El sistema realiza una accion <accion>$")
+    @Then("^Segun la (.*) El sistema realiza una accion (.*)$")
     public void elSistemaRealizaUnaAccionAccion(String opcion, String accion) {
         switch (opcion) {
             case "consultar":
                 actor.should(new QuestionValidate(accion).Execute(new GeneralParams(
                         "Página consultar",
                         "pagina consultar",
-                        "//button[@name='action']"
+                        "//div[@class='tittle']"
                 )));
                 break;
             case "modificar":
                 actor.should(new QuestionValidate(accion).Execute(new GeneralParams(
                         "Página modificar",
                         "pagina modificar",
-                        "//button[@name='action']"
+                        "//div[@class='tittle']"
                 )));
                 break;
             case "eliminar":
                 actor.should(new QuestionValidate(accion).Execute(new GeneralParams(
                         "Página eliminar",
                         "pagina eliminar",
-                        "//button[@name='action']"
+                        "//h3[@class='color-blue-dark']"
                 )));
                 break;
             case "activar":
                 actor.should(new QuestionValidate(accion).Execute(new GeneralParams(
                         "presenta mensaje",
                         "rol activado",
-                        "//button[@name='action']"
+                        "//h3[@class='color-blue-dark']"
                 )));
                 break;
         }
@@ -149,7 +148,7 @@ public class HU65AdministrarRoles {
         actor.attemptsTo(new ClickButtonAction().Execute(new GeneralParams(
                 "clic en inactivar",
                 "rol inactivado",
-                "//button[@name='action']"
+                "//mat-checkbox[@id='mat-checkbox-52']"
         )));
     }
 
@@ -158,26 +157,17 @@ public class HU65AdministrarRoles {
         actor.should(new QuestionValidate("Esta seguro de inactivar este rol").Execute(new GeneralParams(
                 "Validación del mensaje de activación",
                 "rol inactivado",
-                "//button[@name='action']"
+                "//div[@class='question']"
         )));
     }
 
-    @Then("^El sistema presenta un mensaje de activacion$")
-    public void elSistemaPresentaUnMensajeDeActivacion() {
-        actor.should(new QuestionValidate("Esta seguro de inactivar este rol").Execute(new GeneralParams(
-                "Validación del mensaje de activación",
-                "rol activado",
-                "//button[@name='action']"
-        )));
-
-    }
 
     @When("^Da clic en activar rol$")
     public void daClicEnActivarRol() {
         actor.attemptsTo(new ClickButtonAction().Execute(new GeneralParams(
                 "clic en Activar",
                 "rol activado",
-                "//button[@name='action']"
+                "//mat-checkbox[@id='mat-checkbox-56']"
         )));
     }
 
@@ -187,7 +177,7 @@ public class HU65AdministrarRoles {
             actor.attemptsTo(new ClickButtonAction().Execute(new GeneralParams(
                     "clic en si inactivar",
                     "opción si",
-                    "//button[@name='action']"
+                    "//button[@class='button ng-star-inserted']"
             )));
             actor.should(new QuestionValidate("El rol ha sido inactivado").Execute(new GeneralParams(
                     "mensaje rol inactivado",
@@ -198,10 +188,10 @@ public class HU65AdministrarRoles {
             actor.attemptsTo(new ClickButtonAction().Execute(new GeneralParams(
                     "clic en no inactivar",
                     "opción no",
-                    "//button[@name='action']"
+                    "//button[@class='button']"
             )));
             //Se cierra el pop up
-            actor.should(seeThat(the("//button[@name='action']"), isNotVisible()));
+            actor.should(seeThat(the("//div[@class='ctn-img']"), isNotVisible()));
         }
 
     }
@@ -235,7 +225,7 @@ public class HU65AdministrarRoles {
         actor.attemptsTo(new ClickButtonAction().Execute(new GeneralParams(
                 "clic en Eliminar rol",
                 "Eliminar rol",
-                "//button[@name='action']"
+                "//button[@id='delete36']"
         )));
     }
 
@@ -254,7 +244,7 @@ public class HU65AdministrarRoles {
             actor.attemptsTo(new ClickButtonAction().Execute(new GeneralParams(
                     "clic en si eliminar",
                     "opción si eliminar",
-                    "//button[@name='action']"
+                    "//button[@class='button ng-star-inserted']"
             )));
             actor.should(new QuestionValidate("El rol ha sido eliminado").Execute(new GeneralParams(
                     "mensaje rol eliminar",
@@ -265,10 +255,10 @@ public class HU65AdministrarRoles {
             actor.attemptsTo(new ClickButtonAction().Execute(new GeneralParams(
                     "clic en no eliminar",
                     "opción no eliminar",
-                    "//button[@name='action']"
+                    "//button[@class='button']"
             )));
             //Se cierra el pop up
-            actor.should(seeThat(the("//button[@name='action']"), isNotVisible()));
+            actor.should(seeThat(the("//div[@class='ctn-img']"), isNotVisible()));
         }
     }
 
@@ -277,7 +267,7 @@ public class HU65AdministrarRoles {
         actor.attemptsTo(new ClickButtonAction().Execute(new GeneralParams(
                 "clic en Eliminar rol",
                 "Eliminar rol",
-                "//button[@name='action']"
+                "//button[@id='delete36']"
         )));
     }
 
@@ -287,28 +277,28 @@ public class HU65AdministrarRoles {
             actor.attemptsTo(new ClickButtonAction().Execute(new GeneralParams(
                     "clic en si eliminar",
                     "opción si eliminar",
-                    "//button[@name='action']"
+                    "//button[@class='button ng-star-inserted']"
             )));
             actor.should(new QuestionValidate("El rol ya se encuentra asignado a uno o varios usuarios").Execute(new GeneralParams(
                     "mensaje rol eliminar",
                     "rol eliminar",
-                    "//button[@name='action']"
+                    "//div[@class='question']"
             )));
         } else if (opcion.equals("no")) {
             actor.attemptsTo(new ClickButtonAction().Execute(new GeneralParams(
                     "clic en no eliminar",
                     "opción no eliminar",
-                    "//button[@name='action']"
+                    "//button[@class='button']"
             )));
             //Se cierra el pop up
-            actor.should(seeThat(the("//button[@name='action']"), isNotVisible()));
+            actor.should(seeThat(the("//div[@class='ctn-img']"), isNotVisible()));
         }
     }
 
 
     @And("^Presenta un pop up de Eliminación$")
     public void presentaUnPopUpDeEliminacion() {
-        actor.should(seeThat(the("//button[@name='action']"), isNotVisible()));
+        actor.should(seeThat(the("//div[@class='ctn-img']"), isVisible()));
     }
 
     @And("^El sistema presenta mensaje de eliminación$")
@@ -316,14 +306,14 @@ public class HU65AdministrarRoles {
         actor.should(new QuestionValidate("¿Está seguro de eliminar el rol?").Execute(new GeneralParams(
                 "mensaje rol eliminar",
                 "rol eliminar",
-                "//button[@name='action']"
+                "//div[@class='question']"
         )));
     }
 
     @And("^Las opciones de Si y no$")
     public void lasOpcionesDeSiYNo() {
-        actor.should(seeThat(the("//button[@name='action']"), isVisible()));
-        actor.should(seeThat(the("//button[@name='action']"), isVisible()));
+        actor.should(seeThat(the("//button[@class='button ng-star-inserted']"), isVisible()));
+        actor.should(seeThat(the("//button[@class='button']"), isVisible()));
     }
 
     @And("^Da clic sobre la (.*)$")
@@ -333,14 +323,14 @@ public class HU65AdministrarRoles {
                 actor.attemptsTo(new ClickButtonAction().Execute(new GeneralParams(
                         "clic en si eliminar",
                         "opción si eliminar",
-                        "//button[@name='action']"
+                        "//button[@class='button ng-star-inserted']"
                 )));
                 break;
             case "No":
                 actor.attemptsTo(new ClickButtonAction().Execute(new GeneralParams(
                         "clic en no eliminar",
                         "opción no eliminar",
-                        "//button[@name='action']"
+                        "//button[@class='button']"
                 )));
                 break;
         }
@@ -351,10 +341,10 @@ public class HU65AdministrarRoles {
     public void elSistemaTieneElResultado(String resultado) {
         switch (resultado) {
             case "Elimina el rol":
-                actor.should(seeThat(the("//button[@name='action']"), isNotVisible()));
+                actor.should(seeThat(the("//p[@id='descripcion36']"), isNotVisible()));
                 break;
             case "Cierra el pop up":
-                actor.should(seeThat(the("//b utton[@name='action']"), isNotVisible()));
+                actor.should(seeThat(the("//div[@class='ctn-img']"), isNotVisible()));
                 break;
         }
 

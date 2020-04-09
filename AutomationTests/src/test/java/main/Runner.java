@@ -11,7 +11,7 @@ import org.junit.runner.RunWith;
 
 @CucumberOptions(
 
-        features = {"src/test/resources/features/HU-35-PruebaIngresoCredenciales.feature"}
+        features = {"src/test/resources/features/HU-00-InicioSesion.feature"}
 )
 
 public class Runner {

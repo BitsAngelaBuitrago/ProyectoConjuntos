@@ -10,14 +10,14 @@ import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import net.serenitybdd.screenplay.Actor;
 import net.serenitybdd.screenplay.abilities.BrowseTheWeb;
+import net.serenitybdd.screenplay.actions.Enter;
 import net.thucydides.core.annotations.Managed;
 import org.openqa.selenium.WebDriver;
-
 import static net.serenitybdd.screenplay.matchers.WebElementStateMatchers.*;
 import static net.serenitybdd.screenplay.questions.WebElementQuestion.the;
 import static net.serenitybdd.screenplay.GivenWhenThen.seeThat;
 
-public class HU35IngresoCredenciales {
+public class IngresoCredenciales {
     Actor actor;
 
     @Managed
@@ -31,21 +31,28 @@ public class HU35IngresoCredenciales {
 
     @When("^Ingresa información de usuario de (.*)$")
     public void ingresarUsuario(String usuario){
-        actor.attemptsTo(new EnterTextAction(usuario).Execute(new GeneralParams(
-                "Usuario ingresa texto en el campo usuario",
-                "Campo usuario",
-                "//input[@id='userName']"
-        )));
+        actor.attemptsTo(
+                Enter.keyValues(usuario).into("//input[@id='userName']")
+        );
+        //actor.attemptsTo(new EnterTextAction(usuario).Execute(new GeneralParams(
+        //        "Usuario ingresa texto en el campo usuario",
+         //       "Campo usuario",
+         //       "//input[@id='userName']"
+        //)));
     }
     @And("^Ingresa la información de contrasena (.*)$")
     public void ingresarContrasena(String contrasena) {
-        actor.attemptsTo(new EnterTextAction(contrasena).Execute(
-                new GeneralParams(
-                        "Usuario ingresa texto en un campo clave",
-                        "Campo clave",
-                        "//input[@id='password']"
-                )
-        ));
+
+        actor.attemptsTo(
+                Enter.keyValues(contrasena).into("//input[@id='password']")
+        );
+        //actor.attemptsTo(new EnterTextAction(contrasena).Execute(
+         //       new GeneralParams(
+          //              "Usuario ingresa texto en un campo clave",
+          //             "Campo clave",
+           //             "//input[@id='password']"
+          //      )
+        //));
     }
     @Then("El sistema (.*) presenta habilitado el botón de ingresar")
     public void botonHabilitado() {
@@ -59,6 +66,7 @@ public class HU35IngresoCredenciales {
                 "Boton Ingresar",
                 "//a[contains(text(),'Ingresar')]"
         )));
+
     }
 
 

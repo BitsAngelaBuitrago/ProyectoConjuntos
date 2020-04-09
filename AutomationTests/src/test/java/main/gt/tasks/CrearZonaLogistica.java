@@ -20,7 +20,7 @@ import static net.serenitybdd.screenplay.questions.WebElementQuestion.the;
 import static net.serenitybdd.screenplay.GivenWhenThen.seeThat;
 
 
-public class HU14CrearZonaLogistica {
+public class CrearZonaLogistica {
 
     Actor actor;
 

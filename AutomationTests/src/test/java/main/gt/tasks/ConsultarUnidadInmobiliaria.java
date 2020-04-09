@@ -14,7 +14,7 @@ import net.serenitybdd.screenplay.Actor;
 import net.serenitybdd.screenplay.abilities.BrowseTheWeb;
 import net.thucydides.core.annotations.Managed;
 import org.openqa.selenium.WebDriver;
-public class HU64ConsultarUnidadInmobiliaria {
+public class ConsultarUnidadInmobiliaria {
 
     Actor actor;
     @Managed

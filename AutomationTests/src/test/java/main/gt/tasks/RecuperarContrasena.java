@@ -18,7 +18,7 @@ import static net.serenitybdd.screenplay.questions.WebElementQuestion.the;
 
 import static net.serenitybdd.screenplay.GivenWhenThen.seeThat;
 
-public class HU36RecuperarContrasena {
+public class RecuperarContrasena {
     Actor actor;
     @Managed
     WebDriver navegador;
