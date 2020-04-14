@@ -1,9 +1,5 @@
 package main.gt.tasks;
 
-import core.Helpers.GeneralParams;
-import core.actions.ClickButtonAction;
-import core.actions.EnterTextAction;
-import core.questions.QuestionValidate;
 import cucumber.api.java.Before;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
@@ -12,22 +8,15 @@ import net.serenitybdd.screenplay.Actor;
 import net.serenitybdd.screenplay.abilities.BrowseTheWeb;
 import net.serenitybdd.screenplay.actions.Click;
 import net.thucydides.core.annotations.Managed;
-import net.thucydides.core.pages.components.FileToUpload;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-
+import org.openqa.selenium.*;
 import static net.serenitybdd.screenplay.matchers.WebElementStateMatchers.*;
 import static net.serenitybdd.screenplay.questions.WebElementQuestion.the;
 import static net.serenitybdd.screenplay.GivenWhenThen.seeThat;
-
-import net.serenitybdd.screenplay.actions.Enter;
 import net.serenitybdd.screenplay.actions.MoveMouse;
-import net.thucydides.core.annotations.Managed;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.interactions.Action;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.remote.LocalFileDetector;
+import org.openqa.selenium.remote.RemoteWebDriver;
 
 import java.util.function.Predicate;
 
@@ -102,8 +91,16 @@ public class CargaMasivaTarjetas {
     public void seleccionaUnArchivoConFormato(String formato) {
         switch (formato) {
             case "CSV":
+                RemoteWebDriver rdriver = new RemoteWebDriver(null);
+                rdriver.setFileDetector(new LocalFileDetector());
+                WebElement element = rdriver.findElement(By.xpath("//button[@name='action']"));
+                element.sendKeys("//ruta");
+                break;
+            case "xls":
+                element = (WebElement) By.xpath("//bu tton[@name='action']");
+                element.sendKeys("//ruta");
+                break;
 
-                //new FileToUpload(, "//ruta");
         }
     }
 
