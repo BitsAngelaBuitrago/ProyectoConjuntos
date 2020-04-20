@@ -10,8 +10,10 @@ import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import net.serenitybdd.screenplay.Actor;
 import net.serenitybdd.screenplay.abilities.BrowseTheWeb;
+import net.serenitybdd.screenplay.actions.MoveMouse;
 import net.thucydides.core.annotations.Managed;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.interactions.Actions;
 
 import static net.serenitybdd.screenplay.matchers.WebElementStateMatchers.*;
 import static net.serenitybdd.screenplay.questions.WebElementQuestion.the;
@@ -32,11 +34,8 @@ public class AdministrarTarjetasIngreso {
 
     @And("^Da clic en Tarjetas de Ingreso$")
     public void daClicEnTarjetasDeIngreso() {
-        actor.attemptsTo(new ClickButtonAction().Execute(new GeneralParams(
-                "Usuario da clic en Tarjetas de Ingreso",
-                "Tarjetas de Ingreso",
-                "//input[@id='password']"
-        )));
+        actor.attemptsTo(
+                MoveMouse.to("//a[contains(text(),'tarjetas ingreso')]").andThen(Actions::click));
     }
 
     @Then("^El sistema presenta la Ruta de navegacion$")
@@ -46,6 +45,7 @@ public class AdministrarTarjetasIngreso {
 
     @And("^Label Administracion de Tarjetas$")
     public void labelAdministracionDeTarjetas() {
+
         actor.should(seeThat(the("/button[@name='action']"), isVisible()));
     }
 
