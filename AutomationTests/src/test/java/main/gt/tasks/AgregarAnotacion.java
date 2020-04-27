@@ -1,7 +1,5 @@
 package main.gt.tasks;
 
-import core.Helpers.GeneralParams;
-import core.questions.QuestionValidate;
 import cucumber.api.java.Before;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
@@ -13,6 +11,8 @@ import net.serenitybdd.screenplay.actions.MoveMouse;
 import net.thucydides.core.annotations.Managed;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.interactions.Actions;
+
+import java.util.function.Predicate;
 
 import static net.serenitybdd.screenplay.matchers.WebElementStateMatchers.*;
 import static net.serenitybdd.screenplay.questions.WebElementQuestion.the;
@@ -79,11 +79,8 @@ public class AgregarAnotacion {
 
     @Then("^se presenta el (.*)$")
     public void sePresentaElResultado(String resultado) {
-        actor.should(new QuestionValidate(resultado).Execute(new GeneralParams(
-                "Resultado exitoso",
-                "//input[@id='idEmail']"
-        )));
-    }
+        actor.should(seeThat(the("//input[@id='idEmail']"), Predicate.isEqual(resultado)));
+           }
 
     @And("^el boton guardar (.*)$")
     public void elBotonGuardarHabilitado(String habilitado) {
@@ -104,11 +101,6 @@ public class AgregarAnotacion {
 
     @Then("^Se visualiza el mensaje de anotacion exitosa$")
     public void seVisualizaElMensajeDeAnotacionExitosa() {
-        actor.should(new QuestionValidate("Mensaje anotación exitoso").Execute(new GeneralParams(
-                "Mensaje registro exitoso",
-                "Mensaje registro exitoso",
-                "//input[@id='idEmail']"
-        )));
-
+        actor.should(seeThat(the("//input[@id='idEmail']"), Predicate.isEqual("Anotación exitosa")));
     }
 }
